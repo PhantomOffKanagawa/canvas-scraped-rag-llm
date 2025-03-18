@@ -1,0 +1,190 @@
+[
+    {
+        "question": "Assume that you have created a class named <em>TermPaper</em> that contains a character field named <em>letterGrade</em>. You also have created a property for the field. Which of the following cannot be true?",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "The property name is letterGrade."
+            },
+            {
+                "correct": false,
+                "content": "The property is read-only."
+            },
+            {
+                "correct": false,
+                "content": "The property contains a set accessor that does not allow a grade lower than ‘C’."
+            },
+            {
+                "correct": false,
+                "content": "The property does not contain a get accessor."
+            }
+        ]
+    },
+    {
+        "question": "When user create an instance from a class, which of following&nbsp;is called first?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Main method"
+            },
+            {
+                "correct": true,
+                "content": "Constructor"
+            },
+            {
+                "correct": false,
+                "content": "Instantiate Method"
+            },
+            {
+                "correct": false,
+                "content": "Destructor"
+            }
+        ]
+    },
+    {
+        "question": "<p>Suppose user defines a MyClass class in C#, and it has a method:</p>\n<p>public void DoSomething() {…}.</p>\n<p>If user instantiate an object with:</p>\n<p>MyClass myClass = new MyClass(),</p>\n<p>which of the following can be used to call DoSomething method in the class?</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "myClass.DoSomething();"
+            },
+            {
+                "correct": false,
+                "content": "MyClass.DoSomething();"
+            },
+            {
+                "correct": false,
+                "content": "MyClass::DoSomething();"
+            },
+            {
+                "correct": false,
+                "content": "myClass.DoSomething;"
+            }
+        ]
+    },
+    {
+        "question": "A property is a class member that holds a piece of data about an object.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "A class can have multiple versions of the same method known as overloaded methods.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Assume that you have created a class named <em>MyClass</em>. The header of the <em>MyClass</em> constructor can be _________.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "public void MyClass()"
+            },
+            {
+                "correct": false,
+                "content": "public MyClassConstructor()"
+            },
+            {
+                "correct": false,
+                "content": "Either of these can be the constructor header."
+            },
+            {
+                "correct": true,
+                "content": "Neither of these can be the constructor header."
+            }
+        ]
+    },
+    {
+        "question": "A type that is defined as a class is a reference type.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "A constructor that accepts arguments is known as parameterized constructor",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following operator returns the type of a class in C#?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "sizeof"
+            },
+            {
+                "correct": true,
+                "content": "typeof"
+            },
+            {
+                "correct": false,
+                "content": "&"
+            },
+            {
+                "correct": false,
+                "content": "*"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following towards List class is FALSE?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "List is a generic class."
+            },
+            {
+                "correct": false,
+                "content": "The capacity of the List can be changed."
+            },
+            {
+                "correct": true,
+                "content": "The Length property can be used to get the number of elements in the List."
+            },
+            {
+                "correct": false,
+                "content": "The RemoveAt Method can be used to delete an element in a certain index in the List."
+            }
+        ]
+    }
+]

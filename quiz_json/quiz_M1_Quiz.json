@@ -1,0 +1,237 @@
+[
+    {
+        "question": "Select all keywords below that are reserved by C#. (hint: there are 4 correct answers)",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "as"
+            },
+            {
+                "correct": false,
+                "content": "get"
+            },
+            {
+                "correct": true,
+                "content": "new"
+            },
+            {
+                "correct": false,
+                "content": "set"
+            },
+            {
+                "correct": true,
+                "content": "null"
+            },
+            {
+                "correct": false,
+                "content": "var"
+            },
+            {
+                "correct": true,
+                "content": "try"
+            },
+            {
+                "correct": false,
+                "content": "let"
+            }
+        ]
+    },
+    {
+        "question": "A variable identifier can start with a number.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "C# is a case-sensitive language.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "You <strong>CANNOT</strong> r<span>euse reserved keywords </span><span>as identifiers in your program unless they include&nbsp;<code>@</code>&nbsp;as a prefix</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<span>Which one of the following methods can be used to get the exact size of a type or a variable in C#.</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "memoryOf()"
+            },
+            {
+                "correct": false,
+                "content": "malloc_size()"
+            },
+            {
+                "correct": true,
+                "content": "sizeof()"
+            },
+            {
+                "correct": false,
+                "content": "typeOf()"
+            }
+        ]
+    },
+    {
+        "question": "<span>To&nbsp;define a constant variable, which keyword should be used?</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "sealed"
+            },
+            {
+                "correct": false,
+                "content": "static"
+            },
+            {
+                "correct": false,
+                "content": "constant"
+            },
+            {
+                "correct": true,
+                "content": "const"
+            },
+            {
+                "correct": false,
+                "content": "class"
+            }
+        ]
+    },
+    {
+        "question": "Suppose A=60 and B=13. What is the value of <span>A &amp; B?</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "61"
+            },
+            {
+                "correct": false,
+                "content": "43"
+            },
+            {
+                "correct": false,
+                "content": "7"
+            },
+            {
+                "correct": true,
+                "content": "12"
+            }
+        ]
+    },
+    {
+        "question": "<span>Assume that you have a variable declared as int var1 = 3;. What is the value of 22 % var1?</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "0"
+            },
+            {
+                "correct": true,
+                "content": "1"
+            },
+            {
+                "correct": false,
+                "content": "7"
+            },
+            {
+                "correct": false,
+                "content": "21"
+            }
+        ]
+    },
+    {
+        "question": "<p>Which of the following expressions is equivalent to the following code segment?</p>\n<p>&nbsp;if(g &gt; h)</p>\n<p>&nbsp;&nbsp;&nbsp; if(g &lt; k)</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Write(\"Brown\");</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "if(g > h && g < k) Write(\"Brown\");"
+            },
+            {
+                "correct": false,
+                "content": "if(g > h && < k) Write(\"Brown\");"
+            },
+            {
+                "correct": false,
+                "content": "if(g > h || g < k) Write(\"Brown\");"
+            },
+            {
+                "correct": false,
+                "content": "two of these"
+            }
+        ]
+    },
+    {
+        "question": "<p><span>What will be the output when the following code fragment is run?</span></p>\n<p><span>int x = 12, y = 14, z;</span></p>\n<p><span>z = y / x +7;</span></p>\n<p><span>x = z * z;</span></p>\n<p><span>System.Console.WriteLine(x);</span></p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "0"
+            },
+            {
+                "correct": false,
+                "content": "12"
+            },
+            {
+                "correct": true,
+                "content": "64"
+            },
+            {
+                "correct": false,
+                "content": "none of the above"
+            }
+        ]
+    },
+    {
+        "question": "<span>Self Introduction: please upload a short self introduction video here, which should include information about yourself, your interest, as well as goals for this class. The video length is expected to be 1-3 mins.&nbsp;</span><span>You can use Insert -&gt; Media to upload the video or provide a link of your video.&nbsp;</span>",
+        "image": null,
+        "answers": []
+    },
+    {
+        "question": "Do you acknowledge that you have reviewed&nbsp; the <a title=\"Syllabus\" href=\"https://umsystem.instructure.com/courses/296958/assignments/syllabus\" data-course-type=\"navigation\">Syllabus</a>, including the course schedule, course policy, academic dishonesty policy, accommodation and inclusive statement.&nbsp;",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "Yes"
+            },
+            {
+                "correct": false,
+                "content": "No"
+            }
+        ]
+    }
+]

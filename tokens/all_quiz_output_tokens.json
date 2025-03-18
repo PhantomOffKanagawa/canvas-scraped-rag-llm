@@ -1,0 +1,412 @@
+[
+    {
+        "page_index": 0,
+        "chunk_index": 0,
+        "text": "Question: Menu Class represents a Windows menu control that enables you to hierarchically organize elements associated with commands and event handlers.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 1,
+        "chunk_index": 0,
+        "text": "Question: Which of the following UI element does NOT have a Click event?\nAnswer Options:\nButton (Incorrect)\nTextBox (Correct)\nRadioButton (Incorrect)\nCheckBox (Incorrect)\n---"
+    },
+    {
+        "page_index": 2,
+        "chunk_index": 0,
+        "text": "Question: What property sets the speaking rate of an instance of a SpeechSynthesizer object?\nAnswer Options:\nSpeed (Incorrect)\nRate (Correct)\nVelocity (Incorrect)\nTransform (Incorrect)\n---"
+    },
+    {
+        "page_index": 3,
+        "chunk_index": 0,
+        "text": "Question: What attribute do you use to change the color appearance of a UI element?\nAnswer Options:\nColor (Incorrect)\nBackground (Correct)\nRender (Incorrect)\nStyle (Incorrect)\n---"
+    },
+    {
+        "page_index": 4,
+        "chunk_index": 0,
+        "text": "Question: Windows Presentation Foundation (WPF) is a UI framework that creates desktop client applications.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 5,
+        "chunk_index": 0,
+        "text": "Question: Checkbox supports a three-state mode, where the state toggles from checked to indeterminate to unchecked.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 6,
+        "chunk_index": 0,
+        "text": "Question: Which of the followings is the value of the ClickMode property. Select all that apply.\nAnswer Options:\nRelease (Correct)\nPress (Correct)\nHover (Correct)\nClick (Incorrect)\nDown (Incorrect)\nLongRelease (Incorrect)\n---"
+    },
+    {
+        "page_index": 7,
+        "chunk_index": 0,
+        "text": "Question: When a RadioButton is selected, it cannot be cleared by clicking it.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 8,
+        "chunk_index": 0,
+        "text": "Question: To transform a default Button element to the one as following, what transform(s) need to be used?\n\nAnswer Options:\nScaleTransform (Incorrect)\nSkewTransform (Correct)\nRotateTransform (Incorrect)\nTranslateTransform (Incorrect)\n---"
+    },
+    {
+        "page_index": 9,
+        "chunk_index": 0,
+        "text": "Question: VerticalAlignment can not be set to\nAnswer Options:\nCenter (Incorrect)\nTop (Incorrect)\nStretch (Incorrect)\nLeft (Correct)\n---"
+    },
+    {
+        "page_index": 10,
+        "chunk_index": 0,
+        "text": "Question: Assume an array is defined as int[] nums = {2, 3, 4, 5};. Which of the following would display the values in the array in reverse?\nAnswer Options:\nfor(int x = 4; x 0; --x) Write(nums[x]); (Incorrect)\nfor(int x = 3; x = 0; --x) Write(nums[x]); (Correct)\nfor(int x = 3; x 0; --x) Write(nums[x]); (Incorrect)\nfor(int x = 4; x = 0; --x) Write(nums[x]); (Incorrect)\n---"
+    },
+    {
+        "page_index": 11,
+        "chunk_index": 0,
+        "text": "Question: If a programmer inserts using static System.Console; at the top of a C# program, which of the following can the programmer use as an alternative to System.Console.WriteLine(\"Hello\");?\nAnswer Options:\nSystem(\"Hello\"); (Incorrect)\nWriteLine(\"Hello\"); (Correct)\nConsole.WriteLine(\"Hello”); (Incorrect)\nConsole(\"Hello\"); (Incorrect)\n---"
+    },
+    {
+        "page_index": 12,
+        "chunk_index": 0,
+        "text": "Question: Which of the following pairs of method declarations represent correctly overloaded methods?\nAnswer Options:\nprivate static void MethodA(int a) private static void MethodA(int b, double c) (Incorrect)\nprivate static void MethodB(double d) private static void MethodB() (Incorrect)\nprivate static double MethodC(int e) private static intMethodD(int f) (Incorrect)\nTwo of these are correctly overloaded methods. (Correct)\nAlll are correctly overloaded methods (Incorrect)\n---"
+    },
+    {
+        "page_index": 13,
+        "chunk_index": 0,
+        "text": "Question: Assume you declare a variable as int x = 100; and correctly pass it to a method with the declaration private static void IncreaseValue(int x). There is a single statement within the IncreaseValue() method: x = x + 25;. Back in the Main() method, after the method call, what is the value of x?\nAnswer Options:\n100 (Correct)\n125 (Incorrect)\nIt is impossible to tell. (Incorrect)\nThe program will not run (Incorrect)\n---"
+    },
+    {
+        "page_index": 14,
+        "chunk_index": 0,
+        "text": "Question: For the following statements choose which of the following best describes it:\nint y = {32, 41};\nAnswer Options:\ndeclares an array only (Incorrect)\ndeclares an array and allocates space for array elements (Incorrect)\ndeclares an array, allocates space for, and initializes its elements with values supplied by the user (Incorrect)\nis incorrectly formed (Correct)\n---"
+    },
+    {
+        "page_index": 15,
+        "chunk_index": 0,
+        "text": "Question: Which of the following adds 10 to every value in a 16-element integer array named points?\nAnswer Options:\nfor(int sub = 0; sub 16; ++sub) points[sub] += 10; (Incorrect)\nforeach(int sub in points) points += 10; (Incorrect)\nboth of these (Incorrect)\nneither of these (Correct)\n---"
+    },
+    {
+        "page_index": 16,
+        "chunk_index": 0,
+        "text": "Question: Consider the code\n \nint[] x = {5,6,7,8,9};\nint[] y = x;\ny[2] = 3;\n \nWhich of the following is correct after the above code finishes executing?\nAnswer Options:\nx[2] has the value 7. (Incorrect)\nx[2] has the value 6. (Incorrect)\nx[2] has the value 3 (Correct)\ny[3] has the value 7 (Incorrect)\n---"
+    },
+    {
+        "page_index": 17,
+        "chunk_index": 0,
+        "text": "Question: You can use Console.WriteLine() method to print a int value, double value, string and etc. What type of technique is used here?\nAnswer Options:\npolymorphism (Incorrect)\nmethod overloading (Correct)\ngeneric method (Incorrect)\nextension method (Incorrect)\n---"
+    },
+    {
+        "page_index": 18,
+        "chunk_index": 0,
+        "text": "Question: Assume you declare a variable as int x = 100; and correctly pass it to a method with the declaration private static void IncreaseValue(ref int x). There is a single statement within the IncreaseValue() method: x = x + 25;. Back in the Main() method, after the method call, what is the value of x?\nAnswer Options:\n100 (Incorrect)\n125 (Correct)\nIt is impossible to tell. (Incorrect)\nThe program will not run (Incorrect)\n---"
+    },
+    {
+        "page_index": 19,
+        "chunk_index": 0,
+        "text": "Question: For the following statements choose which of the following best describes it:\nint[] z = new int[5];\nAnswer Options:\ndeclares an array only (Incorrect)\ndeclares an array and allocates space for array elements (Correct)\ndeclares an array, allocates space for, and initializes its elements with values supplied by the user (Incorrect)\nis incorrectly formed (Incorrect)\n---"
+    },
+    {
+        "page_index": 20,
+        "chunk_index": 0,
+        "text": "Question: Select all keywords below that are reserved by C#. (hint: there are 4 correct answers)\nAnswer Options:\nas (Correct)\nget (Incorrect)\nnew (Correct)\nset (Incorrect)\nnull (Correct)\nvar (Incorrect)\ntry (Correct)\nlet (Incorrect)\n---"
+    },
+    {
+        "page_index": 21,
+        "chunk_index": 0,
+        "text": "Question: A variable identifier can start with a number.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 22,
+        "chunk_index": 0,
+        "text": "Question: C# is a case-sensitive language.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 23,
+        "chunk_index": 0,
+        "text": "Question: You CANNOT reuse reserved keywords as identifiers in your program unless they include @ as a prefix\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 24,
+        "chunk_index": 0,
+        "text": "Question: Which one of the following methods can be used to get the exact size of a type or a variable in C#.\nAnswer Options:\nmemoryOf() (Incorrect)\nmalloc_size() (Incorrect)\nsizeof() (Correct)\ntypeOf() (Incorrect)\n---"
+    },
+    {
+        "page_index": 25,
+        "chunk_index": 0,
+        "text": "Question: To define a constant variable, which keyword should be used?\nAnswer Options:\nsealed (Incorrect)\nstatic (Incorrect)\nconstant (Incorrect)\nconst (Correct)\nclass (Incorrect)\n---"
+    },
+    {
+        "page_index": 26,
+        "chunk_index": 0,
+        "text": "Question: Suppose A=60 and B=13. What is the value of A & B?\nAnswer Options:\n61 (Incorrect)\n43 (Incorrect)\n7 (Incorrect)\n12 (Correct)\n---"
+    },
+    {
+        "page_index": 27,
+        "chunk_index": 0,
+        "text": "Question: Assume that you have a variable declared as int var1 = 3;. What is the value of 22 % var1?\nAnswer Options:\n0 (Incorrect)\n1 (Correct)\n7 (Incorrect)\n21 (Incorrect)\n---"
+    },
+    {
+        "page_index": 28,
+        "chunk_index": 0,
+        "text": "Question: Which of the following expressions is equivalent to the following code segment?\n if(g > h)\n    if(g < k)\n       Write(\"Brown\");\nAnswer Options:\nif(g > h && g < k) Write(\"Brown\"); (Correct)\nif(g > h && < k) Write(\"Brown\"); (Incorrect)\nif(g > h || g < k) Write(\"Brown\"); (Incorrect)\ntwo of these (Incorrect)\n---"
+    },
+    {
+        "page_index": 29,
+        "chunk_index": 0,
+        "text": "Question: What will be the output when the following code fragment is run?\nint x = 12, y = 14, z;\nz = y / x +7;\nx = z * z;\nSystem.Console.WriteLine(x);\nAnswer Options:\n0 (Incorrect)\n12 (Incorrect)\n64 (Correct)\nnone of the above (Incorrect)\n---"
+    },
+    {
+        "page_index": 30,
+        "chunk_index": 0,
+        "text": "Question: Self Introduction: please upload a short self introduction video here, which should include information about yourself, your interest, as well as goals for this class. The video length is expected to be 1-3 mins. You can use Insert -> Media to upload the video or provide a link of your video. \nAnswer Options:\n---"
+    },
+    {
+        "page_index": 31,
+        "chunk_index": 0,
+        "text": "Question: Do you acknowledge that you have reviewed  the Syllabus, including the course schedule, course policy, academic dishonesty policy, accommodation and inclusive statement. \nAnswer Options:\nYes (Correct)\nNo (Incorrect)\n---"
+    },
+    {
+        "page_index": 32,
+        "chunk_index": 0,
+        "text": "Question: Which of the following statements subscribes the myButton_Click event handler to catch the myButton control’s Click event?\nAnswer Options:\nmyButton.Click += myButton_Click; (Correct)\nmyButton_Click += myButton.Click; (Incorrect)\nmyButton_Click handles myButton.Click; (Incorrect)\nmyButton.Click = myButton_Click; (Incorrect)\n---"
+    },
+    {
+        "page_index": 33,
+        "chunk_index": 0,
+        "text": "Question: In an event handler method, the sender is the __________.\nAnswer Options:\ndelegate associated with the event (Incorrect)\nmethod called by the event (Incorrect)\nobject where the event was initiated (Correct)\nclass containing the method that the event invokes (Incorrect)\n---"
+    },
+    {
+        "page_index": 34,
+        "chunk_index": 0,
+        "text": "Question: Suppose the MovedEventHandler delegate is defined by the statement delegate void MovedEventHandler(). Which of the following correctly declares the Moved event?\nAnswer Options:\npublic MovedEventHandler MovedEvent; (Incorrect)\npublic event MovedEventHandler MovedEvent; (Correct)\npublic event MovedEvent MovedEventHandler; (Incorrect)\nboth b and c (Incorrect)\n---"
+    },
+    {
+        "page_index": 35,
+        "chunk_index": 0,
+        "text": "Question: A delegate is an object that contains a reference to a(n) __________.\nAnswer Options:\nobject (Incorrect)\nclass (Incorrect)\nmethod (Correct)\ncontrol (Incorrect)\n---"
+    },
+    {
+        "page_index": 36,
+        "chunk_index": 0,
+        "text": "Question: A standard event handler delegate requires __________ arguments.\nAnswer Options:\nzero (Incorrect)\none (Incorrect)\ntwo (Correct)\nany number greater than zero (Incorrect)\n---"
+    },
+    {
+        "page_index": 37,
+        "chunk_index": 0,
+        "text": "Question: If you have declared a delegate instance, you can assign it a reference to a method as long as the method has the same __________ as the delegate.\nAnswer Options:\nreturn type (Incorrect)\nidentifier (Incorrect)\nparameter list (Incorrect)\ntwo of the above (Correct)\n---"
+    },
+    {
+        "page_index": 38,
+        "chunk_index": 0,
+        "text": "Question: Delegate is a value type\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 39,
+        "chunk_index": 0,
+        "text": "Question: Which one of the followings is a valid delegate declaration.\nAnswer Options:\npublic void  delegate Del(string message); (Incorrect)\npublic delegate void Del(string message); (Correct)\npublic void Del(string message); (Incorrect)\ndelegate  public void Del(string message); (Incorrect)\n---"
+    },
+    {
+        "page_index": 40,
+        "chunk_index": 0,
+        "text": "Question: Suppose the Car class provides a Stopped event that takes parameters sender and StoppedArgs objects. Suppose also that the code has already created an appropriate StoppedArgs object named args. Then which of the following code snippets correctly raises the event?\nAnswer Options:\nif (!Stopped.IsEmpty)   Stopped(this, args); (Incorrect)\nif (Stopped)   Stopped(this, args); (Incorrect)\nif (Stopped != null) Stopped(this, args); (Correct)\nraise Stopped(this, args); (Incorrect)\n---"
+    },
+    {
+        "page_index": 41,
+        "chunk_index": 0,
+        "text": "Question: Which of the following correctly declares a delegate type?\nAnswer Options:\nvoid aDelegate(int num); (Incorrect)\ndelegate void aDelegate(num); (Incorrect)\ndelegate void aDelegate(int num); (Correct)\ndelegate aDelegate(int num); (Incorrect)\n---"
+    },
+    {
+        "page_index": 42,
+        "chunk_index": 0,
+        "text": "Question: Which of the following file IO exceptions that are offered by C#. Select all that apply.\nAnswer Options:\nDirectoryNotFoundException (Correct)\nFileNotFoundException (Correct)\nPathTooLongException (Correct)\nFileLoadException (Correct)\nEndOfStreamException (Correct)\n---"
+    },
+    {
+        "page_index": 43,
+        "chunk_index": 0,
+        "text": "Question: Which of the following is not a file Access enumeration?\nAnswer Options:\nRead (Incorrect)\nWrite (Incorrect)\nWriteRead (Correct)\nReadWrite (Incorrect)\n---"
+    },
+    {
+        "page_index": 44,
+        "chunk_index": 0,
+        "text": "Question: If FileMode is CreateNew and the file already exists, _________ exception will be thrown\nAnswer Options:\nSystem.NullReferenceException (Incorrect)\nSystem.IO.IOException (Correct)\nSystem.NotSupportedException (Incorrect)\nSystem.IO.FileExistedException (Incorrect)\n---"
+    },
+    {
+        "page_index": 45,
+        "chunk_index": 0,
+        "text": "Question:  The process of converting objects into streams of bytes is __________.\nAnswer Options:\nextrication (Incorrect)\nsplitting (Incorrect)\nmapping (Incorrect)\nserialization (Correct)\n---"
+    },
+    {
+        "page_index": 46,
+        "chunk_index": 0,
+        "text": "Question: \"C:\\Mizzou\\Engineering\\EECS\\IT Program\\it4410.cs\" is a relative path.\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 47,
+        "chunk_index": 0,
+        "text": "Question: After a StreamReader has been created, the ReadLine() method can be used to __________.\nAnswer Options:\nretrieve one line at a time from the file (Correct)\nretrieve one character at a time from the file (Incorrect)\nstore one line at a time in a file (Incorrect)\nsplit a string into tokens (Incorrect)\n---"
+    },
+    {
+        "page_index": 48,
+        "chunk_index": 0,
+        "text": "Question: Which of the following is serializable?\nAnswer Options:\nan int (Incorrect)\nan array of ints (Incorrect)\na string (Incorrect)\nall of the above (Correct)\n---"
+    },
+    {
+        "page_index": 49,
+        "chunk_index": 0,
+        "text": "Question: StreamReader is under Namespace _________\nAnswer Options:\nSystem (Incorrect)\nSystem.Collections (Incorrect)\nSystem.IO (Correct)\nSystem.Text (Incorrect)\n---"
+    },
+    {
+        "page_index": 50,
+        "chunk_index": 0,
+        "text": "Question: Which one of the followings is directory separator character on Windows ?\nAnswer Options:\n$ (Incorrect)\n/ (Incorrect)\n: (Incorrect)\n\\ (Correct)\n---"
+    },
+    {
+        "page_index": 51,
+        "chunk_index": 0,
+        "text": "Question: Which one of the followings can be used to read text from a file.\nAnswer Options:\nofstream (Incorrect)\nFileInputStream (Incorrect)\nNSFileManager (Incorrect)\nStreamReader (Correct)\n---"
+    },
+    {
+        "page_index": 52,
+        "chunk_index": 0,
+        "text": "Question: Assume that you have created a class named TermPaper that contains a character field named letterGrade. You also have created a property for the field. Which of the following cannot be true?\nAnswer Options:\nThe property name is letterGrade. (Correct)\nThe property is read-only. (Incorrect)\nThe property contains a set accessor that does not allow a grade lower than ‘C’. (Incorrect)\nThe property does not contain a get accessor. (Incorrect)\n---"
+    },
+    {
+        "page_index": 53,
+        "chunk_index": 0,
+        "text": "Question: When user create an instance from a class, which of following is called first?\nAnswer Options:\nMain method (Incorrect)\nConstructor (Correct)\nInstantiate Method (Incorrect)\nDestructor (Incorrect)\n---"
+    },
+    {
+        "page_index": 54,
+        "chunk_index": 0,
+        "text": "Question: Suppose user defines a MyClass class in C#, and it has a method:\npublic void DoSomething() {…}.\nIf user instantiate an object with:\nMyClass myClass = new MyClass(),\nwhich of the following can be used to call DoSomething method in the class?\nAnswer Options:\nmyClass.DoSomething(); (Correct)\nMyClass.DoSomething(); (Incorrect)\nMyClass::DoSomething(); (Incorrect)\nmyClass.DoSomething; (Incorrect)\n---"
+    },
+    {
+        "page_index": 55,
+        "chunk_index": 0,
+        "text": "Question: A property is a class member that holds a piece of data about an object.\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 56,
+        "chunk_index": 0,
+        "text": "Question: A class can have multiple versions of the same method known as overloaded methods.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 57,
+        "chunk_index": 0,
+        "text": "Question: Assume that you have created a class named MyClass. The header of the MyClass constructor can be _________.\nAnswer Options:\npublic void MyClass() (Incorrect)\npublic MyClassConstructor() (Incorrect)\nEither of these can be the constructor header. (Incorrect)\nNeither of these can be the constructor header. (Correct)\n---"
+    },
+    {
+        "page_index": 58,
+        "chunk_index": 0,
+        "text": "Question: A type that is defined as a class is a reference type.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 59,
+        "chunk_index": 0,
+        "text": "Question: A constructor that accepts arguments is known as parameterized constructor\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 60,
+        "chunk_index": 0,
+        "text": "Question: Which of the following operator returns the type of a class in C#?\nAnswer Options:\nsizeof (Incorrect)\ntypeof (Correct)\n& (Incorrect)\n* (Incorrect)\n---"
+    },
+    {
+        "page_index": 61,
+        "chunk_index": 0,
+        "text": "Question: Which of the following towards List class is FALSE?\nAnswer Options:\nList is a generic class. (Incorrect)\nThe capacity of the List can be changed. (Incorrect)\nThe Length property can be used to get the number of elements in the List. (Correct)\nThe RemoveAt Method can be used to delete an element in a certain index in the List. (Incorrect)\n---"
+    },
+    {
+        "page_index": 62,
+        "chunk_index": 0,
+        "text": "Question: How many catch blocks might follow a try block within the same method if no finally clause is used?\nAnswer Options:\nonly one (Incorrect)\nany number as long as it is greater than zero (Correct)\nany number as long as it is greater than one (Incorrect)\nany number, including zero or one (Incorrect)\n---"
+    },
+    {
+        "page_index": 63,
+        "chunk_index": 0,
+        "text": "Question: DivideByZeroException derives from_____________________.\nAnswer Options:\nArithmeticException (Correct)\nNumericalException (Incorrect)\nNumerationException (Incorrect)\nComputationException (Incorrect)\n---"
+    },
+    {
+        "page_index": 64,
+        "chunk_index": 0,
+        "text": "Question: Writing a catch clause without including the parentheses and an argument list such as\ncatch\n{\n}\nAnswer Options:\ngenerates a syntax error (Incorrect)\nquires a finally clause (Incorrect)\nhas the same effect as catch (Exception) { } (Correct)\nthrows an exception (Incorrect)\n---"
+    },
+    {
+        "page_index": 65,
+        "chunk_index": 0,
+        "text": "Question: Which one of the following exceptions that is thrown when there is an attempt to dereference a null object reference.\nAnswer Options:\nNilValueException (Incorrect)\nNullValueException (Incorrect)\nNullReferenceException (Correct)\nNilReferenceException (Incorrect)\n---"
+    },
+    {
+        "page_index": 66,
+        "chunk_index": 0,
+        "text": "Question: Given the statement\nString[ ] s = new Split(\"123|abc|456\",\"|\");\nwhich of the following statements will cause the int variable i to have the value 123?\nAnswer Options:\nint i = s[0]; (Incorrect)\nint i = int.Parse(s[0]) (Correct)\nint i = int.Parse(s) (Incorrect)\nint i = NextToken(s) (Incorrect)\n---"
+    },
+    {
+        "page_index": 67,
+        "chunk_index": 0,
+        "text": "Question: If an application is written to filter several exceptions including Exception, DivideByZeroException, and ArithmeticException, in what order should they be listed?\nAnswer Options:\nException, DivideByZeroException, then ArithmeticException (Incorrect)\nException, ArithmeticException, then DivideByZeroException (Incorrect)\nDivideByZeroException, Exception, then ArithmeticException (Incorrect)\nDivideByZeroException, ArithmeticException, then Exception (Correct)\nIt does not matter. (Incorrect)\n---"
+    },
+    {
+        "page_index": 68,
+        "chunk_index": 0,
+        "text": "Question: Consider the following catch blocks. The variable b has been initialized to 0. If a DivideByZeroException occurs in a try block just before this catch block, what is the value of b when this code completes?\ncatch(DivideByZeroException e)\n{\n   ++b;\n}\ncatch(Exception e)\n{\n   ++b;\n}\nAnswer Options:\n0 (Incorrect)\n1 (Correct)\n2 (Incorrect)\n3 (Incorrect)\n---"
+    },
+    {
+        "page_index": 69,
+        "chunk_index": 0,
+        "text": "Question: When you write a block of code in which something can go wrong, and you want to throw an Exception if it does, you place the code in a ___________ block.\nAnswer Options:\ncatch (Incorrect)\nblind (Incorrect)\nsystem (Incorrect)\ntry (Correct)\n---"
+    },
+    {
+        "page_index": 70,
+        "chunk_index": 0,
+        "text": "Question: Select the possible forms of try statements:\nAnswer Options:\nA try block followed by one or more catch blocks. (Correct)\nA try block followed by a finally block. (Correct)\nA try block followed by one or more catch blocks followed by a finally block. (Correct)\n---"
+    },
+    {
+        "page_index": 71,
+        "chunk_index": 0,
+        "text": "Question: Which of the following is not a benefit of using class libraries?\nAnswer Options:\nThey simplify maintenance (Incorrect)\nThe size of projects that use them is reduced (Correct)\nTheir code is reusable (Incorrect)\nThey make it easier for other classes to refer to the classes in the libraries (Incorrect)\n---"
+    },
+    {
+        "page_index": 72,
+        "chunk_index": 0,
+        "text": "Question: static void Main(string[] args)\n        {\n            string str = \"Hello\";\n            ChangeString(str);\n            Console.WriteLine(str);\n}\n        static void ChangeString(string str)\n        {\n            str += \"Hi\";\n}\nAnswer Options:\nHello (Correct)\nHi (Incorrect)\nHelloHi (Incorrect)\nIt does not compile. (Incorrect)\n---"
+    },
+    {
+        "page_index": 73,
+        "chunk_index": 0,
+        "text": "Question: An enumeration is a set of named integer constants.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 74,
+        "chunk_index": 0,
+        "text": "Question: A structure is a reference type.\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 75,
+        "chunk_index": 0,
+        "text": "Question: Reference variables can hold data.\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 76,
+        "chunk_index": 0,
+        "text": "Question: In the following enumeration, what will be the underlying value of Wed?\nenum Days {Mon = 1, Tue, Wed, Thur, Fri, Sat, Sun};\nAnswer Options:\n2 (Incorrect)\n3 (Correct)\n4 (Incorrect)\nIt has no numeric value. (Incorrect)\n---"
+    },
+    {
+        "page_index": 77,
+        "chunk_index": 0,
+        "text": "Question: An enumerated type is declared using the enum keyword.\nAnswer Options:\nTrue (Correct)\nFalse (Incorrect)\n---"
+    },
+    {
+        "page_index": 78,
+        "chunk_index": 0,
+        "text": "Question: Assume an array is defined as\nint[] nums = {7, 15, 23, 5}; \nWhich of the following would place the values in the array in descending numeric order?\nAnswer Options:\nArray.Sort(nums); (Incorrect)\nArray.Reverse(nums); (Incorrect)\nArray.Sort(nums); Array.Reverse(nums); (Correct)\nArray.Reverse(nums); Array.Sort(nums); (Incorrect)\n---"
+    },
+    {
+        "page_index": 79,
+        "chunk_index": 0,
+        "text": "Question: A struct cannot declare a constructor either with or without parameters.\nAnswer Options:\nTrue (Incorrect)\nFalse (Correct)\n---"
+    },
+    {
+        "page_index": 80,
+        "chunk_index": 0,
+        "text": "Question: Enumeration is a set of constants, and all the integer types could be used for the enum type. If the type is left out, which type will be used by default?\nAnswer Options:\nuint (Incorrect)\nbyte (Incorrect)\nlong (Incorrect)\nint (Correct)\n---"
+    },
+    {
+        "page_index": 81,
+        "chunk_index": 0,
+        "text": "Question: The \\t escape sequence means___________.\nAnswer Options:\nNull (Incorrect)\nAlert (Incorrect)\nHorizontal tab (Correct)\nCarriage return (Incorrect)\n---"
+    }
+]

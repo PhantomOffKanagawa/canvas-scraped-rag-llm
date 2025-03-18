@@ -1,0 +1,198 @@
+[
+    {
+        "question": "Menu Class represents a Windows menu control that enables you to hierarchically organize elements associated with commands and event handlers.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following UI element does&nbsp;NOT have&nbsp;a Click event?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Button"
+            },
+            {
+                "correct": true,
+                "content": "TextBox"
+            },
+            {
+                "correct": false,
+                "content": "RadioButton"
+            },
+            {
+                "correct": false,
+                "content": "CheckBox"
+            }
+        ]
+    },
+    {
+        "question": "What property sets the speaking rate of an instance of a SpeechSynthesizer object?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Speed"
+            },
+            {
+                "correct": true,
+                "content": "Rate"
+            },
+            {
+                "correct": false,
+                "content": "Velocity"
+            },
+            {
+                "correct": false,
+                "content": "Transform"
+            }
+        ]
+    },
+    {
+        "question": "What attribute do you use to change the color appearance of a UI element?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Color"
+            },
+            {
+                "correct": true,
+                "content": "Background"
+            },
+            {
+                "correct": false,
+                "content": "Render"
+            },
+            {
+                "correct": false,
+                "content": "Style"
+            }
+        ]
+    },
+    {
+        "question": "Windows Presentation Foundation (WPF) is a UI framework that creates desktop client applications.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Checkbox supports a three-state mode, where the state toggles from checked to indeterminate to unchecked.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<div class=\"textLayer--absolute\">Which of the followings is the value of the <strong>ClickMode</strong> property. Select all that apply.</div>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "Release"
+            },
+            {
+                "correct": true,
+                "content": "Press"
+            },
+            {
+                "correct": true,
+                "content": "Hover"
+            },
+            {
+                "correct": false,
+                "content": "Click"
+            },
+            {
+                "correct": false,
+                "content": "Down"
+            },
+            {
+                "correct": false,
+                "content": "LongRelease"
+            }
+        ]
+    },
+    {
+        "question": "<div class=\"textLayer--absolute\">When a RadioButton is selected, it cannot be cleared by clicking it.</div>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<p>To transform a default Button element to the one as following, what transform(s) need to be used?</p>\n<p><img id=\"8955959\" src=\"https://umsystem.instructure.com/assessment_questions/7656881/files/8955993/download?verifier=u24S0nQ42iffON0M9SxAgtP2PWpsGh10y9ij5Wpu\" alt=\"Button_transformed.png\"></p>",
+        "image": "https://umsystem.instructure.com/assessment_questions/7656881/files/8955993/download?verifier=u24S0nQ42iffON0M9SxAgtP2PWpsGh10y9ij5Wpu",
+        "answers": [
+            {
+                "correct": false,
+                "content": "ScaleTransform"
+            },
+            {
+                "correct": true,
+                "content": "SkewTransform"
+            },
+            {
+                "correct": false,
+                "content": "RotateTransform"
+            },
+            {
+                "correct": false,
+                "content": "TranslateTransform"
+            }
+        ]
+    },
+    {
+        "question": "VerticalAlignment can not be set to",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Center"
+            },
+            {
+                "correct": false,
+                "content": "Top"
+            },
+            {
+                "correct": false,
+                "content": "Stretch"
+            },
+            {
+                "correct": true,
+                "content": "Left"
+            }
+        ]
+    }
+]

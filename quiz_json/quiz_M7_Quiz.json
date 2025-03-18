@@ -1,0 +1,214 @@
+[
+    {
+        "question": "Which of the following statements subscribes the myButton_Click event handler to catch the myButton control’s Click event?",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "myButton.Click += myButton_Click;"
+            },
+            {
+                "correct": false,
+                "content": "myButton_Click += myButton.Click;"
+            },
+            {
+                "correct": false,
+                "content": "myButton_Click handles myButton.Click;"
+            },
+            {
+                "correct": false,
+                "content": "myButton.Click = myButton_Click;"
+            }
+        ]
+    },
+    {
+        "question": "In an event handler method, the sender is the __________.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "delegate associated with the event"
+            },
+            {
+                "correct": false,
+                "content": "method called by the event"
+            },
+            {
+                "correct": true,
+                "content": "object where the event was initiated"
+            },
+            {
+                "correct": false,
+                "content": "class containing the method that the event invokes"
+            }
+        ]
+    },
+    {
+        "question": "Suppose the MovedEventHandler delegate is defined by the statement delegate void MovedEventHandler(). Which of the following correctly declares the Moved event?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "public MovedEventHandler MovedEvent;"
+            },
+            {
+                "correct": true,
+                "content": "public event MovedEventHandler MovedEvent;"
+            },
+            {
+                "correct": false,
+                "content": "public event MovedEvent MovedEventHandler;"
+            },
+            {
+                "correct": false,
+                "content": "both b and c"
+            }
+        ]
+    },
+    {
+        "question": "A delegate is an object that contains a reference to a(n) __________.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "object"
+            },
+            {
+                "correct": false,
+                "content": "class"
+            },
+            {
+                "correct": true,
+                "content": "method"
+            },
+            {
+                "correct": false,
+                "content": "control"
+            }
+        ]
+    },
+    {
+        "question": "A standard event handler delegate requires __________ arguments.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "zero"
+            },
+            {
+                "correct": false,
+                "content": "one"
+            },
+            {
+                "correct": true,
+                "content": "two"
+            },
+            {
+                "correct": false,
+                "content": "any number greater than zero"
+            }
+        ]
+    },
+    {
+        "question": "If you have declared a&nbsp;delegate&nbsp;instance, you can assign it a reference to a method as long as the method has the same __________ as the&nbsp;delegate.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "return type"
+            },
+            {
+                "correct": false,
+                "content": "identifier"
+            },
+            {
+                "correct": false,
+                "content": "parameter list"
+            },
+            {
+                "correct": true,
+                "content": "two of the above"
+            }
+        ]
+    },
+    {
+        "question": "Delegate is a value type",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Which one of the followings is a valid delegate declaration.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "public void  delegate Del(string message);"
+            },
+            {
+                "correct": true,
+                "content": "public delegate void Del(string message);"
+            },
+            {
+                "correct": false,
+                "content": "public void Del(string message);"
+            },
+            {
+                "correct": false,
+                "content": "delegate  public void Del(string message);"
+            }
+        ]
+    },
+    {
+        "question": "Suppose the&nbsp;<em>Car</em>&nbsp;class provides a&nbsp;<em>Stopped</em>&nbsp;event that takes parameters&nbsp;<em>sender</em>&nbsp;and&nbsp;<em>StoppedArgs</em>&nbsp;objects. Suppose also that the code has already created an appropriate&nbsp;<em>StoppedArgs</em>&nbsp;object named&nbsp;<em>args</em>. Then which of the following code snippets correctly raises the event?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "if (!Stopped.IsEmpty)   Stopped(this, args);"
+            },
+            {
+                "correct": false,
+                "content": "if (Stopped)   Stopped(this, args);"
+            },
+            {
+                "correct": true,
+                "content": "if (Stopped != null) Stopped(this, args);"
+            },
+            {
+                "correct": false,
+                "content": "raise Stopped(this, args);"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following correctly declares a&nbsp;delegate&nbsp;type?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "void aDelegate(int num);"
+            },
+            {
+                "correct": false,
+                "content": "delegate void aDelegate(num);"
+            },
+            {
+                "correct": true,
+                "content": "delegate void aDelegate(int num);"
+            },
+            {
+                "correct": false,
+                "content": "delegate aDelegate(int num);"
+            }
+        ]
+    }
+]

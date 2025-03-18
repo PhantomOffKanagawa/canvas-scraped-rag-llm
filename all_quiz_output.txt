@@ -1,0 +1,668 @@
+Question: Menu Class represents a Windows menu control that enables you to hierarchically organize elements associated with commands and event handlers.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Which of the following UI element does NOT have a Click event?
+Answer Options:
+Button (Incorrect)
+TextBox (Correct)
+RadioButton (Incorrect)
+CheckBox (Incorrect)
+---
+
+Question: What property sets the speaking rate of an instance of a SpeechSynthesizer object?
+Answer Options:
+Speed (Incorrect)
+Rate (Correct)
+Velocity (Incorrect)
+Transform (Incorrect)
+---
+
+Question: What attribute do you use to change the color appearance of a UI element?
+Answer Options:
+Color (Incorrect)
+Background (Correct)
+Render (Incorrect)
+Style (Incorrect)
+---
+
+Question: Windows Presentation Foundation (WPF) is a UI framework that creates desktop client applications.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Checkbox supports a three-state mode, where the state toggles from checked to indeterminate to unchecked.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Which of the followings is the value of the ClickMode property. Select all that apply.
+Answer Options:
+Release (Correct)
+Press (Correct)
+Hover (Correct)
+Click (Incorrect)
+Down (Incorrect)
+LongRelease (Incorrect)
+---
+
+Question: When a RadioButton is selected, it cannot be cleared by clicking it.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: To transform a default Button element to the one as following, what transform(s) need to be used?
+
+Answer Options:
+ScaleTransform (Incorrect)
+SkewTransform (Correct)
+RotateTransform (Incorrect)
+TranslateTransform (Incorrect)
+---
+
+Question: VerticalAlignment can not be set to
+Answer Options:
+Center (Incorrect)
+Top (Incorrect)
+Stretch (Incorrect)
+Left (Correct)
+---
+
+Question: Assume an array is defined as int[] nums = {2, 3, 4, 5};. Which of the following would display the values in the array in reverse?
+Answer Options:
+for(int x = 4; x 0; --x) Write(nums[x]); (Incorrect)
+for(int x = 3; x = 0; --x) Write(nums[x]); (Correct)
+for(int x = 3; x 0; --x) Write(nums[x]); (Incorrect)
+for(int x = 4; x = 0; --x) Write(nums[x]); (Incorrect)
+---
+
+Question: If a programmer inserts using static System.Console; at the top of a C# program, which of the following can the programmer use as an alternative to System.Console.WriteLine("Hello");?
+Answer Options:
+System("Hello"); (Incorrect)
+WriteLine("Hello"); (Correct)
+Console.WriteLine("Hello”); (Incorrect)
+Console("Hello"); (Incorrect)
+---
+
+Question: Which of the following pairs of method declarations represent correctly overloaded methods?
+Answer Options:
+private static void MethodA(int a) private static void MethodA(int b, double c) (Incorrect)
+private static void MethodB(double d) private static void MethodB() (Incorrect)
+private static double MethodC(int e) private static intMethodD(int f) (Incorrect)
+Two of these are correctly overloaded methods. (Correct)
+Alll are correctly overloaded methods (Incorrect)
+---
+
+Question: Assume you declare a variable as int x = 100; and correctly pass it to a method with the declaration private static void IncreaseValue(int x). There is a single statement within the IncreaseValue() method: x = x + 25;. Back in the Main() method, after the method call, what is the value of x?
+Answer Options:
+100 (Correct)
+125 (Incorrect)
+It is impossible to tell. (Incorrect)
+The program will not run (Incorrect)
+---
+
+Question: For the following statements choose which of the following best describes it:
+int y = {32, 41};
+Answer Options:
+declares an array only (Incorrect)
+declares an array and allocates space for array elements (Incorrect)
+declares an array, allocates space for, and initializes its elements with values supplied by the user (Incorrect)
+is incorrectly formed (Correct)
+---
+
+Question: Which of the following adds 10 to every value in a 16-element integer array named points?
+Answer Options:
+for(int sub = 0; sub 16; ++sub) points[sub] += 10; (Incorrect)
+foreach(int sub in points) points += 10; (Incorrect)
+both of these (Incorrect)
+neither of these (Correct)
+---
+
+Question: Consider the code
+ 
+int[] x = {5,6,7,8,9};
+int[] y = x;
+y[2] = 3;
+ 
+Which of the following is correct after the above code finishes executing?
+Answer Options:
+x[2] has the value 7. (Incorrect)
+x[2] has the value 6. (Incorrect)
+x[2] has the value 3 (Correct)
+y[3] has the value 7 (Incorrect)
+---
+
+Question: You can use Console.WriteLine() method to print a int value, double value, string and etc. What type of technique is used here?
+Answer Options:
+polymorphism (Incorrect)
+method overloading (Correct)
+generic method (Incorrect)
+extension method (Incorrect)
+---
+
+Question: Assume you declare a variable as int x = 100; and correctly pass it to a method with the declaration private static void IncreaseValue(ref int x). There is a single statement within the IncreaseValue() method: x = x + 25;. Back in the Main() method, after the method call, what is the value of x?
+Answer Options:
+100 (Incorrect)
+125 (Correct)
+It is impossible to tell. (Incorrect)
+The program will not run (Incorrect)
+---
+
+Question: For the following statements choose which of the following best describes it:
+int[] z = new int[5];
+Answer Options:
+declares an array only (Incorrect)
+declares an array and allocates space for array elements (Correct)
+declares an array, allocates space for, and initializes its elements with values supplied by the user (Incorrect)
+is incorrectly formed (Incorrect)
+---
+
+Question: Select all keywords below that are reserved by C#. (hint: there are 4 correct answers)
+Answer Options:
+as (Correct)
+get (Incorrect)
+new (Correct)
+set (Incorrect)
+null (Correct)
+var (Incorrect)
+try (Correct)
+let (Incorrect)
+---
+
+Question: A variable identifier can start with a number.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: C# is a case-sensitive language.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: You CANNOT reuse reserved keywords as identifiers in your program unless they include @ as a prefix
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Which one of the following methods can be used to get the exact size of a type or a variable in C#.
+Answer Options:
+memoryOf() (Incorrect)
+malloc_size() (Incorrect)
+sizeof() (Correct)
+typeOf() (Incorrect)
+---
+
+Question: To define a constant variable, which keyword should be used?
+Answer Options:
+sealed (Incorrect)
+static (Incorrect)
+constant (Incorrect)
+const (Correct)
+class (Incorrect)
+---
+
+Question: Suppose A=60 and B=13. What is the value of A & B?
+Answer Options:
+61 (Incorrect)
+43 (Incorrect)
+7 (Incorrect)
+12 (Correct)
+---
+
+Question: Assume that you have a variable declared as int var1 = 3;. What is the value of 22 % var1?
+Answer Options:
+0 (Incorrect)
+1 (Correct)
+7 (Incorrect)
+21 (Incorrect)
+---
+
+Question: Which of the following expressions is equivalent to the following code segment?
+ if(g > h)
+    if(g < k)
+       Write("Brown");
+Answer Options:
+if(g > h && g < k) Write("Brown"); (Correct)
+if(g > h && < k) Write("Brown"); (Incorrect)
+if(g > h || g < k) Write("Brown"); (Incorrect)
+two of these (Incorrect)
+---
+
+Question: What will be the output when the following code fragment is run?
+int x = 12, y = 14, z;
+z = y / x +7;
+x = z * z;
+System.Console.WriteLine(x);
+Answer Options:
+0 (Incorrect)
+12 (Incorrect)
+64 (Correct)
+none of the above (Incorrect)
+---
+
+Question: Self Introduction: please upload a short self introduction video here, which should include information about yourself, your interest, as well as goals for this class. The video length is expected to be 1-3 mins. You can use Insert -> Media to upload the video or provide a link of your video. 
+Answer Options:
+---
+
+Question: Do you acknowledge that you have reviewed  the Syllabus, including the course schedule, course policy, academic dishonesty policy, accommodation and inclusive statement. 
+Answer Options:
+Yes (Correct)
+No (Incorrect)
+---
+
+Question: Which of the following statements subscribes the myButton_Click event handler to catch the myButton control’s Click event?
+Answer Options:
+myButton.Click += myButton_Click; (Correct)
+myButton_Click += myButton.Click; (Incorrect)
+myButton_Click handles myButton.Click; (Incorrect)
+myButton.Click = myButton_Click; (Incorrect)
+---
+
+Question: In an event handler method, the sender is the __________.
+Answer Options:
+delegate associated with the event (Incorrect)
+method called by the event (Incorrect)
+object where the event was initiated (Correct)
+class containing the method that the event invokes (Incorrect)
+---
+
+Question: Suppose the MovedEventHandler delegate is defined by the statement delegate void MovedEventHandler(). Which of the following correctly declares the Moved event?
+Answer Options:
+public MovedEventHandler MovedEvent; (Incorrect)
+public event MovedEventHandler MovedEvent; (Correct)
+public event MovedEvent MovedEventHandler; (Incorrect)
+both b and c (Incorrect)
+---
+
+Question: A delegate is an object that contains a reference to a(n) __________.
+Answer Options:
+object (Incorrect)
+class (Incorrect)
+method (Correct)
+control (Incorrect)
+---
+
+Question: A standard event handler delegate requires __________ arguments.
+Answer Options:
+zero (Incorrect)
+one (Incorrect)
+two (Correct)
+any number greater than zero (Incorrect)
+---
+
+Question: If you have declared a delegate instance, you can assign it a reference to a method as long as the method has the same __________ as the delegate.
+Answer Options:
+return type (Incorrect)
+identifier (Incorrect)
+parameter list (Incorrect)
+two of the above (Correct)
+---
+
+Question: Delegate is a value type
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: Which one of the followings is a valid delegate declaration.
+Answer Options:
+public void  delegate Del(string message); (Incorrect)
+public delegate void Del(string message); (Correct)
+public void Del(string message); (Incorrect)
+delegate  public void Del(string message); (Incorrect)
+---
+
+Question: Suppose the Car class provides a Stopped event that takes parameters sender and StoppedArgs objects. Suppose also that the code has already created an appropriate StoppedArgs object named args. Then which of the following code snippets correctly raises the event?
+Answer Options:
+if (!Stopped.IsEmpty)   Stopped(this, args); (Incorrect)
+if (Stopped)   Stopped(this, args); (Incorrect)
+if (Stopped != null) Stopped(this, args); (Correct)
+raise Stopped(this, args); (Incorrect)
+---
+
+Question: Which of the following correctly declares a delegate type?
+Answer Options:
+void aDelegate(int num); (Incorrect)
+delegate void aDelegate(num); (Incorrect)
+delegate void aDelegate(int num); (Correct)
+delegate aDelegate(int num); (Incorrect)
+---
+
+Question: Which of the following file IO exceptions that are offered by C#. Select all that apply.
+Answer Options:
+DirectoryNotFoundException (Correct)
+FileNotFoundException (Correct)
+PathTooLongException (Correct)
+FileLoadException (Correct)
+EndOfStreamException (Correct)
+---
+
+Question: Which of the following is not a file Access enumeration?
+Answer Options:
+Read (Incorrect)
+Write (Incorrect)
+WriteRead (Correct)
+ReadWrite (Incorrect)
+---
+
+Question: If FileMode is CreateNew and the file already exists, _________ exception will be thrown
+Answer Options:
+System.NullReferenceException (Incorrect)
+System.IO.IOException (Correct)
+System.NotSupportedException (Incorrect)
+System.IO.FileExistedException (Incorrect)
+---
+
+Question:  The process of converting objects into streams of bytes is __________.
+Answer Options:
+extrication (Incorrect)
+splitting (Incorrect)
+mapping (Incorrect)
+serialization (Correct)
+---
+
+Question: "C:\Mizzou\Engineering\EECS\IT Program\it4410.cs" is a relative path.
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: After a StreamReader has been created, the ReadLine() method can be used to __________.
+Answer Options:
+retrieve one line at a time from the file (Correct)
+retrieve one character at a time from the file (Incorrect)
+store one line at a time in a file (Incorrect)
+split a string into tokens (Incorrect)
+---
+
+Question: Which of the following is serializable?
+Answer Options:
+an int (Incorrect)
+an array of ints (Incorrect)
+a string (Incorrect)
+all of the above (Correct)
+---
+
+Question: StreamReader is under Namespace _________
+Answer Options:
+System (Incorrect)
+System.Collections (Incorrect)
+System.IO (Correct)
+System.Text (Incorrect)
+---
+
+Question: Which one of the followings is directory separator character on Windows ?
+Answer Options:
+$ (Incorrect)
+/ (Incorrect)
+: (Incorrect)
+\ (Correct)
+---
+
+Question: Which one of the followings can be used to read text from a file.
+Answer Options:
+ofstream (Incorrect)
+FileInputStream (Incorrect)
+NSFileManager (Incorrect)
+StreamReader (Correct)
+---
+
+Question: Assume that you have created a class named TermPaper that contains a character field named letterGrade. You also have created a property for the field. Which of the following cannot be true?
+Answer Options:
+The property name is letterGrade. (Correct)
+The property is read-only. (Incorrect)
+The property contains a set accessor that does not allow a grade lower than ‘C’. (Incorrect)
+The property does not contain a get accessor. (Incorrect)
+---
+
+Question: When user create an instance from a class, which of following is called first?
+Answer Options:
+Main method (Incorrect)
+Constructor (Correct)
+Instantiate Method (Incorrect)
+Destructor (Incorrect)
+---
+
+Question: Suppose user defines a MyClass class in C#, and it has a method:
+public void DoSomething() {…}.
+If user instantiate an object with:
+MyClass myClass = new MyClass(),
+which of the following can be used to call DoSomething method in the class?
+Answer Options:
+myClass.DoSomething(); (Correct)
+MyClass.DoSomething(); (Incorrect)
+MyClass::DoSomething(); (Incorrect)
+myClass.DoSomething; (Incorrect)
+---
+
+Question: A property is a class member that holds a piece of data about an object.
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: A class can have multiple versions of the same method known as overloaded methods.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Assume that you have created a class named MyClass. The header of the MyClass constructor can be _________.
+Answer Options:
+public void MyClass() (Incorrect)
+public MyClassConstructor() (Incorrect)
+Either of these can be the constructor header. (Incorrect)
+Neither of these can be the constructor header. (Correct)
+---
+
+Question: A type that is defined as a class is a reference type.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: A constructor that accepts arguments is known as parameterized constructor
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Which of the following operator returns the type of a class in C#?
+Answer Options:
+sizeof (Incorrect)
+typeof (Correct)
+& (Incorrect)
+* (Incorrect)
+---
+
+Question: Which of the following towards List class is FALSE?
+Answer Options:
+List is a generic class. (Incorrect)
+The capacity of the List can be changed. (Incorrect)
+The Length property can be used to get the number of elements in the List. (Correct)
+The RemoveAt Method can be used to delete an element in a certain index in the List. (Incorrect)
+---
+
+Question: How many catch blocks might follow a try block within the same method if no finally clause is used?
+Answer Options:
+only one (Incorrect)
+any number as long as it is greater than zero (Correct)
+any number as long as it is greater than one (Incorrect)
+any number, including zero or one (Incorrect)
+---
+
+Question: DivideByZeroException derives from_____________________.
+Answer Options:
+ArithmeticException (Correct)
+NumericalException (Incorrect)
+NumerationException (Incorrect)
+ComputationException (Incorrect)
+---
+
+Question: Writing a catch clause without including the parentheses and an argument list such as
+catch
+{
+}
+Answer Options:
+generates a syntax error (Incorrect)
+quires a finally clause (Incorrect)
+has the same effect as catch (Exception) { } (Correct)
+throws an exception (Incorrect)
+---
+
+Question: Which one of the following exceptions that is thrown when there is an attempt to dereference a null object reference.
+Answer Options:
+NilValueException (Incorrect)
+NullValueException (Incorrect)
+NullReferenceException (Correct)
+NilReferenceException (Incorrect)
+---
+
+Question: Given the statement
+String[ ] s = new Split("123|abc|456","|");
+which of the following statements will cause the int variable i to have the value 123?
+Answer Options:
+int i = s[0]; (Incorrect)
+int i = int.Parse(s[0]) (Correct)
+int i = int.Parse(s) (Incorrect)
+int i = NextToken(s) (Incorrect)
+---
+
+Question: If an application is written to filter several exceptions including Exception, DivideByZeroException, and ArithmeticException, in what order should they be listed?
+Answer Options:
+Exception, DivideByZeroException, then ArithmeticException (Incorrect)
+Exception, ArithmeticException, then DivideByZeroException (Incorrect)
+DivideByZeroException, Exception, then ArithmeticException (Incorrect)
+DivideByZeroException, ArithmeticException, then Exception (Correct)
+It does not matter. (Incorrect)
+---
+
+Question: Consider the following catch blocks. The variable b has been initialized to 0. If a DivideByZeroException occurs in a try block just before this catch block, what is the value of b when this code completes?
+catch(DivideByZeroException e)
+{
+   ++b;
+}
+catch(Exception e)
+{
+   ++b;
+}
+Answer Options:
+0 (Incorrect)
+1 (Correct)
+2 (Incorrect)
+3 (Incorrect)
+---
+
+Question: When you write a block of code in which something can go wrong, and you want to throw an Exception if it does, you place the code in a ___________ block.
+Answer Options:
+catch (Incorrect)
+blind (Incorrect)
+system (Incorrect)
+try (Correct)
+---
+
+Question: Select the possible forms of try statements:
+Answer Options:
+A try block followed by one or more catch blocks. (Correct)
+A try block followed by a finally block. (Correct)
+A try block followed by one or more catch blocks followed by a finally block. (Correct)
+---
+
+Question: Which of the following is not a benefit of using class libraries?
+Answer Options:
+They simplify maintenance (Incorrect)
+The size of projects that use them is reduced (Correct)
+Their code is reusable (Incorrect)
+They make it easier for other classes to refer to the classes in the libraries (Incorrect)
+---
+
+Question: static void Main(string[] args)
+        {
+            string str = "Hello";
+            ChangeString(str);
+            Console.WriteLine(str);
+}
+        static void ChangeString(string str)
+        {
+            str += "Hi";
+}
+Answer Options:
+Hello (Correct)
+Hi (Incorrect)
+HelloHi (Incorrect)
+It does not compile. (Incorrect)
+---
+
+Question: An enumeration is a set of named integer constants.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: A structure is a reference type.
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: Reference variables can hold data.
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: In the following enumeration, what will be the underlying value of Wed?
+enum Days {Mon = 1, Tue, Wed, Thur, Fri, Sat, Sun};
+Answer Options:
+2 (Incorrect)
+3 (Correct)
+4 (Incorrect)
+It has no numeric value. (Incorrect)
+---
+
+Question: An enumerated type is declared using the enum keyword.
+Answer Options:
+True (Correct)
+False (Incorrect)
+---
+
+Question: Assume an array is defined as
+int[] nums = {7, 15, 23, 5}; 
+Which of the following would place the values in the array in descending numeric order?
+Answer Options:
+Array.Sort(nums); (Incorrect)
+Array.Reverse(nums); (Incorrect)
+Array.Sort(nums); Array.Reverse(nums); (Correct)
+Array.Reverse(nums); Array.Sort(nums); (Incorrect)
+---
+
+Question: A struct cannot declare a constructor either with or without parameters.
+Answer Options:
+True (Incorrect)
+False (Correct)
+---
+
+Question: Enumeration is a set of constants, and all the integer types could be used for the enum type. If the type is left out, which type will be used by default?
+Answer Options:
+uint (Incorrect)
+byte (Incorrect)
+long (Incorrect)
+int (Correct)
+---
+
+Question: The \t escape sequence means___________.
+Answer Options:
+Null (Incorrect)
+Alert (Incorrect)
+Horizontal tab (Correct)
+Carriage return (Incorrect)
+---
+

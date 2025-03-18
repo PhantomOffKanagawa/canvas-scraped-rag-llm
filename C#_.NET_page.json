@@ -1,0 +1,16 @@
+{
+    "title": "M8 Roadmap & Objectives",
+    "created_at": "2025-01-21T04:54:42Z",
+    "url": "m8-roadmap-and-objectives",
+    "editing_roles": "teachers",
+    "page_id": 4602850,
+    "published": true,
+    "hide_from_students": false,
+    "front_page": false,
+    "html_url": "https://umsystem.instructure.com/courses/296958/pages/m8-roadmap-and-objectives",
+    "todo_date": null,
+    "publish_at": null,
+    "updated_at": "2025-01-21T04:54:42Z",
+    "locked_for_user": false,
+    "body": "<h4>\n<i class=\"icon-outcomes\"></i>&nbsp;<strong>M8</strong>&nbsp;<strong>Objectives</strong>\n</h4>\n<p>After completing this week's work, you will be able to:</p>\n<ul>\n<li><span>Create, read, write and update files. </span></li>\n<li><span>Use classes File and Directory to obtain information about files and directories on your computer. </span></li>\n<li><span>Use classes FileStream, StreamReader and StreamWriter to read text from and write text to files. </span></li>\n<li>\n<span>Use classes FileStream and BinaryFormatter to read objects from and write objects to files -&nbsp;</span><span>serialize and deserialize an object&nbsp;</span>\n</li>\n<li><span>Use&nbsp;OpenFileDialog and SaveDialog controls to display standard Windows dialog boxes for opening and saving files</span></li>\n<li><span>Use \"Using\" statement to release resources</span></li>\n</ul>\n<h4>&nbsp;</h4>\n<h4>\n<i class=\"icon-info\"></i>&nbsp;<strong>M8 Activities&nbsp;</strong>\n</h4>\n<ol>\n<li>Watch Video Lectures</li>\n<li>Read Lecture Slides &amp; Programming Guide,</li>\n<li>Practice with Sample Code</li>\n<li>Complete M8&nbsp; Quiz and Assignment</li>\n</ol>"
+}

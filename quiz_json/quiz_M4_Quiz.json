@@ -1,0 +1,182 @@
+[
+    {
+        "question": "<p>static void Main(string[] args)</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string str = \"Hello\";</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ChangeString(str);</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(str);</p>\n<p>}</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void ChangeString(string str)</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str += \"Hi\";</p>\n<p>}</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "Hello"
+            },
+            {
+                "correct": false,
+                "content": "Hi"
+            },
+            {
+                "correct": false,
+                "content": "HelloHi"
+            },
+            {
+                "correct": false,
+                "content": "It does not compile."
+            }
+        ]
+    },
+    {
+        "question": "An enumeration is a set of named integer constants.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "A structure is a reference type.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Reference variables can hold data.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<p>In the following enumeration, what will be the underlying value of Wed?</p>\n<p>enum Days {Mon = 1, Tue, Wed, Thur, Fri, Sat, Sun};</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "2"
+            },
+            {
+                "correct": true,
+                "content": "3"
+            },
+            {
+                "correct": false,
+                "content": "4"
+            },
+            {
+                "correct": false,
+                "content": "It has no numeric value."
+            }
+        ]
+    },
+    {
+        "question": "An enumerated type is declared using the enum keyword.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "True"
+            },
+            {
+                "correct": false,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<p class=\"p1\">Assume an array is defined as</p>\n<p class=\"p1\"><span class=\"s1\">int[] nums = {7, 15, 23, 5};</span>&nbsp;</p>\n<p class=\"p1\">Which of the following would place the values in the array in descending numeric order?</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Array.Sort(nums);"
+            },
+            {
+                "correct": false,
+                "content": "Array.Reverse(nums);"
+            },
+            {
+                "correct": true,
+                "content": "Array.Sort(nums); Array.Reverse(nums);"
+            },
+            {
+                "correct": false,
+                "content": "Array.Reverse(nums); Array.Sort(nums);"
+            }
+        ]
+    },
+    {
+        "question": "A struct cannot declare a constructor either with or without parameters.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "Enumeration is a set of constants, and all the integer types could be used for the enum type. If the type is left out, which type will be used by default?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "uint"
+            },
+            {
+                "correct": false,
+                "content": "byte"
+            },
+            {
+                "correct": false,
+                "content": "long"
+            },
+            {
+                "correct": true,
+                "content": "int"
+            }
+        ]
+    },
+    {
+        "question": "The <strong>\\t</strong> escape sequence means___________.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Null"
+            },
+            {
+                "correct": false,
+                "content": "Alert"
+            },
+            {
+                "correct": true,
+                "content": "Horizontal tab"
+            },
+            {
+                "correct": false,
+                "content": "Carriage return"
+            }
+        ]
+    }
+]

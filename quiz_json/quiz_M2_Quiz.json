@@ -1,0 +1,226 @@
+[
+    {
+        "question": "Assume an array is defined as&nbsp;int[] nums = {2, 3, 4, 5};. Which of the following would display the values in the array in reverse?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "for(int x = 4; x 0; --x) Write(nums[x]);"
+            },
+            {
+                "correct": true,
+                "content": "for(int x = 3; x = 0; --x) Write(nums[x]);"
+            },
+            {
+                "correct": false,
+                "content": "for(int x = 3; x 0; --x) Write(nums[x]);"
+            },
+            {
+                "correct": false,
+                "content": "for(int x = 4; x = 0; --x) Write(nums[x]);"
+            }
+        ]
+    },
+    {
+        "question": "If a programmer inserts&nbsp;<em>using static System.Console</em>;&nbsp;at the top of a C# program, which of the following can the programmer use as an alternative to&nbsp;<em>System.Console.WriteLine(\"Hello\");</em>?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "System(\"Hello\");"
+            },
+            {
+                "correct": true,
+                "content": "WriteLine(\"Hello\");"
+            },
+            {
+                "correct": false,
+                "content": "Console.WriteLine(\"Hello”);"
+            },
+            {
+                "correct": false,
+                "content": "Console(\"Hello\");"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following pairs of method declarations represent correctly overloaded methods?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "private static void MethodA(int a) private static void MethodA(int b, double c)"
+            },
+            {
+                "correct": false,
+                "content": "private static void MethodB(double d) private static void MethodB()"
+            },
+            {
+                "correct": false,
+                "content": "private static double MethodC(int e) private static intMethodD(int f)"
+            },
+            {
+                "correct": true,
+                "content": "Two of these are correctly overloaded methods."
+            },
+            {
+                "correct": false,
+                "content": "Alll are correctly overloaded methods"
+            }
+        ]
+    },
+    {
+        "question": "Assume you declare a variable as&nbsp;int x = 100;&nbsp;and correctly pass it to a method with the declaration&nbsp;private static void IncreaseValue(int x). There is a single statement within the&nbsp;IncreaseValue()&nbsp;method:&nbsp;x = x + 25;. Back in the&nbsp;Main()&nbsp;method, after the method call, what is the value of&nbsp;x?",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "100"
+            },
+            {
+                "correct": false,
+                "content": "125"
+            },
+            {
+                "correct": false,
+                "content": "It is impossible to tell."
+            },
+            {
+                "correct": false,
+                "content": "The program will not run"
+            }
+        ]
+    },
+    {
+        "question": "<p>For the following statements choose which of the following best describes it:</p>\n<p>int y = {32, 41};</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "declares an array only"
+            },
+            {
+                "correct": false,
+                "content": "declares an array and allocates space for array elements"
+            },
+            {
+                "correct": false,
+                "content": "declares an array, allocates space for, and initializes its elements with values supplied by the user"
+            },
+            {
+                "correct": true,
+                "content": "is incorrectly formed"
+            }
+        ]
+    },
+    {
+        "question": "Which of the following adds 10 to every value in a 16-element integer array named&nbsp;points?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "for(int sub = 0; sub 16; ++sub) points[sub] += 10;"
+            },
+            {
+                "correct": false,
+                "content": "foreach(int sub in points) points += 10;"
+            },
+            {
+                "correct": false,
+                "content": "both of these"
+            },
+            {
+                "correct": true,
+                "content": "neither of these"
+            }
+        ]
+    },
+    {
+        "question": "<p>Consider the code</p>\n<p>&nbsp;</p>\n<p>int[]&nbsp;x&nbsp;=&nbsp;{5,6,7,8,9};</p>\n<p>int[]&nbsp;y&nbsp;=&nbsp;x;</p>\n<p>y[2]&nbsp;=&nbsp;3;</p>\n<p>&nbsp;</p>\n<p>Which of the following is correct after the above code finishes executing?</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "x[2] has the value 7."
+            },
+            {
+                "correct": false,
+                "content": "x[2] has the value 6."
+            },
+            {
+                "correct": true,
+                "content": "x[2] has the value 3"
+            },
+            {
+                "correct": false,
+                "content": "y[3] has the value 7"
+            }
+        ]
+    },
+    {
+        "question": "You can use Console.WriteLine() method to print a int value, double value, string and etc. What type of technique&nbsp;is used here?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "polymorphism"
+            },
+            {
+                "correct": true,
+                "content": "method overloading"
+            },
+            {
+                "correct": false,
+                "content": "generic method"
+            },
+            {
+                "correct": false,
+                "content": "extension method"
+            }
+        ]
+    },
+    {
+        "question": "Assume you declare a variable as&nbsp;int x = 100;&nbsp;and correctly pass it to a method with the declaration&nbsp;private static void IncreaseValue(ref int x). There is a single statement within the&nbsp;IncreaseValue()&nbsp;method:&nbsp;x = x + 25;. Back in the&nbsp;Main()&nbsp;method, after the method call, what is the value of&nbsp;x?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "100"
+            },
+            {
+                "correct": true,
+                "content": "125"
+            },
+            {
+                "correct": false,
+                "content": "It is impossible to tell."
+            },
+            {
+                "correct": false,
+                "content": "The program will not run"
+            }
+        ]
+    },
+    {
+        "question": "<p>For the following statements choose which of the following best describes it:</p>\n<p>int[] z = new int[5];</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "declares an array only"
+            },
+            {
+                "correct": true,
+                "content": "declares an array and allocates space for array elements"
+            },
+            {
+                "correct": false,
+                "content": "declares an array, allocates space for, and initializes its elements with values supplied by the user"
+            },
+            {
+                "correct": false,
+                "content": "is incorrectly formed"
+            }
+        ]
+    }
+]

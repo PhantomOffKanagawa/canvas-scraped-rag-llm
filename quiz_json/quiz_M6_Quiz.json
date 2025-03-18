@@ -1,0 +1,222 @@
+[
+    {
+        "question": "How many catch blocks might follow a try block within the same method if no&nbsp;finally clause is used?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "only one"
+            },
+            {
+                "correct": true,
+                "content": "any number as long as it is greater than zero"
+            },
+            {
+                "correct": false,
+                "content": "any number as long as it is greater than one"
+            },
+            {
+                "correct": false,
+                "content": "any number, including zero or one"
+            }
+        ]
+    },
+    {
+        "question": "DivideByZeroException derives from_____________________.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "ArithmeticException"
+            },
+            {
+                "correct": false,
+                "content": "NumericalException"
+            },
+            {
+                "correct": false,
+                "content": "NumerationException"
+            },
+            {
+                "correct": false,
+                "content": "ComputationException"
+            }
+        ]
+    },
+    {
+        "question": "<p>Writing a catch clause without including the parentheses and an argument list such as</p>\n<p>catch</p>\n<p>{</p>\n<p>}</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "generates a syntax error"
+            },
+            {
+                "correct": false,
+                "content": "quires a finally clause"
+            },
+            {
+                "correct": true,
+                "content": "has the same effect as catch (Exception) { }"
+            },
+            {
+                "correct": false,
+                "content": "throws an exception"
+            }
+        ]
+    },
+    {
+        "question": "Which one of the following exceptions that is thrown when there is an attempt to dereference a null object reference.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "NilValueException"
+            },
+            {
+                "correct": false,
+                "content": "NullValueException"
+            },
+            {
+                "correct": true,
+                "content": "NullReferenceException"
+            },
+            {
+                "correct": false,
+                "content": "NilReferenceException"
+            }
+        ]
+    },
+    {
+        "question": "<p>Given the statement</p>\n<p><em>String[ ] s = new Split(\"123|abc|456\",\"|\");</em></p>\n<p>which of the following statements will cause the int variable i to have the value 123?</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "int i = s[0];"
+            },
+            {
+                "correct": true,
+                "content": "int i = int.Parse(s[0])"
+            },
+            {
+                "correct": false,
+                "content": "int i = int.Parse(s)"
+            },
+            {
+                "correct": false,
+                "content": "int i = NextToken(s)"
+            }
+        ]
+    },
+    {
+        "question": "If an application is written to filter several exceptions including Exception, DivideByZeroException, and ArithmeticException, in what order should they be listed?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Exception, DivideByZeroException, then ArithmeticException"
+            },
+            {
+                "correct": false,
+                "content": "Exception, ArithmeticException, then DivideByZeroException"
+            },
+            {
+                "correct": false,
+                "content": "DivideByZeroException, Exception, then ArithmeticException"
+            },
+            {
+                "correct": true,
+                "content": "DivideByZeroException, ArithmeticException, then Exception"
+            },
+            {
+                "correct": false,
+                "content": "It does not matter."
+            }
+        ]
+    },
+    {
+        "question": "<p>Consider the following&nbsp;catch&nbsp;blocks. The variable&nbsp;b&nbsp;has been initialized to 0. If a&nbsp;DivideByZeroException&nbsp;occurs in a&nbsp;try&nbsp;block just before this&nbsp;catch&nbsp;block, what is the value of&nbsp;b&nbsp;when this code completes?</p>\n<p>catch(DivideByZeroException e)</p>\n<p>{</p>\n<p>&nbsp;&nbsp; ++b;</p>\n<p>}</p>\n<p>catch(Exception e)</p>\n<p>{</p>\n<p>&nbsp;&nbsp; ++b;</p>\n<p>}</p>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "0"
+            },
+            {
+                "correct": true,
+                "content": "1"
+            },
+            {
+                "correct": false,
+                "content": "2"
+            },
+            {
+                "correct": false,
+                "content": "3"
+            }
+        ]
+    },
+    {
+        "question": "When you write a block of code in which something can go wrong, and you want to throw an Exception if it does, you place the code in a ___________ block.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "catch"
+            },
+            {
+                "correct": false,
+                "content": "blind"
+            },
+            {
+                "correct": false,
+                "content": "system"
+            },
+            {
+                "correct": true,
+                "content": "try"
+            }
+        ]
+    },
+    {
+        "question": "Select the possible forms of try statements:",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "A try block followed by one or more catch blocks."
+            },
+            {
+                "correct": true,
+                "content": "A try block followed by a finally block."
+            },
+            {
+                "correct": true,
+                "content": "A try block followed by one or more catch blocks followed by a finally block."
+            }
+        ]
+    },
+    {
+        "question": "Which of the following is <em>not </em>a benefit of using class libraries?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "They simplify maintenance"
+            },
+            {
+                "correct": true,
+                "content": "The size of projects that use them is reduced"
+            },
+            {
+                "correct": false,
+                "content": "Their code is reusable"
+            },
+            {
+                "correct": false,
+                "content": "They make it easier for other classes to refer to the classes in the libraries"
+            }
+        ]
+    }
+]

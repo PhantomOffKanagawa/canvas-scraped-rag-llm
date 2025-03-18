@@ -1,0 +1,3253 @@
+M8 Objectives
+
+After completing this week's work, you will be able to:
+
+Create, read, write and update files. 
+Use classes File and Directory to obtain information about files and directories on your computer. 
+Use classes FileStream, StreamReader and StreamWriter to read text from and write text to files. 
+
+Use classes FileStream and BinaryFormatter to read objects from and write objects to files - serialize and deserialize an object 
+
+Use OpenFileDialog and SaveDialog controls to display standard Windows dialog boxes for opening and saving files
+Use "Using" statement to release resources
+
+ 
+
+ M8 Activities  Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M8  Quiz and Assignment
+Lecture Slides: FileStream.pdf
+ Sample Code: Grader.zip
+ Video Lectures :  
+- FileStream
+
+- Grader Project Walkthrough
+Note: WPF .NET 7.0, follow How to open a common dialog box (WPF .NET)
+How to: Open files with the OpenFileDialog
+The System.Windows.Forms.OpenFileDialog component opens the Windows dialog box for browsing and selecting files. To open and read the selected files, you can use the OpenFileDialog.OpenFile method, or create an instance of the System.IO.StreamReader class. The following examples show both approaches.
+In .NET Framework, to get or set the FileName property requires a privilege level granted by the System.Security.Permissions.FileIOPermission class. The examples run a FileIOPermission permission check, and can throw an exception due to insufficient privileges if run in a partial-trust context. For more information, see Code access security basics.
+You can build and run these examples as .NET Framework apps from the C# or Visual Basic command line. For more information, see Command-line building with csc.exe or Build from the command line.
+Starting with .NET Core 3.0, you can also build and run the examples as Windows .NET Core apps from a folder that has a .NET Core Windows Forms <folder name>.csproj project file.
+Example: Read a file as a stream with StreamReade
+The following example uses the Windows Forms Button control's Click event handler to open the OpenFileDialog with the ShowDialog method. After the user chooses a file and selects OK, an instance of the StreamReader class reads the file and displays its contents in the form's text box. For more information about reading from file streams, see FileStream.BeginRead and FileStream.Read.
+C#
+using System;
+using System.Drawing;
+using System.IO;
+using System.Security;
+using System.Windows.Forms;
+
+public class OpenFileDialogForm : Form
+{
+    [STAThread]
+    public static void Main()
+    {
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.EnableVisualStyles();
+        Application.Run(new OpenFileDialogForm());
+    }
+
+    private Button selectButton;
+    private OpenFileDialog openFileDialog1;
+    private TextBox textBox1;
+
+    public OpenFileDialogForm()
+    {
+        openFileDialog1 = new OpenFileDialog();
+        selectButton = new Button
+        {
+            Size = new Size(100, 20),
+            Location = new Point(15, 15),
+            Text = "Select file"
+        };
+        selectButton.Click += new EventHandler(SelectButton_Click);
+        textBox1 = new TextBox
+        {
+            Size = new Size(300, 300),
+            Location = new Point(15, 40),
+            Multiline = true,
+            ScrollBars = ScrollBars.Vertical
+        };
+        ClientSize = new Size(330, 360);
+        Controls.Add(selectButton);
+        Controls.Add(textBox1);
+    }
+    private void SetText(string text)
+    {
+        textBox1.Text = text;
+    }
+    private void SelectButton_Click(object sender, EventArgs e)
+    {
+        if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        {
+            try
+            {
+                var sr = new StreamReader(openFileDialog1.FileName);
+                SetText(sr.ReadToEnd());
+            }
+            catch (SecurityException ex)
+            {
+                MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                $"Details:\n\n{ex.StackTrace}");
+            }
+        }
+    }
+}
+
+Example: Open a file from a filtered selection with OpenFile
+The following example uses the Button control's Click event handler to open the OpenFileDialog with a filter that shows only text files. After the user chooses a text file and selects OK, the OpenFile method is used to open the file in Notepad.
+C#
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Security;
+using System.Windows.Forms;
+
+public class OpenFileDialogForm : Form
+{
+    [STAThread]
+    public static void Main()
+    {
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.EnableVisualStyles();
+        Application.Run(new OpenFileDialogForm());
+    }
+
+    private Button selectButton;
+    private OpenFileDialog openFileDialog1;
+
+    public OpenFileDialogForm()
+    {
+        openFileDialog1 = new OpenFileDialog()
+        {
+            FileName = "Select a text file",
+            Filter = "Text files (*.txt)|*.txt",
+            Title = "Open text file"
+        };
+
+        selectButton = new Button()
+        {
+            Size = new Size(100, 20),
+            Location = new Point(15, 15),
+            Text = "Select file"
+        };
+        selectButton.Click += new EventHandler(selectButton_Click);
+        Controls.Add(selectButton);
+    }
+
+    private void selectButton_Click(object sender, EventArgs e)
+    {
+        if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        {
+            try
+            {
+                var filePath = openFileDialog1.FileName;
+                using (Stream str = openFileDialog1.OpenFile())
+                {
+                    Process.Start("notepad.exe", filePath);
+                }
+            }
+            catch (SecurityException ex)
+            {
+                MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                $"Details:\n\n{ex.StackTrace}");
+            }
+        }
+    }
+}
+How to: Save Files Using the SaveFileDialog Component
+The SaveFileDialog component allows users to browse the file system and select files to be saved. The dialog box returns the path and name of the file the user has selected in the dialog box. However, you must write the code to actually write the files to disk.
+To save a file using the SaveFileDialog component Display the Save File dialog box and call a method to save the file selected by the user.
+Use the SaveFileDialog component's OpenFile method to save the file. This method gives you a Stream object you can write to.
+The example below uses the DialogResult property to get the name of the file, and the OpenFile method to save the file. The OpenFile method gives you a stream to write the file to.
+In the example below, there is a Button control with an image assigned to it. When you click the button, a SaveFileDialog component is instantiated with a filter that allows files of type .gif, .jpeg, and .bmp. If a file of this type is selected in the Save File dialog box, the button's image is saved.
+
+ Important
+To get or set the FileName property, your assembly requires a privilege level granted by the System.Security.Permissions.FileIOPermission class. If you are running in a partial-trust context, the process might throw an exception due to insufficient privileges. For more information, see Code Access Security Basics.
+
+The example assumes your form has a Button control with its Image property set to a file of type .gif, .jpeg, or .bmp.
+
+ Note
+The FileDialog class's FilterIndex property (which, due to inheritance, is part of the SaveFileDialog class) uses a one-based index. This is important if you are writing code to save data in a specific format (for example, saving a file in plain text versus binary format). This property is featured in the example below.
+
+C#
+private void button2_Click(object sender, System.EventArgs e)
+{
+    // Displays a SaveFileDialog so the user can save the Image
+    // assigned to Button2.
+    SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+    saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+    saveFileDialog1.Title = "Save an Image File";
+    saveFileDialog1.ShowDialog();
+
+    // If the file name is not an empty string open it for saving.
+    if(saveFileDialog1.FileName != "")
+    {
+      // Saves the Image via a FileStream created by the OpenFile method.
+      System.IO.FileStream fs =
+          (System.IO.FileStream)saveFileDialog1.OpenFile();
+      // Saves the Image in the appropriate ImageFormat based upon the
+      // File type selected in the dialog box.
+      // NOTE that the FilterIndex property is one-based.
+      switch(saveFileDialog1.FilterIndex)
+      {
+          case 1 :
+          this.button2.Image.Save(fs,
+            System.Drawing.Imaging.ImageFormat.Jpeg);
+          break;
+
+          case 2 :
+          this.button2.Image.Save(fs,
+            System.Drawing.Imaging.ImageFormat.Bmp);
+          break;
+
+          case 3 :
+          this.button2.Image.Save(fs,
+            System.Drawing.Imaging.ImageFormat.Gif);
+          break;
+      }
+
+    fs.Close();
+    }
+}
+
+(Visual C#) Place the following code in the form's constructor to register the event handler.
+C#
+this.button2.Click += new System.EventHandler(this.button2_Click);
+Lecture Slides: Serialization.pdf
+ Sample Code: SerialData.zip
+ Video Lectures :
+Basic serialization
+The easiest way to make a class serializable is to mark it with the SerializableAttribute as follows.
+
+C#
+ 
+
+[Serializable]  
+public class MyObject {  
+  public int n1 = 0;  
+  public int n2 = 0;  
+  public String str = null;  
+}  
+
+The following code example shows how an instance of this class can be serialized to a file.
+C#
+MyObject obj = new MyObject();  
+obj.n1 = 1;  
+obj.n2 = 24;  
+obj.str = "Some String";  
+IFormatter formatter = new BinaryFormatter();  
+Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);  
+formatter.Serialize(stream, obj);  
+stream.Close();  
+
+This example uses a binary formatter to do the serialization. All you need to do is create an instance of the stream and the formatter you intend to use, and then call the Serialize method on the formatter. The stream and the object to serialize are provided as parameters to this call. Although it is not explicitly demonstrated in this example, all member variables of a class will be serialized—even variables marked as private. In this aspect, binary serialization differs from the XmlSerializer class, which only serializes public fields. For information on excluding member variables from binary serialization, see Selective Serialization.
+Restoring the object back to its former state is just as easy. First, create a stream for reading and a Formatter, and then instruct the formatter to deserialize the object. The code example below shows how this is done.
+C#
+IFormatter formatter = new BinaryFormatter();  
+Stream stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);  
+MyObject obj = (MyObject) formatter.Deserialize(stream);  
+stream.Close();  
+  
+// Here's the proof.  
+Console.WriteLine("n1: {0}", obj.n1);  
+Console.WriteLine("n2: {0}", obj.n2);  
+Console.WriteLine("str: {0}", obj.str);  
+
+The BinaryFormatter used above is very efficient and produces a compact byte stream. All objects serialized with this formatter can also be deserialized with it, which makes it an ideal tool for serializing objects that will be deserialized on the .NET Framework. It is important to note that constructors are not called when an object is deserialized. This constraint is placed on deserialization for performance reasons. However, this violates some of the usual contracts the runtime makes with the object writer, and developers should ensure that they understand the ramifications when marking an object as serializable.
+Sample Code: 
+
+IntroUWP.zip
+FilePicker.zip
+
+ Pick a single file: step-by-step: 
+Using a file picker involves creating and customizing a file picker object, and then showing the file picker so the user can pick one or more items. Create and customize a FileOpenPicker
+C#
+var picker = new Windows.Storage.Pickers.FileOpenPicker();
+picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+picker.FileTypeFilter.Add(".jpg");
+picker.FileTypeFilter.Add(".jpeg");
+picker.FileTypeFilter.Add(".png");
+
+Set properties on the file picker object relevant to your users and app.
+This example creates a rich, visual display of pictures in a convenient location that the user can pick from by setting three properties: ViewMode, SuggestedStartLocation, and FileTypeFilter. Setting ViewMode to the PickerViewMode Thumbnail enum value creates a rich, visual display by using picture thumbnails to represent files in the file picker. Do this for picking visual files such as pictures or videos. Otherwise, use PickerViewMode.List. A hypothetical email app with Attach Picture or Video and Attach Document features would set the ViewMode appropriate to the feature before showing the file picker. Setting SuggestedStartLocation to Pictures using PickerLocationId.PicturesLibrary starts the user in a location where they're likely to find pictures. Set SuggestedStartLocation to a location appropriate for the type of file being picked, for example Music, Pictures, Videos, or Documents. From the start location, the user can navigate to other locations. Using FileTypeFilter to specify file types keeps the user focused on picking files that are relevant. To replace previous file types in the FileTypeFilter with new entries, use ReplaceAll instead of Add. Show the FileOpenPicker To pick a single file
+C#
+Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+if (file != null)
+{
+    // Application now has read/write access to the picked file
+    this.textBlock.Text = "Picked photo: " + file.Name;
+}
+else
+{
+    this.textBlock.Text = "Operation cancelled.";
+} To pick multiple files
+C#
+var files = await picker.PickMultipleFilesAsync();
+if (files.Count > 0)
+{
+    StringBuilder output = new StringBuilder("Picked files:\n");
+
+    // Application now has read/write access to the picked file(s)
+    foreach (Windows.Storage.StorageFile file in files)
+    {
+        output.Append(file.Name + "\n");
+    }
+    this.textBlock.Text = output.ToString();
+}
+else
+{
+    this.textBlock.Text = "Operation cancelled.";
+}
+Recommended Online Resources:
+
+UWP: Work with files
+
+Creating a file
+Here's how to create a file in the app's local folder. If it already exists, we replace it.
+C#
+// Create sample file; replace if exists.
+Windows.Storage.StorageFolder storageFolder =
+    Windows.Storage.ApplicationData.Current.LocalFolder;
+Windows.Storage.StorageFile sampleFile =
+    await storageFolder.CreateFileAsync("sample.txt",
+        Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+Writing to a file
+Here's how to write to a writable file on disk using the StorageFile class. The common first step for each of the ways of writing to a file (unless you're writing to the file immediately after creating it) is to get the file with StorageFolder.GetFileAsync.
+C#
+Windows.Storage.StorageFolder storageFolder =
+    Windows.Storage.ApplicationData.Current.LocalFolder;
+Windows.Storage.StorageFile sampleFile =
+    await storageFolder.GetFileAsync("sample.txt");
+
+Writing text to a file
+Write text to your file by calling the FileIO.WriteTextAsync method.
+C#
+await Windows.Storage.FileIO.WriteTextAsync(sampleFile, "Swift as a shadow");
+
+Writing bytes to a file by using a buffer (2 steps) First, call CryptographicBuffer.ConvertStringToBinary to get a buffer of the bytes (based on a string) that you want to write to your file.
+C#
+var buffer = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(
+    "What fools these mortals be", Windows.Security.Cryptography.BinaryStringEncoding.Utf8); Then write the bytes from your buffer to your file by calling the FileIO.WriteBufferAsync method.
+C#
+await Windows.Storage.FileIO.WriteBufferAsync(sampleFile, buffer); Writing text to a file by using a stream (4 steps) First, open the file by calling the StorageFile.OpenAsync method. It returns a stream of the file's content when the open operation completes.
+C#
+var stream = await sampleFile.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite); Next, get an output stream by calling the IRandomAccessStream.GetOutputStreamAt method from the stream. If you're using C#, then enclose this in a using statement to manage the output stream's lifetime. If you're using C++/WinRT, then you can control its lifetime by enclosing it in a block, or setting it to nullptr when you're done with it.
+C#
+using (var outputStream = stream.GetOutputStreamAt(0))
+{
+    // We'll add more code here in the next step.
+}
+stream.Dispose(); // Or use the stream variable (see previous code snippet) with a using statement as well. Now add this code (if you're using C#, within the existing using statement) to write to the output stream by creating a new DataWriter object and calling the DataWriter.WriteString method.
+C#
+using (var dataWriter = new Windows.Storage.Streams.DataWriter(outputStream))
+{
+    dataWriter.WriteString("DataWriter has methods to write to various types, such as DataTimeOffset.");
+} Lastly, add this code (if you're using C#, within the inner using statement) to save the text to your file with DataWriter.StoreAsync and close the stream with IOutputStream.FlushAsync.
+C#
+await dataWriter.StoreAsync();
+await outputStream.FlushAsync(); Best practices for writing to a file
+For additional details and best practice guidance, see Best practices for writing to files.
+Reading from a file
+Here's how to read from a file on disk using the StorageFile class. The common first step for each of the ways of reading from a file is to get the file with StorageFolder.GetFileAsync.
+C#
+Windows.Storage.StorageFolder storageFolder =
+    Windows.Storage.ApplicationData.Current.LocalFolder;
+Windows.Storage.StorageFile sampleFile =
+    await storageFolder.GetFileAsync("sample.txt");
+
+Reading text from a file
+Read text from your file by calling the FileIO.ReadTextAsync method.
+C#
+string text = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+
+Reading text from a file by using a buffer (2 steps) First, call the FileIO.ReadBufferAsync method.
+C#
+var buffer = await Windows.Storage.FileIO.ReadBufferAsync(sampleFile); Then use a DataReader object to read first the length of the buffer and then its contents.
+C#
+using (var dataReader = Windows.Storage.Streams.DataReader.FromBuffer(buffer))
+{
+    string text = dataReader.ReadString(buffer.Length);
+} Reading text from a file by using a stream (4 steps) Open a stream for your file by calling the StorageFile.OpenAsync method. It returns a stream of the file's content when the operation completes.
+C#
+var stream = await sampleFile.OpenAsync(Windows.Storage.FileAccessMode.Read); Get the size of the stream to use later.
+C#
+ulong size = stream.Size; Get an input stream by calling the IRandomAccessStream.GetInputStreamAt method. Put this in a using statement to manage the stream's lifetime. Specify 0 when you call GetInputStreamAt to set the position to the beginning of the stream.
+C#
+using (var inputStream = stream.GetInputStreamAt(0))
+{
+    // We'll add more code here in the next step.
+} Lastly, add this code within the existing using statement to get a DataReader object on the stream then read the text by calling DataReader.LoadAsync and DataReader.ReadString.
+C#
+using (var dataReader = new Windows.Storage.Streams.DataReader(inputStream))
+{
+    uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
+    string text = dataReader.ReadString(numBytesLoaded);
+}
+M7 Objectives
+
+After completing this week's work, you will be able to:
+
+Declare a delegate type to create an abstraction of a method signature. 
+Create an instance of a delegate to refer to a specific method. 
+Call a method through a delegate. 
+Define a lambda expression to specify the code to be executed by a delegate. 
+Declare an event field. Handle an event by using a delegate. 
+Raise an event.
+
+ 
+
+ M7 Activities  Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M7  Quiz and Assignment
+Lecture Slides: Delegates.pdf
+ Sample Code: Delegate_Lamda.zip
+ Video Lectures: 
+Introduction to Delegates
+
+Lamda Expressions
+Delegates 
+A delegate is a type that safely encapsulates a method, similar to a function pointer in C and C++. Unlike C function pointers, delegates are object-oriented, type safe, and secure. The type of a delegate is defined by the name of the delegate. The following example declares a delegate named Del that can encapsulate a method that takes a string as an argument and returns void:
+C#
+public delegate void Del(string message);
+
+A delegate object is normally constructed by providing the name of the method the delegate will wrap, or with an anonymous function. Once a delegate is instantiated, a method call made to the delegate will be passed by the delegate to that method. The parameters passed to the delegate by the caller are passed to the method, and the return value, if any, from the method is returned to the caller by the delegate. This is known as invoking the delegate. An instantiated delegate can be invoked as if it were the wrapped method itself. For example:
+C#
+// Create a method for a delegate.
+public static void DelegateMethod(string message)
+{
+    Console.WriteLine(message);
+}
+
+C#
+// Instantiate the delegate.
+Del handler = DelegateMethod;
+
+// Call the delegate.
+handler("Hello World");
+
+Delegate types are derived from the Delegate class in the .NET Framework. Delegate types are sealed—they cannot be derived from— and it is not possible to derive custom classes from Delegate. Because the instantiated delegate is an object, it can be passed as a parameter, or assigned to a property. This allows a method to accept a delegate as a parameter, and call the delegate at some later time. This is known as an asynchronous callback, and is a common method of notifying a caller when a long process has completed. When a delegate is used in this fashion, the code using the delegate does not need any knowledge of the implementation of the method being used. The functionality is similar to the encapsulation interfaces provide.
+Another common use of callbacks is defining a custom comparison method and passing that delegate to a sort method. It allows the caller's code to become part of the sort algorithm. The following example method uses the Del type as a parameter:
+C#
+public static void MethodWithCallback(int param1, int param2, Del callback)
+{
+    callback("The number is: " + (param1 + param2).ToString());
+}
+
+You can then pass the delegate created above to that method:
+C#
+MethodWithCallback(1, 2, handler);
+
+and receive the following output to the console:
+console
+The number is: 3
+
+Using the delegate as an abstraction, MethodWithCallback does not need to call the console directly—it does not have to be designed with a console in mind. What MethodWithCallback does is simply prepare a string and pass the string to another method. This is especially powerful since a delegated method can use any number of parameters.
+When a delegate is constructed to wrap an instance method, the delegate references both the instance and the method. A delegate has no knowledge of the instance type aside from the method it wraps, so a delegate can refer to any type of object as long as there is a method on that object that matches the delegate signature. When a delegate is constructed to wrap a static method, it only references the method. Consider the following declarations:
+C#
+public class MethodClass
+{
+    public void Method1(string message) { }
+    public void Method2(string message) { }
+}
+
+Along with the static DelegateMethod shown previously, we now have three methods that can be wrapped by a Del instance.
+A delegate can call more than one method when invoked. This is referred to as multicasting. To add an extra method to the delegate's list of methods—the invocation list—simply requires adding two delegates using the addition or addition assignment operators ('+' or '+='). For example:
+C#
+var obj = new MethodClass();
+Del d1 = obj.Method1;
+Del d2 = obj.Method2;
+Del d3 = DelegateMethod;
+
+//Both types of assignment are valid.
+Del allMethodsDelegate = d1 + d2;
+allMethodsDelegate += d3;
+
+At this point allMethodsDelegate contains three methods in its invocation list—Method1, Method2, and DelegateMethod. The original three delegates, d1, d2, and d3, remain unchanged. When allMethodsDelegate is invoked, all three methods are called in order. If the delegate uses reference parameters, the reference is passed sequentially to each of the three methods in turn, and any changes by one method are visible to the next method. When any of the methods throws an exception that is not caught within the method, that exception is passed to the caller of the delegate and no subsequent methods in the invocation list are called. If the delegate has a return value and/or out parameters, it returns the return value and parameters of the last method invoked. To remove a method from the invocation list, use the subtraction or subtraction assignment operators (- or -=). For example:
+C#
+//remove Method1
+allMethodsDelegate -= d1;
+
+// copy AllMethodsDelegate while removing d2
+Del oneMethodDelegate = allMethodsDelegate - d2;
+
+Because delegate types are derived from System.Delegate, the methods and properties defined by that class can be called on the delegate. For example, to find the number of methods in a delegate's invocation list, you may write:
+C#
+int invocationCount = d1.GetInvocationList().GetLength(0);
+
+Delegates with more than one method in their invocation list derive from MulticastDelegate, which is a subclass of System.Delegate. The above code works in either case because both classes support GetInvocationList.
+Multicast delegates are used extensively in event handling. Event source objects send event notifications to recipient objects that have registered to receive that event. To register for an event, the recipient creates a method designed to handle the event, then creates a delegate for that method and passes the delegate to the event source. The source calls the delegate when the event occurs. The delegate then calls the event handling method on the recipient, delivering the event data. The delegate type for a given event is defined by the event source. For more, see Events.
+Comparing delegates of two different types assigned at compile-time will result in a compilation error. If the delegate instances are statically of the type System.Delegate, then the comparison is allowed, but will return false at run time. For example:
+C#
+delegate void Delegate1();
+delegate void Delegate2();
+
+static void method(Delegate1 d, Delegate2 e, System.Delegate f)
+{
+    // Compile-time error.
+    //Console.WriteLine(d == e);
+
+    // OK at compile-time. False if the run-time type of f 
+    // is not the same as that of d.
+    Console.WriteLine(d == f);
+}
+Lecture Slides: Events.pdf
+ Sample Code: 
+
+StockEvent.zip
+StockEvent_standard.zip
+
+ Video Lectures: 
+Introduction to Events
+
+Standard Events
+Events 
+Events enable a class or object to notify other classes or objects when something of interest occurs. The class that sends (or raises) the event is called the publisher and the classes that receive (or handle) the event are called subscribers.
+In a typical C# Windows Forms or Web application, you subscribe to events raised by controls such as buttons and list boxes. You can use the Visual C# integrated development environment (IDE) to browse the events that a control publishes and select the ones that you want to handle. The IDE provides an easy way to automatically add an empty event handler method and the code to subscribe to the event.
+Events Overview
+Events have the following properties: The publisher determines when an event is raised; the subscribers determine what action is taken in response to the event. An event can have multiple subscribers. A subscriber can handle multiple events from multiple publishers. Events that have no subscribers are never raised. Events are typically used to signal user actions such as button clicks or menu selections in graphical user interfaces. When an event has multiple subscribers, the event handlers are invoked synchronously when an event is raised. To invoke events asynchronously, see Calling Synchronous Methods Asynchronously. In the .NET Framework class library, events are based on the EventHandler delegate and the EventArgs base class.
+How to subscribe to and unsubscribe from events 
+You subscribe to an event that is published by another class when you want to write custom code that is called when that event is raised. For example, you might subscribe to a button's click event in order to make your application do something useful when the user clicks the button.
+To subscribe to events by using the Visual Studio IDE If you cannot see the Properties window, in Design view, right-click the form or control for which you want to create an event handler, and select Properties. On top of the Properties window, click the Events icon. Double-click the event that you want to create, for example the Load event.
+Visual C# creates an empty event handler method and adds it to your code. Alternatively you can add the code manually in Code view. For example, the following lines of code declare an event handler method that will be called when the Form class raises the Load event.
+C#
+private void Form1_Load(object sender, System.EventArgs e)
+{
+    // Add your form load event handling code here.
+}
+
+The line of code that is required to subscribe to the event is also automatically generated in the InitializeComponent method in the Form1.Designer.cs file in your project. It resembles this:
+C#
+this.Load += new System.EventHandler(this.Form1_Load);   To subscribe to events programmatically Define an event handler method whose signature matches the delegate signature for the event. For example, if the event is based on the EventHandler delegate type, the following code represents the method stub:
+C#
+void HandleCustomEvent(object sender, CustomEventArgs a)  
+{  
+   // Do something useful here.  
+}   Use the addition assignment operator (+=) to attach an event handler to the event. In the following example, assume that an object named publisher has an event named RaiseCustomEvent. Note that the subscriber class needs a reference to the publisher class in order to subscribe to its events.
+C#
+publisher.RaiseCustomEvent += HandleCustomEvent;  
+
+Note that the previous syntax is new in C# 2.0. It is exactly equivalent to the C# 1.0 syntax in which the encapsulating delegate must be explicitly created by using the new keyword:
+C#
+publisher.RaiseCustomEvent += new CustomEventHandler(HandleCustomEvent);  
+
+You also can use a lambda expression to specify an event handler:
+C#
+public Form1()  
+{  
+    InitializeComponent();  
+    this.Click += (s,e) =>
+        {
+            MessageBox.Show(((MouseEventArgs)e).Location.ToString());
+        };
+}   To subscribe to events by using an anonymous method If you will not have to unsubscribe to an event later, you can use the addition assignment operator (+=) to attach an anonymous method to the event. In the following example, assume that an object named publisher has an event named RaiseCustomEvent and that a CustomEventArgs class has also been defined to carry some kind of specialized event information. Note that the subscriber class needs a reference to publisher in order to subscribe to its events.
+C#
+publisher.RaiseCustomEvent += delegate(object o, CustomEventArgs e)  
+{  
+  string s = o.ToString() + " " + e.ToString();  
+  Console.WriteLine(s);  
+};  
+
+It is important to notice that you cannot easily unsubscribe from an event if you used an anonymous function to subscribe to it. To unsubscribe in this scenario, it is necessary to go back to the code where you subscribe to the event, store the anonymous method in a delegate variable, and then add the delegate to the event. In general, we recommend that you do not use anonymous functions to subscribe to events if you will have to unsubscribe from the event at some later point in your code. For more information about anonymous functions, see Anonymous Functions. Unsubscribing
+To prevent your event handler from being invoked when the event is raised, unsubscribe from the event. In order to prevent resource leaks, you should unsubscribe from events before you dispose of a subscriber object. Until you unsubscribe from an event, the multicast delegate that underlies the event in the publishing object has a reference to the delegate that encapsulates the subscriber's event handler. As long as the publishing object holds that reference, garbage collection will not delete your subscriber object.
+To unsubscribe from an event Use the subtraction assignment operator (-=) to unsubscribe from an event:
+C#
+publisher.RaiseCustomEvent -= HandleCustomEvent;  
+
+When all subscribers have unsubscribed from an event, the event instance in the publisher class is set to null.
+M6 Objectives
+After completing this week's work, you will be able to:
+
+Review Exception Handling in Module 4.
+Understand what exceptions are and how they’re handled.
+Handle exceptions by using the try, catch, and finally statements
+Understand the .NET exception class hierarchy.
+Design and develop an interactive user interface with WPF with code behind
+
+ 
+ M6 Activities 
+
+Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M6  Quiz and Assignment
+Lecture Slides: Class Library (use your University credential to access)
+Sample Code: ClassLibraryProject
+Tutorial : Create a .NET class library using Visual Studio
+Lecture Slides: How to Document your Classes (use your University credential to access doc on Google Drive through MU)
+Ref: Recommended XML tags for C# documentation comments
+Sample Code:  MathsOperators.zip
+ Video Lectures:
+Video Lectures: 
+A review of M5 Challenge:  Data & Time Picker
+M5 Objectives
+
+After completing this week's work, you will be able to:
+
+Illustrate different WPF layout controls (size, position, transform, margin, padding)
+Describe commonly used WPF user interface elements
+Explain the relationship between UI and code behind
+Design and develop an interactive user interface with WPF with code behind
+
+ 
+
+ M5 Activities  Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M5 Quiz and Assignment
+Lecture Slides: IntroWPF.pdf
+WPF overview
+Windows Presentation Foundation (WPF) lets you create desktop client applications for Windows with visually stunning user experiences.
+The core of WPF is a resolution-independent and vector-based rendering engine that is built to take advantage of modern graphics hardware. WPF extends the core with a comprehensive set of application-development features that include Extensible Application Markup Language (XAML), controls, data binding, layout, 2D and 3D graphics, animation, styles, templates, documents, media, text, and typography. WPF is part of .NET, so you can build applications that incorporate other elements of the .NET API.
+This overview is intended for newcomers and covers the key capabilities and concepts of WPF.
+Program with WPF
+WPF exists as a subset of .NET types that are (for the most part) located in the System.Windows namespace. If you have previously built applications with .NET using managed technologies like ASP.NET and Windows Forms, the fundamental WPF programming experience should be familiar; you instantiate classes, set properties, call methods, and handle events, using your favorite .NET programming language, such as C# or Visual Basic.
+WPF includes additional programming constructs that enhance properties and events: dependency properties and routed events.
+Markup and code-behind
+WPF lets you develop an application using both markup and code-behind, an experience with which ASP.NET developers should be familiar. You generally use XAML markup to implement the appearance of an application while using managed programming languages (code-behind) to implement its behavior. This separation of appearance and behavior has the following benefits: Development and maintenance costs are reduced because appearance-specific markup is not tightly coupled with behavior-specific code. Development is more efficient because designers can implement an application's appearance simultaneously with developers who are implementing the application's behavior. Globalization and localization for WPF applications is simplified. Markup
+XAML is an XML-based markup language that implements an application's appearance declaratively. You typically use it to create windows, dialog boxes, pages, and user controls, and to fill them with controls, shapes, and graphics.
+The following example uses XAML to implement the appearance of a window that contains a single button:
+XAML
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    Title="Window with Button"
+    Width="250" Height="100">
+
+  <!-- Add button to window -->
+  <Button Name="button">Click Me!</Button>
+
+</Window>
+
+Specifically, this XAML defines a window and a button by using the Window and Button elements, respectively. Each element is configured with attributes, such as the Window element's Title attribute to specify the window's title-bar text. At run time, WPF converts the elements and attributes that are defined in markup to instances of WPF classes. For example, the Window element is converted to an instance of the Window class whose Title property is the value of the Title attribute.
+The following figure shows the user interface (UI) that is defined by the XAML in the previous example:
+
+Since XAML is XML-based, the UI that you compose with it is assembled in a hierarchy of nested elements known as an element tree. The element tree provides a logical and intuitive way to create and manage UIs.
+Code-behind
+The main behavior of an application is to implement the functionality that responds to user interactions, including handling events (for example, clicking a menu, tool bar, or button) and calling business logic and data access logic in response. In WPF, this behavior is implemented in code that is associated with markup. This type of code is known as code-behind. The following example shows the updated markup from the previous example and the code-behind:
+XAML
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="SDKSample.AWindow"
+    Title="Window with Button"
+    Width="250" Height="100">
+
+  <!-- Add button to window -->
+  <Button Name="button" Click="button_Click">Click Me!</Button>
+
+</Window>
+
+C#
+using System.Windows; // Window, RoutedEventArgs, MessageBox 
+
+namespace SDKSample
+{
+    public partial class AWindow : Window
+    {
+        public AWindow()
+        {
+            // InitializeComponent call is required to merge the UI 
+            // that is defined in markup with this class, including  
+            // setting properties and registering event handlers
+            InitializeComponent();
+        }
+
+        void button_Click(object sender, RoutedEventArgs e)
+        {
+            // Show message box when button is clicked.
+            MessageBox.Show("Hello, Windows Presentation Foundation!");
+        }
+    }
+}
+
+In this example, the code-behind implements a class that derives from the Window class. The x:Class attribute is used to associate the markup with the code-behind class. InitializeComponent is called from the code-behind class's constructor to merge the UI that is defined in markup with the code-behind class. (InitializeComponent is generated for you when your application is built, which is why you don't need to implement it manually.) The combination of x:Class and InitializeComponent ensure that your implementation is correctly initialized whenever it is created. The code-behind class also implements an event handler for the button's Click event. When the button is clicked, the event handler shows a message box by calling the System.Windows.MessageBox.Show method.
+The following figure shows the result when the button is clicked:
+Lecture Slides: LayoutChildren.pdf
+ Video Lectures: 
+
+WPF Layout Margin & Padding  
+    2. WPF Layout Alignment & Transform
+Alignment, Margins, and Padding Overview
+The FrameworkElement class exposes several properties that are used to precisely position child elements. This topic discusses four of the most important properties: HorizontalAlignment, Margin, Padding, and VerticalAlignment. The effects of these properties are important to understand, because they provide the basis for controlling the position of elements in Windows Presentation Foundation (WPF) applications.
+Introduction to Element Positioning
+There are numerous ways to position elements using WPF. However, achieving ideal layout goes beyond simply choosing the right Panel element. Fine control of positioning requires an understanding of the HorizontalAlignment, Margin, Padding, and VerticalAlignment properties.
+The following illustration shows a layout scenario that utilizes several positioning properties.
+
+At first glance, the Button elements in this illustration may appear to be placed randomly. However, their positions are actually precisely controlled by using a combination of margins, alignments, and padding.
+The following example describes how to create the layout in the preceding illustration. A Border element encapsulates a parent StackPanel, with a Padding value of 15 device independent pixels. This accounts for the narrow LightBlue band that surrounds the child StackPanel. Child elements of the StackPanel are used to illustrate each of the various positioning properties that are detailed in this topic. Three Button elements are used to demonstrate both the Margin and HorizontalAlignment properties.
+C#
+
+// Create the application's main Window.
+mainWindow = new Window ();
+mainWindow.Title = "Margins, Padding and Alignment Sample";
+
+// Add a Border
+myBorder = new Border();
+myBorder.Background = Brushes.LightBlue;
+myBorder.BorderBrush = Brushes.Black;
+myBorder.Padding = new Thickness(15);
+myBorder.BorderThickness = new Thickness(2);
+
+myStackPanel = new StackPanel();
+myStackPanel.Background = Brushes.White;
+myStackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+myStackPanel.VerticalAlignment = VerticalAlignment.Top;
+
+TextBlock myTextBlock = new TextBlock();
+myTextBlock.Margin = new Thickness(5, 0, 5, 0);
+myTextBlock.FontSize = 18;
+myTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock.Text = "Alignment, Margin and Padding Sample";
+Button myButton1 = new Button();
+myButton1.HorizontalAlignment = HorizontalAlignment.Left;
+myButton1.Margin = new Thickness(20);
+myButton1.Content = "Button 1";
+Button myButton2 = new Button();
+myButton2.HorizontalAlignment = HorizontalAlignment.Right;
+myButton2.Margin = new Thickness(10);
+myButton2.Content = "Button 2";
+Button myButton3 = new Button();
+myButton3.HorizontalAlignment = HorizontalAlignment.Stretch;
+myButton3.Margin = new Thickness(0);
+myButton3.Content = "Button 3";
+
+// Add child elements to the parent StackPanel.
+myStackPanel.Children.Add(myTextBlock);
+myStackPanel.Children.Add(myButton1);
+myStackPanel.Children.Add(myButton2);
+myStackPanel.Children.Add(myButton3);
+
+// Add the StackPanel as the lone Child of the Border.
+myBorder.Child = myStackPanel;
+
+// Add the Border as the Content of the Parent Window Object.
+mainWindow.Content = myBorder;
+mainWindow.Show (); The following diagram provides a close-up view of the various positioning properties that are used in the preceding sample. Subsequent sections in this topic describe in greater detail how to use each positioning property.
+
+ 
+Understanding Alignment Properties
+The HorizontalAlignment and VerticalAlignment properties describe how a child element should be positioned within a parent element's allocated layout space. By using these properties together, you can position child elements precisely. For example, child elements of a DockPanel can specify four different horizontal alignments: Left, Right, or Center, or to Stretch to fill available space. Similar values are available for vertical positioning.
+
+ Note
+Explicitly-set Height and Width properties on an element take precedence over the Stretch property value. Attempting to set Height, Width, and a HorizontalAlignment value of Stretch results in the Stretch request being ignored.
+
+ 
+HorizontalAlignment Property
+The HorizontalAlignment property declares the horizontal alignment characteristics to apply to child elements. The following table shows each of the possible values of the HorizontalAlignment property. Member
+Description Left
+Child elements are aligned to the left of the parent element's allocated layout space. Center
+Child elements are aligned to the center of the parent element's allocated layout space. Right
+Child elements are aligned to the right of the parent element's allocated layout space. Stretch (Default)
+Child elements are stretched to fill the parent element's allocated layout space. Explicit Width and Height values take precedence. The following example shows how to apply the HorizontalAlignment property to Button elements. Each attribute value is shown, to better illustrate the various rendering behaviors.
+C#
+Button myButton1 = new Button();
+myButton1.HorizontalAlignment = HorizontalAlignment.Left;
+myButton1.Content = "Button 1 (Left)";
+Button myButton2 = new Button();
+myButton2.HorizontalAlignment = HorizontalAlignment.Right;
+myButton2.Content = "Button 2 (Right)";
+Button myButton3 = new Button();
+myButton3.HorizontalAlignment = HorizontalAlignment.Center;
+myButton3.Content = "Button 3 (Center)";
+Button myButton4 = new Button();
+myButton4.HorizontalAlignment = HorizontalAlignment.Stretch;
+myButton4.Content = "Button 4 (Stretch)";
+
+The preceding code yields a layout similar to the following image. The positioning effects of each HorizontalAlignment value are visible in the illustration.
+
+VerticalAlignment Property
+The VerticalAlignment property describes the vertical alignment characteristics to apply to child elements. The following table shows each of the possible values for the VerticalAlignment property. Member
+Description Top
+Child elements are aligned to the top of the parent element's allocated layout space. Center
+Child elements are aligned to the center of the parent element's allocated layout space. Bottom
+Child elements are aligned to the bottom of the parent element's allocated layout space. Stretch (Default)
+Child elements are stretched to fill the parent element's allocated layout space. Explicit Width and Height values take precedence. The following example shows how to apply the VerticalAlignment property to Button elements. Each attribute value is shown, to better illustrate the various rendering behaviors. For purposes of this sample, a Grid element with visible gridlines is used as the parent, to better illustrate the layout behavior of each property value.
+C#
+TextBlock myTextBlock = new TextBlock();
+myTextBlock.FontSize = 18;
+myTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock.Text = "VerticalAlignment Sample";
+Grid.SetRow(myTextBlock, 0);
+Button myButton1 = new Button();
+myButton1.VerticalAlignment = VerticalAlignment.Top;
+myButton1.Content = "Button 1 (Top)";
+Grid.SetRow(myButton1, 1);
+Button myButton2 = new Button();
+myButton2.VerticalAlignment = VerticalAlignment.Bottom;
+myButton2.Content = "Button 2 (Bottom)";
+Grid.SetRow(myButton2, 2);
+Button myButton3 = new Button();
+myButton3.VerticalAlignment = VerticalAlignment.Center;
+myButton3.Content = "Button 3 (Center)";
+Grid.SetRow(myButton3, 3);
+Button myButton4 = new Button();
+myButton4.VerticalAlignment = VerticalAlignment.Stretch;
+myButton4.Content = "Button 4 (Stretch)";
+Grid.SetRow(myButton4, 4); XAMLCopy
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      WindowTitle="VerticalAlignment Sample">
+  <Border Background="LightBlue" BorderBrush="Black" BorderThickness="2" Padding="15">
+    <Grid Background="White" ShowGridLines="True">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="25"/>
+        <RowDefinition Height="50"/>
+        <RowDefinition Height="50"/>
+        <RowDefinition Height="50"/>
+        <RowDefinition Height="50"/>
+      </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" HorizontalAlignment="Center">VerticalAlignment Sample</TextBlock>
+            <Button Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">Button 1 (Top)</Button>
+            <Button Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">Button 2 (Bottom)</Button>    
+            <Button Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">Button 3 (Center)</Button>
+            <Button Grid.Row="4" Grid.Column="0" VerticalAlignment="Stretch">Button 4 (Stretch)</Button>          
+    </Grid>
+  </Border>    
+</Page>
+
+The preceding code yields a layout similar to the following image. The positioning effects of each VerticalAlignment value are visible in the illustration. Understanding Margin Properties
+The Margin property describes the distance between an element and its child or peers. Margin values can be uniform, by using syntax like Margin="20". With this syntax, a uniform Margin of 20 device independent pixels would be applied to the element. Margin values can also take the form of four distinct values, each value describing a distinct margin to apply to the left, top, right, and bottom (in that order), like Margin="0,10,5,25". Proper use of the Margin property enables very fine control of an element's rendering position and the rendering position of its neighbor elements and children.
+
+ Note
+A non-zero margin applies space outside the element's ActualWidth and ActualHeight.
+
+The following example shows how to apply uniform margins around a group of Button elements. The Button elements are spaced evenly with a ten-pixel margin buffer in each direction.
+C#
+Button myButton7 = new Button();
+myButton7.Margin = new Thickness(10);
+myButton7.Content = "Button 7";
+Button myButton8 = new Button();
+myButton8.Margin = new Thickness(10);
+myButton8.Content = "Button 8";
+Button myButton9 = new Button();
+myButton9.Margin = new Thickness(10);
+myButton9.Content = "Button 9";
+
+XAML
+<Button Margin="10">Button 7</Button>
+<Button Margin="10">Button 8</Button>
+<Button Margin="10">Button 9</Button>
+
+In many instances, a uniform margin is not appropriate. In these cases, non-uniform spacing can be applied. The following example shows how to apply non-uniform margin spacing to child elements. Margins are described in this order: left, top, right, bottom.
+C#
+Button myButton1 = new Button();
+myButton1.Margin = new Thickness(0, 10, 0, 10);
+myButton1.Content = "Button 1";
+Button myButton2 = new Button();
+myButton2.Margin = new Thickness(0, 10, 0, 10);
+myButton2.Content = "Button 2";
+Button myButton3 = new Button();
+myButton3.Margin = new Thickness(0, 10, 0, 10);
+
+XAML
+<Button Margin="0,10,0,10">Button 1</Button>
+<Button Margin="0,10,0,10">Button 2</Button>
+<Button Margin="0,10,0,10">Button 3</Button>
+
+Understanding the Padding Property
+Padding is similar to Margin in most respects. The Padding property is exposed on only on a few classes, primarily as a convenience: Block, Border, Control, and TextBlock are samples of classes that expose a Padding property. The Padding property enlarges the effective size of a child element by the specified Thickness value.
+The following example shows how to apply Padding to a parent Border element.
+C#
+myBorder = new Border();
+myBorder.Background = Brushes.LightBlue;
+myBorder.BorderBrush = Brushes.Black;
+myBorder.BorderThickness = new Thickness(2);
+myBorder.CornerRadius = new CornerRadius(45);
+myBorder.Padding = new Thickness(25);
+
+XAML
+<Border Background="LightBlue" 
+        BorderBrush="Black" 
+        BorderThickness="2" 
+        CornerRadius="45" 
+        Padding="25">
+
+Using Alignment, Margins, and Padding in an Application
+HorizontalAlignment, Margin, Padding, and VerticalAlignment provide the positioning control necessary to create a complex user interface (UI). You can use the effects of each property to change child-element positioning, enabling flexibility in creating dynamic applications and user experiences.
+The following example demonstrates each of the concepts that are detailed in this topic. Building on the infrastructure found in the first sample in this topic, this example adds a Grid element as a child of the Border in the first sample. Padding is applied to the parent Border element. The Grid is used to partition space between three child StackPanel elements. Button elements are again used to show the various effects of Margin and HorizontalAlignment. TextBlock elements are added to each ColumnDefinition to better define the various properties applied to the Button elements in each column.
+C#
+mainWindow = new Window();
+
+myBorder = new Border();
+myBorder.Background = Brushes.LightBlue;
+myBorder.BorderBrush = Brushes.Black;
+myBorder.BorderThickness = new Thickness(2);
+myBorder.CornerRadius = new CornerRadius(45);
+myBorder.Padding = new Thickness(25);
+
+// Define the Grid.
+myGrid = new Grid();
+myGrid.Background = Brushes.White;
+myGrid.ShowGridLines = true;
+
+// Define the Columns.
+ColumnDefinition myColDef1 = new ColumnDefinition();
+myColDef1.Width = new GridLength(1, GridUnitType.Auto);
+ColumnDefinition myColDef2 = new ColumnDefinition();
+myColDef2.Width = new GridLength(1, GridUnitType.Star);
+ColumnDefinition myColDef3 = new ColumnDefinition();
+myColDef3.Width = new GridLength(1, GridUnitType.Auto);
+
+// Add the ColumnDefinitions to the Grid.
+myGrid.ColumnDefinitions.Add(myColDef1);
+myGrid.ColumnDefinitions.Add(myColDef2);
+myGrid.ColumnDefinitions.Add(myColDef3);
+
+// Add the first child StackPanel.
+StackPanel myStackPanel = new StackPanel();
+myStackPanel.HorizontalAlignment = HorizontalAlignment.Left;
+myStackPanel.VerticalAlignment = VerticalAlignment.Top;
+Grid.SetColumn(myStackPanel, 0);
+Grid.SetRow(myStackPanel, 0);
+TextBlock myTextBlock1 = new TextBlock();
+myTextBlock1.FontSize = 18;
+myTextBlock1.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock1.Margin = new Thickness(0, 0, 0, 15);
+myTextBlock1.Text = "StackPanel 1";
+Button myButton1 = new Button();
+myButton1.Margin = new Thickness(0, 10, 0, 10);
+myButton1.Content = "Button 1";
+Button myButton2 = new Button();
+myButton2.Margin = new Thickness(0, 10, 0, 10);
+myButton2.Content = "Button 2";
+Button myButton3 = new Button();
+myButton3.Margin = new Thickness(0, 10, 0, 10);
+TextBlock myTextBlock2 = new TextBlock();
+myTextBlock2.Text = @"ColumnDefinition.Width = ""Auto""";
+TextBlock myTextBlock3 = new TextBlock();
+myTextBlock3.Text = @"StackPanel.HorizontalAlignment = ""Left""";
+TextBlock myTextBlock4 = new TextBlock();
+myTextBlock4.Text = @"StackPanel.VerticalAlignment = ""Top""";
+TextBlock myTextBlock5 = new TextBlock();
+myTextBlock5.Text = @"StackPanel.Orientation = ""Vertical""";
+TextBlock myTextBlock6 = new TextBlock();
+myTextBlock6.Text = @"Button.Margin = ""1,10,0,10""";
+myStackPanel.Children.Add(myTextBlock1);
+myStackPanel.Children.Add(myButton1);
+myStackPanel.Children.Add(myButton2);
+myStackPanel.Children.Add(myButton3);
+myStackPanel.Children.Add(myTextBlock2);
+myStackPanel.Children.Add(myTextBlock3);
+myStackPanel.Children.Add(myTextBlock4);
+myStackPanel.Children.Add(myTextBlock5);
+myStackPanel.Children.Add(myTextBlock6);
+
+// Add the second child StackPanel.
+StackPanel myStackPanel2 = new StackPanel();
+myStackPanel2.HorizontalAlignment = HorizontalAlignment.Stretch;
+myStackPanel2.VerticalAlignment = VerticalAlignment.Top;
+myStackPanel2.Orientation = Orientation.Vertical;
+Grid.SetColumn(myStackPanel2, 1);
+Grid.SetRow(myStackPanel2, 0);
+TextBlock myTextBlock7 = new TextBlock();
+myTextBlock7.FontSize = 18;
+myTextBlock7.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock7.Margin = new Thickness(0, 0, 0, 15);
+myTextBlock7.Text = "StackPanel 2";
+Button myButton4 = new Button();
+myButton4.Margin = new Thickness(10, 0, 10, 0);
+myButton4.Content = "Button 4";
+Button myButton5 = new Button();
+myButton5.Margin = new Thickness(10, 0, 10, 0);
+myButton5.Content = "Button 5";
+Button myButton6 = new Button();
+myButton6.Margin = new Thickness(10, 0, 10, 0);
+myButton6.Content = "Button 6";
+TextBlock myTextBlock8 = new TextBlock();
+myTextBlock8.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock8.Text = @"ColumnDefinition.Width = ""*""";
+TextBlock myTextBlock9 = new TextBlock();
+myTextBlock9.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock9.Text = @"StackPanel.HorizontalAlignment = ""Stretch""";
+TextBlock myTextBlock10 = new TextBlock();
+myTextBlock10.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock10.Text = @"StackPanel.VerticalAlignment = ""Top""";
+TextBlock myTextBlock11 = new TextBlock();
+myTextBlock11.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock11.Text = @"StackPanel.Orientation = ""Horizontal""";
+TextBlock myTextBlock12 = new TextBlock();
+myTextBlock12.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock12.Text = @"Button.Margin = ""10,0,10,0""";
+myStackPanel2.Children.Add(myTextBlock7);
+myStackPanel2.Children.Add(myButton4);
+myStackPanel2.Children.Add(myButton5);
+myStackPanel2.Children.Add(myButton6);
+myStackPanel2.Children.Add(myTextBlock8);
+myStackPanel2.Children.Add(myTextBlock9);
+myStackPanel2.Children.Add(myTextBlock10);
+myStackPanel2.Children.Add(myTextBlock11);
+myStackPanel2.Children.Add(myTextBlock12);
+
+// Add the final child StackPanel.
+StackPanel myStackPanel3 = new StackPanel();
+myStackPanel3.HorizontalAlignment = HorizontalAlignment.Left;
+myStackPanel3.VerticalAlignment = VerticalAlignment.Top;
+Grid.SetColumn(myStackPanel3, 2);
+Grid.SetRow(myStackPanel3, 0);
+TextBlock myTextBlock13 = new TextBlock();
+myTextBlock13.FontSize = 18;
+myTextBlock13.HorizontalAlignment = HorizontalAlignment.Center;
+myTextBlock13.Margin = new Thickness(0, 0, 0, 15);
+myTextBlock13.Text = "StackPanel 3";
+Button myButton7 = new Button();
+myButton7.Margin = new Thickness(10);
+myButton7.Content = "Button 7";
+Button myButton8 = new Button();
+myButton8.Margin = new Thickness(10);
+myButton8.Content = "Button 8";
+Button myButton9 = new Button();
+myButton9.Margin = new Thickness(10);
+myButton9.Content = "Button 9";
+TextBlock myTextBlock14 = new TextBlock();
+myTextBlock14.Text = @"ColumnDefinition.Width = ""Auto""";
+TextBlock myTextBlock15 = new TextBlock();
+myTextBlock15.Text = @"StackPanel.HorizontalAlignment = ""Left""";
+TextBlock myTextBlock16 = new TextBlock();
+myTextBlock16.Text = @"StackPanel.VerticalAlignment = ""Top""";
+TextBlock myTextBlock17 = new TextBlock();
+myTextBlock17.Text = @"StackPanel.Orientation = ""Vertical""";
+TextBlock myTextBlock18 = new TextBlock();
+myTextBlock18.Text = @"Button.Margin = ""10""";
+myStackPanel3.Children.Add(myTextBlock13);
+myStackPanel3.Children.Add(myButton7);
+myStackPanel3.Children.Add(myButton8);
+myStackPanel3.Children.Add(myButton9);
+myStackPanel3.Children.Add(myTextBlock14);
+myStackPanel3.Children.Add(myTextBlock15);
+myStackPanel3.Children.Add(myTextBlock16);
+myStackPanel3.Children.Add(myTextBlock17);
+myStackPanel3.Children.Add(myTextBlock18);
+
+// Add child content to the parent Grid.
+myGrid.Children.Add(myStackPanel);
+myGrid.Children.Add(myStackPanel2);
+myGrid.Children.Add(myStackPanel3);
+
+// Add the Grid as the lone child of the Border.
+myBorder.Child = myGrid;
+
+// Add the Border to the Window as Content and show the Window.
+mainWindow.Content = myBorder;
+mainWindow.Title = "Margin, Padding, and Alignment Sample";
+mainWindow.Show();
+
+XAML
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" WindowTitle="Margins, Padding and Alignment Sample">
+  <Border Background="LightBlue" 
+          BorderBrush="Black" 
+          BorderThickness="2" 
+          CornerRadius="45" 
+          Padding="25">
+    <Grid Background="White" ShowGridLines="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+        
+    <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Name="StackPanel1" VerticalAlignment="Top">
+        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,15">StackPanel1</TextBlock>
+        <Button Margin="0,10,0,10">Button 1</Button>
+        <Button Margin="0,10,0,10">Button 2</Button>
+        <Button Margin="0,10,0,10">Button 3</Button>
+        <TextBlock>ColumnDefinition.Width="Auto"</TextBlock>
+        <TextBlock>StackPanel.HorizontalAlignment="Left"</TextBlock>
+        <TextBlock>StackPanel.VerticalAlignment="Top"</TextBlock>
+        <TextBlock>StackPanel.Orientation="Vertical"</TextBlock>
+        <TextBlock>Button.Margin="0,10,0,10"</TextBlock>
+    </StackPanel>
+    
+    <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Name="StackPanel2" VerticalAlignment="Top" Orientation="Vertical">
+        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,15">StackPanel2</TextBlock>
+        <Button Margin="10,0,10,0">Button 4</Button>
+        <Button Margin="10,0,10,0">Button 5</Button>
+        <Button Margin="10,0,10,0">Button 6</Button>
+        <TextBlock HorizontalAlignment="Center">ColumnDefinition.Width="*"</TextBlock>
+        <TextBlock HorizontalAlignment="Center">StackPanel.HorizontalAlignment="Stretch"</TextBlock>
+        <TextBlock HorizontalAlignment="Center">StackPanel.VerticalAlignment="Top"</TextBlock>
+        <TextBlock HorizontalAlignment="Center">StackPanel.Orientation="Horizontal"</TextBlock>
+        <TextBlock HorizontalAlignment="Center">Button.Margin="10,0,10,0"</TextBlock>
+    </StackPanel>        
+        
+    <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Name="StackPanel3" VerticalAlignment="Top">
+        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,15">StackPanel3</TextBlock>
+        <Button Margin="10">Button 7</Button>
+        <Button Margin="10">Button 8</Button>
+        <Button Margin="10">Button 9</Button>
+        <TextBlock>ColumnDefinition.Width="Auto"</TextBlock>
+        <TextBlock>StackPanel.HorizontalAlignment="Left"</TextBlock>
+        <TextBlock>StackPanel.VerticalAlignment="Top"</TextBlock>
+        <TextBlock>StackPanel.Orientation="Vertical"</TextBlock>
+        <TextBlock>Button.Margin="10"</TextBlock>      
+    </StackPanel>
+  </Grid>
+  </Border>    
+</Page>
+
+When compiled, the preceding application yields a UI that looks like the following illustration. The effects of the various property values are evident in the spacing between elements, and significant property values for elements in each column are shown within TextBlock elements.
+Lecture Slides: LayoutPanels.pdf
+ Recommended Online Resources:
+*Note: these youtube videos are WPF with VB not C#. But XAML and WPF related information are still very useful.
+The Grid
+Stack Panel
+Dock Panel
+Panels Overview
+Panel elements are components that control the rendering of elements—their size and dimensions, their position, and the arrangement of their child content. The Windows Presentation Foundation (WPF) provides a number of predefined Panel elements as well as the ability to construct custom Panel elements.
+The Panel Class
+Panel is the base class for all elements that provide layout support in Windows Presentation Foundation (WPF). Derived Panel elements are used to position and arrange elements in Extensible Application Markup Language (XAML) and code.
+The WPF includes a comprehensive suite of derived panel implementations that enable many complex layouts. These derived classes expose properties and methods that enable most standard user interface (UI) scenarios. Developers who are unable to find a child arrangement behavior that meets their needs can create new layouts by overriding the ArrangeOverride and MeasureOverride methods. For more information on custom layout behaviors, see Custom Panel Elements.
+
+Panel Common Members
+All Panel elements support the base sizing and positioning properties defined by FrameworkElement, including Height, Width, HorizontalAlignment, VerticalAlignment, Margin, and LayoutTransform. For additional information on positioning properties defined by FrameworkElement, see Alignment, Margins, and Padding Overview.
+Panel exposes additional properties that are of critical importance in understanding and using layout. The Background property is used to fill the area between the boundaries of a derived panel element with a Brush. Children represents the child collection of elements that the Panel is comprised of. InternalChildren represents the content of the Children collection plus those members generated by data binding. Both consist of a UIElementCollection of child elements hosted within the parent Panel.
+Panel also exposes a Panel.ZIndex attached property that can be used to achieve layered order in a derived Panel. Members of a panel's Children collection with a higher Panel.ZIndex value appear in front of those with a lower Panel.ZIndex value. This is particularly useful for panels such as Canvas and Grid which allow children to share the same coordinate space.
+Panel also defines the OnRender method, which can be used to override the default presentation behavior of a Panel.
+ 
+Derived Panel Elements
+Many objects derive from Panel, but not all of them are intended for use as root layout providers. There are six defined panel classes (Canvas, DockPanel, Grid, StackPanel, VirtualizingStackPanel, and WrapPanel) that are designed specifically for creating application UI.
+Each panel element encapsulates its own special functionality, as seen in the following table. Element Name
+UI Panel?
+Description Canvas
+Yes
+Defines an area within which you can explicitly position child elements by coordinates relative to the Canvas area. DockPanel
+Yes
+Defines an area within which you can arrange child elements either horizontally or vertically, relative to each other. Grid
+Yes
+Defines a flexible grid area consisting of columns and rows. Child elements of a Grid can be positioned precisely using the Margin property. StackPanel
+Yes
+Arranges child elements into a single line that can be oriented horizontally or vertically. TabPanel
+No
+Handles the layout of tab buttons in a TabControl. ToolBarOverflowPanel
+No
+Arranges content within a ToolBar control. UniformGrid
+No
+
+UniformGrid is used to arrange children in a grid with all equal cell sizes. VirtualizingPanel
+No
+Provides a base class for panels that can "virtualize" their children collection. VirtualizingStackPanel
+Yes
+Arranges and virtualizes content on a single line oriented horizontally or vertically. WrapPanel
+Yes
+
+WrapPanel positions child elements in sequential position from left to right, breaking content to the next line at the edge of the containing box. Subsequent ordering happens sequentially from top to bottom or right to left, depending on the value of the Orientation property.
+Grid
+The Grid element merges the functionality of an absolute positioning and tabular data control. A Grid enables you to easily position and style elements. Grid allows you to define flexible row and column groupings, and even provides a mechanism to share sizing information between multiple Grid elements.
+How is Grid Different from Table?
+Table and Grid share some common functionality, but each is best suited for different scenarios. A Table is designed for use within flow content (see Flow Document Overview for more information on flow content). Grids are best used inside of forms (basically anywhere outside of flow content). Within a FlowDocument, Table supports flow content behaviors like pagination, column reflow, and content selection while a Grid does not. A Grid on the other hand is best used outside of a FlowDocument for many reasons including Grid adds elements based on a row and column index, Table does not. The Grid element allows layering of child content, allowing more than one element to exist within a single "cell." Table does not support layering. Child elements of a Grid can be absolutely positioned relative to the area of their "cell" boundaries. Table does not support this feature. Finally, a Grid is lighter weight than a Table.
+Sizing Behavior of Columns and Rows
+Columns and rows defined within a Grid can take advantage of Star sizing in order to distribute remaining space proportionally. When Star is selected as the Height or Width of a row or column, that column or row receives a weighted proportion of remaining available space. This is in contrast to Auto, which will distribute space evenly based on the size of the content within a column or row. This value is expressed as * or 2* when using Extensible Application Markup Language (XAML). In the first case, the row or column would receive one times the available space, in the second case, two times, and so on. By combining this technique to proportionally distribute space with a HorizontalAlignment and VerticalAlignment value of Stretch it is possible to partition layout space by percentage of screen space. Grid is the only layout panel that can distribute space in this manner.
+Defining and Using a Grid
+The following example demonstrates how to build a UI similar to that found on the Run dialog available on the Windows Start menu.
+
+C#Copy
+
+// Create the Grid.
+grid1 = new Grid ();
+grid1.Background = Brushes.Gainsboro;
+grid1.HorizontalAlignment = HorizontalAlignment.Left;
+grid1.VerticalAlignment = VerticalAlignment.Top;
+grid1.ShowGridLines = true;
+grid1.Width = 425;
+grid1.Height = 165;
+
+// Define the Columns.
+colDef1 = new ColumnDefinition();
+colDef1.Width = new GridLength(1, GridUnitType.Auto);
+colDef2 = new ColumnDefinition();
+colDef2.Width = new GridLength(1, GridUnitType.Star);
+colDef3 = new ColumnDefinition();
+colDef3.Width = new GridLength(1, GridUnitType.Star);
+colDef4 = new ColumnDefinition();
+colDef4.Width = new GridLength(1, GridUnitType.Star);
+colDef5 = new ColumnDefinition();
+colDef5.Width = new GridLength(1, GridUnitType.Star);
+grid1.ColumnDefinitions.Add(colDef1);
+grid1.ColumnDefinitions.Add(colDef2);
+grid1.ColumnDefinitions.Add(colDef3);
+grid1.ColumnDefinitions.Add(colDef4);
+grid1.ColumnDefinitions.Add(colDef5);
+
+// Define the Rows.
+rowDef1 = new RowDefinition();
+rowDef1.Height = new GridLength(1, GridUnitType.Auto);
+rowDef2 = new RowDefinition();
+rowDef2.Height = new GridLength(1, GridUnitType.Auto);
+rowDef3 = new RowDefinition();
+rowDef3.Height = new GridLength(1, GridUnitType.Star);
+rowDef4 = new RowDefinition();
+rowDef4.Height = new GridLength(1, GridUnitType.Auto);
+grid1.RowDefinitions.Add(rowDef1);
+grid1.RowDefinitions.Add(rowDef2);
+grid1.RowDefinitions.Add(rowDef3);
+grid1.RowDefinitions.Add(rowDef4);
+
+// Add the Image.
+img1 = new Image();
+img1.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("runicon.png", UriKind.Relative));
+Grid.SetRow(img1, 0);
+Grid.SetColumn(img1, 0);
+
+// Add the main application dialog.
+txt1 = new TextBlock();
+txt1.Text = "Type the name of a program, folder, document, or Internet resource, and Windows will open it for you.";
+txt1.TextWrapping = TextWrapping.Wrap;
+Grid.SetColumnSpan(txt1, 4);
+Grid.SetRow(txt1, 0);
+Grid.SetColumn(txt1, 1);
+
+// Add the second text cell to the Grid.
+txt2 = new TextBlock();
+txt2.Text = "Open:";
+Grid.SetRow(txt2, 1);
+Grid.SetColumn(txt2, 0);
+
+// Add the TextBox control.
+tb1 = new TextBox();
+Grid.SetRow(tb1, 1);
+Grid.SetColumn(tb1, 1);
+Grid.SetColumnSpan(tb1, 5);
+
+// Add the buttons.
+button1 = new Button();
+button2 = new Button();
+button3 = new Button();
+button1.Content = "OK";
+button2.Content = "Cancel";
+button3.Content = "Browse ...";
+Grid.SetRow(button1, 3);
+Grid.SetColumn(button1, 2);
+button1.Margin = new Thickness(10, 0, 10, 15);
+button2.Margin = new Thickness(10, 0, 10, 15);
+button3.Margin = new Thickness(10, 0, 10, 15);
+Grid.SetRow(button2, 3);
+Grid.SetColumn(button2, 3);
+Grid.SetRow(button3, 3);
+Grid.SetColumn(button3, 4);
+
+grid1.Children.Add(img1);
+grid1.Children.Add(txt1);
+grid1.Children.Add(txt2);
+grid1.Children.Add(tb1);
+grid1.Children.Add(button1);
+grid1.Children.Add(button2);
+grid1.Children.Add(button3);
+
+mainWindow.Content = grid1;
+
+The compiled application yields a new UI that looks like this.
+DockPanel
+The DockPanel element uses the DockPanel.Dock attached property as set in child content elements to position content along the edges of a container. When DockPanel.Dock is set to Top or Bottom, it positions child elements above or below each other. When DockPanel.Dock is set to Left or Right, it positions child elements to the left or right of each other. The LastChildFill property determines the position of the final element added as a child of a DockPanel.
+You can use DockPanel to position a group of related controls, such as a set of buttons. Alternately, you can use it to create a "paned" UI, similar to that found in Microsoft Outlook.
+Sizing to Content
+If its Height and Width properties are not specified, DockPanel sizes to its content. The size can increase or decrease to accommodate the size of its child elements. However, when these properties are specified and there is no longer room for the next specified child element, DockPanel does not display that child element or subsequent child elements and does not measure subsequent child elements.
+LastChildFill
+By default, the last child of a DockPanel element will "fill" the remaining, unallocated space. If this behavior is not desired, set the LastChildFill property to false.
+Defining and Using a DockPanel
+The following example demonstrates how to partition space using a DockPanel. Five Border elements are added as children of a parent DockPanel. Each uses a different positioning property of a DockPanel to partition space. The final element "fills" the remaining, unallocated space.
+C#
+
+// Create the application's main window
+mainWindow = new Window ();
+mainWindow.Title = "DockPanel Sample";
+
+// Create the DockPanel
+DockPanel myDockPanel = new DockPanel();
+myDockPanel.LastChildFill = true;
+
+// Define the child content
+Border myBorder1 = new Border();
+myBorder1.Height = 25;
+myBorder1.Background = Brushes.SkyBlue;
+myBorder1.BorderBrush = Brushes.Black;
+myBorder1.BorderThickness = new Thickness(1);
+DockPanel.SetDock(myBorder1, Dock.Top);
+TextBlock myTextBlock1 = new TextBlock();
+myTextBlock1.Foreground = Brushes.Black;
+myTextBlock1.Text = "Dock = Top";
+myBorder1.Child = myTextBlock1;
+
+Border myBorder2 = new Border();
+myBorder2.Height = 25;
+myBorder2.Background = Brushes.SkyBlue;
+myBorder2.BorderBrush = Brushes.Black;
+myBorder2.BorderThickness = new Thickness(1);
+DockPanel.SetDock(myBorder2, Dock.Top);
+TextBlock myTextBlock2 = new TextBlock();
+myTextBlock2.Foreground = Brushes.Black;
+myTextBlock2.Text = "Dock = Top";
+myBorder2.Child = myTextBlock2;
+
+Border myBorder3 = new Border();
+myBorder3.Height = 25;
+myBorder3.Background = Brushes.LemonChiffon;
+myBorder3.BorderBrush = Brushes.Black;
+myBorder3.BorderThickness = new Thickness(1);
+DockPanel.SetDock(myBorder3, Dock.Bottom);
+TextBlock myTextBlock3 = new TextBlock();
+myTextBlock3.Foreground = Brushes.Black;
+myTextBlock3.Text = "Dock = Bottom";
+myBorder3.Child = myTextBlock3;
+
+Border myBorder4 = new Border();
+myBorder4.Width = 200;
+myBorder4.Background = Brushes.PaleGreen;
+myBorder4.BorderBrush = Brushes.Black;
+myBorder4.BorderThickness = new Thickness(1);
+DockPanel.SetDock(myBorder4, Dock.Left);
+TextBlock myTextBlock4 = new TextBlock();
+myTextBlock4.Foreground = Brushes.Black;
+myTextBlock4.Text = "Dock = Left";
+myBorder4.Child = myTextBlock4;
+
+Border myBorder5 = new Border();
+myBorder5.Background = Brushes.White;
+myBorder5.BorderBrush = Brushes.Black;
+myBorder5.BorderThickness = new Thickness(1);
+TextBlock myTextBlock5 = new TextBlock();
+myTextBlock5.Foreground = Brushes.Black;
+myTextBlock5.Text = "This content will Fill the remaining space";
+myBorder5.Child = myTextBlock5; // Add child elements to the DockPanel Children collection
+myDockPanel.Children.Add(myBorder1);
+myDockPanel.Children.Add(myBorder2);
+myDockPanel.Children.Add(myBorder3);
+myDockPanel.Children.Add(myBorder4);
+myDockPanel.Children.Add(myBorder5);
+           
+// Add the parent Canvas as the Content of the Window Object
+mainWindow.Content = myDockPanel;
+mainWindow.Show (); XAML
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" WindowTitle="DockPanel Sample">
+  <DockPanel LastChildFill="True">
+    <Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <TextBlock Foreground="Black">Dock = "Top"</TextBlock>
+    </Border>
+    <Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <TextBlock Foreground="Black">Dock = "Top"</TextBlock>
+    </Border>
+    <Border Height="25" Background="LemonChiffon" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+      <TextBlock Foreground="Black">Dock = "Bottom"</TextBlock>
+    </Border>
+    <Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left">
+      <TextBlock Foreground="Black">Dock = "Left"</TextBlock>
+    </Border>
+    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+      <TextBlock Foreground="Black">This content will "Fill" the remaining space</TextBlock>
+    </Border>
+  </DockPanel>
+</Page>
+
+The compiled application yields a new UI that looks like this.
+StackPanel
+A StackPanel enables you to "stack" elements in an assigned direction. The default stack direction is vertical. The Orientation property can be used to control content flow.
+StackPanel vs. DockPanel
+Although DockPanel can also "stack" child elements, DockPanel and StackPanel do not produce analogous results in some usage scenarios. For example, the order of child elements can affect their size in a DockPanel but not in a StackPanel. This is because StackPanel measures in the direction of stacking at PositiveInfinity, whereas DockPanel measures only the available size.
+The following example demonstrates this key difference.
+
+C#Copy
+
+// Create the application's main window
+mainWindow = new Window ();
+mainWindow.Title = "StackPanel vs. DockPanel";
+
+// Add root Grid
+myGrid = new Grid();
+myGrid.Width = 175;
+myGrid.Height = 150;
+RowDefinition myRowDef1 = new RowDefinition();
+RowDefinition myRowDef2 = new RowDefinition();
+myGrid.RowDefinitions.Add(myRowDef1);
+myGrid.RowDefinitions.Add(myRowDef2);
+
+// Define the DockPanel
+myDockPanel = new DockPanel();
+Grid.SetRow(myDockPanel, 0);
+
+//Define an Image and Source
+Image myImage = new Image();
+BitmapImage bi = new BitmapImage();
+bi.BeginInit();
+bi.UriSource = new Uri("smiley_stackpanel.png", UriKind.Relative);
+bi.EndInit();
+myImage.Source = bi;
+
+Image myImage2 = new Image();
+BitmapImage bi2 = new BitmapImage();
+bi2.BeginInit();
+bi2.UriSource = new Uri("smiley_stackpanel.png", UriKind.Relative);
+bi2.EndInit();
+myImage2.Source = bi2;
+
+Image myImage3 = new Image();
+BitmapImage bi3 = new BitmapImage();
+bi3.BeginInit();
+bi3.UriSource = new Uri("smiley_stackpanel.PNG", UriKind.Relative);
+bi3.EndInit();
+myImage3.Stretch = Stretch.Fill;
+myImage3.Source = bi3;
+
+// Add the images to the parent DockPanel
+myDockPanel.Children.Add(myImage);
+myDockPanel.Children.Add(myImage2);
+myDockPanel.Children.Add(myImage3);
+
+//Define a StackPanel
+myStackPanel = new StackPanel();
+myStackPanel.Orientation = Orientation.Horizontal;
+Grid.SetRow(myStackPanel, 1);
+
+Image myImage4 = new Image();
+BitmapImage bi4 = new BitmapImage();
+bi4.BeginInit();
+bi4.UriSource = new Uri("smiley_stackpanel.png", UriKind.Relative);
+bi4.EndInit();
+myImage4.Source = bi4;
+
+Image myImage5 = new Image();
+BitmapImage bi5 = new BitmapImage();
+bi5.BeginInit();
+bi5.UriSource = new Uri("smiley_stackpanel.png", UriKind.Relative);
+bi5.EndInit();
+myImage5.Source = bi5;
+
+Image myImage6 = new Image();
+BitmapImage bi6 = new BitmapImage();
+bi6.BeginInit();
+bi6.UriSource = new Uri("smiley_stackpanel.PNG", UriKind.Relative);
+bi6.EndInit();
+myImage6.Stretch = Stretch.Fill;
+myImage6.Source = bi6;
+
+// Add the images to the parent StackPanel
+myStackPanel.Children.Add(myImage4);
+myStackPanel.Children.Add(myImage5);
+myStackPanel.Children.Add(myImage6);
+
+// Add the layout panels as children of the Grid
+myGrid.Children.Add(myDockPanel);
+myGrid.Children.Add(myStackPanel);
+
+// Add the Grid as the Content of the Parent Window Object
+mainWindow.Content = myGrid;
+mainWindow.Show (); XAMLCopy
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      WindowTitle="StackPanel vs. DockPanel">
+  <Grid Width="175" Height="150">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    
+    <DockPanel Grid.Column="0" Grid.Row="0">
+      <Image Source="smiley_stackpanel.png" />
+      <Image Source="smiley_stackpanel.png" />
+      <Image Source="smiley_stackpanel.png" Stretch="Fill"/>
+    </DockPanel>
+
+    <StackPanel Grid.Column="0" Grid.Row="1"  Orientation="Horizontal">
+      <Image Source="smiley_stackpanel.png" />
+      <Image Source="smiley_stackpanel.png" />
+      <Image Source="smiley_stackpanel.png" Stretch="Fill"/>
+    </StackPanel>
+    </Grid>
+</Page>
+
+The difference in rendering behavior can be seen in this image.
+
+Defining and Using a StackPanel
+The following example demonstrates how to use a StackPanel to create a set of vertically-positioned buttons. For horizontal positioning, set the Orientation property to Horizontal.
+
+C#Copy
+
+  // Create the application's main window
+  mainWindow = new Window ();
+  mainWindow.Title = "StackPanel Sample";
+
+  // Define the StackPanel
+  myStackPanel = new StackPanel();
+  myStackPanel.HorizontalAlignment = HorizontalAlignment.Left;
+  myStackPanel.VerticalAlignment = VerticalAlignment.Top;
+
+  // Define child content
+  Button myButton1 = new Button();
+  myButton1.Content = "Button 1";
+  Button myButton2 = new Button();
+  myButton2.Content = "Button 2";
+  Button myButton3 = new Button();
+  myButton3.Content = "Button 3";
+
+  // Add child elements to the parent StackPanel
+  myStackPanel.Children.Add(myButton1);
+  myStackPanel.Children.Add(myButton2);
+  myStackPanel.Children.Add(myButton3);           
+
+  // Add the StackPanel as the Content of the Parent Window Object
+  mainWindow.Content = myStackPanel;
+  mainWindow.Show (); The compiled application yields a new UI that looks like this.
+Lecture Slides: Controls.pdf
+ Sample Code: Example Set 1.zip
+ Video Lectures:
+M4 Objectives
+
+After completing this week's work, you will be able to:
+
+Declare an enumeration type.
+Create and use an enumeration type.
+Declare a structure type.
+Create and use a structure type.
+Explain the differences in behavior between a structure and a class.
+Create and modify strings
+Explain the difference between a value type and a reference type
+Modify the way in which arguments are passed as method parameters by using the ref and out keywords 
+
+ 
+
+ M4 Activities  Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M4 Quiz and Assignment
+Lecture Slides: Enum_Struct.pdf
+ Sample Code: : StructsAndEnums.zip
+Recommended Online Resources:
+
+Channel 9 -  Enumerations and the Switch Decision Statement
+
+ When do you use structs vs classes? (starts at around 4')
+struct 
+A struct type is a value type that is typically used to encapsulate small groups of related variables, such as the coordinates of a rectangle or the characteristics of an item in an inventory. The following example shows a simple struct declaration:
+C#
+public struct Book
+{
+    public decimal price;
+    public string title;
+    public string author;
+}
+
+ 
+Structs can also contain constructors, constants, fields, methods, properties, indexers, operators, events, and nested types, although if several such members are required, you should consider making your type a class instead.
+struct vs. class
+The struct type is suitable for representing lightweight objects such as Point, Rectangle, and Color. Although it is just as convenient to represent a point as a class with Auto-Implemented Properties, a struct might be more efficient in some scenarios. For example, if you declare an array of 1000 Point objects, you will allocate additional memory for referencing each object; in this case, a struct would be less expensive. Because .NET already contains an object called Point, the struct in this example is named Coords instead.
+C#
+public struct Coords
+{
+    public int x, y;
+
+    public Coords(int p1, int p2)
+    {
+        x = p1;
+        y = p2;
+    }
+}
+
+It is an error to define a parameterless constructor for a struct. It is also an error to initialize an instance field in a struct body. You can initialize externally accessible struct members only by using a parameterized constructor, the implicit, parameterless constructor, an object initializer, or by accessing the members individually after the struct is declared. Any private or otherwise inaccessible members require the use of constructors exclusively.
+When you create a struct object using the new operator, it gets created and the appropriate constructor is called according to the constructor's signature. Unlike classes, structs can be instantiated without using the new operator. In such a case, there is no constructor call, which makes the allocation more efficient. However, the fields will remain unassigned and the object cannot be used until all of the fields are initialized. This includes the inability to get or set values through properties.
+If you instantiate a struct object using the parameterless constructor, all members are assigned according to their default values.
+When writing a constructor with parameters for a struct, you must explicitly initialize all members; otherwise one or more members remain unassigned and the struct cannot be used, producing compiler error CS0171.
+There is no inheritance for structs as there is for classes. A struct cannot inherit from another struct or class, and it cannot be the base of a class. Structs, however, inherit from the base class Object. A struct can implement interfaces, and it does that exactly as classes do.
+You cannot declare a class using the keyword struct. In C#, classes and structs are semantically different. A struct is a value type, while a class is a reference type. For more information, see Value types and Reference types.
+Unless you need reference-type semantics, a small class may be more efficiently handled by the system if you declare it as a struct instead.
+Example 1
+This example demonstrates struct initialization using both parameterless and parameterized constructors.
+C#
+public struct Coords
+{
+    public int x, y;
+
+    public Coords(int p1, int p2)
+    {
+        x = p1;
+        y = p2;
+    }
+} C#Copy
+// Declare and initialize struct objects.
+class TestCoords
+{
+    static void Main()
+    {
+        // Initialize.
+        var coords1 = new Coords();
+        var coords2 = new Coords(10, 10);
+
+        // Display results.
+        Console.Write("Coords 1: ");
+        Console.WriteLine($"x = {coords1.x}, y = {coords1.y}");
+
+        Console.Write("Coords 2: ");
+        Console.WriteLine($"x = {coords2.x}, y = {coords2.y}");
+
+        // Keep the console window open in debug mode.
+        Console.WriteLine("Press any key to exit.");
+        Console.ReadKey();
+    }
+}
+/* Output:
+    Coords 1: x = 0, y = 0
+    Coords 2: x = 10, y = 10
+*/
+
+Example 2
+This example demonstrates a feature that is unique to structs. It creates a Coords object without using the new operator. If you replace the word struct with the word class, the program will not compile.
+C#
+public struct Coords
+{
+    public int x, y;
+
+    public Coords(int p1, int p2)
+    {
+        x = p1;
+        y = p2;
+    }
+} C#Copy
+// Declare a struct object without "new".
+class TestCoordsNoNew
+{
+    static void Main()
+    {
+        // Declare an object.
+        Coords coords1;
+
+        // Initialize.
+        coords1.x = 10;
+        coords1.y = 20;
+
+        // Display results.
+        Console.Write("Coords 1: ");
+        Console.WriteLine($"x = {coords1.x}, y = {coords1.y}");
+
+        // Keep the console window open in debug mode.
+        Console.WriteLine("Press any key to exit.");
+        Console.ReadKey();
+    }
+}
+// Output: Coords 1: x = 10, y = 20
+enum 
+The enum keyword is used to declare an enumeration, a distinct type that consists of a set of named constants called the enumerator list.
+Usually it is best to define an enum directly within a namespace so that all classes in the namespace can access it with equal convenience. However, an enum can also be nested within a class or struct.
+By default, the first enumerator has the value 0, and the value of each successive enumerator is increased by 1. For example, in the following enumeration, Sat is 0, Sun is 1, Mon is 2, and so forth.
+C#
+enum Day {Sat, Sun, Mon, Tue, Wed, Thu, Fri};
+
+Enumerators can use initializers to override the default values, as shown in the following example.
+C#
+enum Day {Sat=1, Sun, Mon, Tue, Wed, Thu, Fri};
+
+In this enumeration, the sequence of elements is forced to start from 1 instead of 0. However, including a constant that has the value of 0 is recommended. For more information, see Enumeration Types.
+Every enumeration type has an underlying type, which can be any integral numeric type. The  char type cannot be an underlying type of an enum. The default underlying type of enumeration elements is int. To declare an enum of another integral type, such as byte, use a colon after the identifier followed by the type, as shown in the following example.
+
+C#Copy
+enum Day : byte {Sat=1, Sun, Mon, Tue, Wed, Thu, Fri};
+
+A variable of an enumeration type can be assigned any value in the range of the underlying type; the values are not limited to the named constants.
+The default value of an enum E is the value produced by the expression (E)0.
+
+ Note
+An enumerator cannot contain white space in its name.
+
+The underlying type specifies how much storage is allocated for each enumerator. However, an explicit cast is necessary to convert from enum type to an integral type. For example, the following statement assigns the enumerator Sun to a variable of the type int by using a cast to convert from enum to int.
+
+C#Copy
+int x = (int)Day.Sun;
+
+When you apply System.FlagsAttribute to an enumeration that contains elements that can be combined with a bitwise OR operation, the attribute affects the behavior of the enum when it is used with some tools. You can notice these changes when you use tools such as the Console class methods and the Expression Evaluator. (See the third example.)
+Robust programming
+Just as with any constant, all references to the individual values of an enum are converted to numeric literals at compile time. This can create potential versioning issues as described in Constants.
+Assigning additional values to new versions of enums, or changing the values of the enum members in a new version, can cause problems for dependent source code. Enum values often are used in switch statements. If additional elements have been added to the enum type, the default section of the switch statement can be selected unexpectedly.
+If other developers use your code, you should provide guidelines about how their code should react if new elements are added to any enum types.
+Example
+In the following example, an enumeration, Day, is declared. Two enumerators are explicitly converted to integer and assigned to integer variables.
+C#
+public class EnumTest
+{
+    enum Day { Sun, Mon, Tue, Wed, Thu, Fri, Sat };
+
+    static void Main()
+    {
+        int x = (int)Day.Sun;
+        int y = (int)Day.Fri;
+        Console.WriteLine("Sun = {0}", x);
+        Console.WriteLine("Fri = {0}", y);
+    }
+}
+/* Output:
+   Sun = 0
+   Fri = 5
+*/
+
+Example
+
+In the following example, the base-type option is used to declare an enum whose members are of type long. Notice that even though the underlying type of the enumeration is long, the enumeration members still must be explicitly converted to type long by using a cast.
+C#
+public class EnumTest2
+{
+    enum Range : long { Max = 2147483648L, Min = 255L };
+    static void Main()
+    {
+        long x = (long)Range.Max;
+        long y = (long)Range.Min;
+        Console.WriteLine("Max = {0}", x);
+        Console.WriteLine("Min = {0}", y);
+    }
+}
+/* Output:
+   Max = 2147483648
+   Min = 255
+*/
+
+Example
+
+The following code example illustrates the use and effect of the System.FlagsAttribute attribute on an enum declaration.
+C#
+// Add the attribute Flags or FlagsAttribute.
+[Flags]
+public enum CarOptions
+{
+    // The flag for SunRoof is 0001.
+    SunRoof = 0x01,
+    // The flag for Spoiler is 0010.
+    Spoiler = 0x02,
+    // The flag for FogLights is 0100.
+    FogLights = 0x04,
+    // The flag for TintedWindows is 1000.
+    TintedWindows = 0x08,
+}
+
+class FlagTest
+{
+    static void Main()
+    {
+        // The bitwise OR of 0001 and 0100 is 0101.
+        CarOptions options = CarOptions.SunRoof | CarOptions.FogLights;
+
+        // Because the Flags attribute is specified, Console.WriteLine displays
+        // the name of each enum element that corresponds to a flag that has
+        // the value 1 in variable options.
+        Console.WriteLine(options);
+        // The integer value of 0101 is 5.
+        Console.WriteLine((int)options);
+    }
+}
+/* Output:
+   SunRoof, FogLights
+   5
+*/
+
+Comments
+
+If you remove Flags, the example displays the following values:
+5
+5
+Lecture Slides: ValueRefType.pdf
+ Video Lectures:
+Value types 
+There are two kinds of value types: Structs Enumerations Main features of value types
+A variable of a value type contains a value of the type. For example, a variable of the int type might contain the value 42. This differs from a variable of a reference type, which contains a reference to an instance of the type, also known as an object. When you assign a new value to a variable of a value type, that value is copied. When you assign a new value to a variable of a reference type, the reference is copied, not the object itself.
+All value types are derived implicitly from the System.ValueType.
+Unlike with reference types, you cannot derive a new type from a value type. However, like reference types, structs can implement interfaces.
+Value type variables cannot be null by default. However, variables of the corresponding nullable value types can be null.
+Each value type has an implicit parameterless constructor that initializes the default value of that type. For information about default values of value types, see Default values table.
+Simple types
+The simple types are a set of predefined struct types provided by C# and comprise the following types: Integral types: integer numeric types and the char type
+Floating-point types
+bool
+
+The simple types are identified through keywords, but these keywords are simply aliases for predefined struct types in the System namespace. For example, int is an alias of System.Int32. For a complete list of aliases, see Built-in types table.
+The simple types differ from other struct types in that they permit certain additional operations: Simple types can be initialized by using literals. For example, 'A' is a literal of the type char and 2001 is a literal of the type int. You can declare constants of the simple types with the const keyword. It's not possible to have constants of other struct types. Constant expressions, whose operands are all simple type constants, are evaluated at compile time. For more information, see the Simple types section of the C# language specification.
+Initializing value types
+Local variables in C# must be initialized before they are used. For example, you might declare a local variable without initialization as in the following example:
+C#
+int myInt;
+
+You cannot use it before you initialize it. You can initialize it using the following statement:
+C#
+myInt = new int();  // Invoke parameterless constructor for int type.
+
+This statement is equivalent to the following statement:
+C#
+myInt = 0;         // Assign an initial value, 0 in this example.
+
+You can, of course, have the declaration and the initialization in the same statement as in the following examples:
+C#
+int myInt = new int();
+
+–or–
+C#
+int myInt = 0;
+
+Using the new operator calls the parameterless constructor of the specific type and assigns the default value to the variable. In the preceding example, the parameterless constructor assigned the value 0 to myInt. For more information about values assigned by calling parameterless constructors, see Default values table.
+With user-defined types, use new to invoke the parameterless constructor. For example, the following statement invokes the parameterless constructor of the Point struct:
+C#
+var p = new Point(); // Invoke parameterless constructor for the struct.
+
+After this call, the struct is considered to be definitely assigned; that is, all its members are initialized to their default values.
+For more information about the new operator, see new.
+Reference types 
+There are two kinds of types in C#: reference types and value types. Variables of reference types store references to their data (objects), while variables of value types directly contain their data. With reference types, two variables can reference the same object; therefore, operations on one variable can affect the object referenced by the other variable. With value types, each variable has its own copy of the data, and it is not possible for operations on one variable to affect the other (except in the case of in, ref and out parameter variables; see in, ref and out parameter modifier).
+The following keywords are used to declare reference types: class interface delegate C# also provides the following built-in reference types: dynamic object string
+Lecture Slides: String.pdf
+ Sample Code: ILoveDatesandTimes.zip
+Recommended Online Resources:
+1. Channel 9 -  Working with Strings
+2. Channel 9 -  Working with Dates and Times
+Strings 
+A string is an object of type  whose value is text. Internally, the text is stored as a sequential read-only collection of Char objects. There is no null-terminating character at the end of a C# string; therefore a C# string can contain any number of embedded null characters ('\0'). The Length property of a string represents the number of Char objects it contains, not the number of Unicode characters. To access the individual Unicode code points in a string, use the StringInfo object.
+string vs. System.String
+In C#, the string keyword is an alias for String. Therefore, String and string are equivalent, and you can use whichever naming convention you prefer. The String class provides many methods for safely creating, manipulating, and comparing strings. In addition, the C# language overloads some operators to simplify common string operations. For more information about the keyword, see string. For more information about the type and its methods, see String.
+Declaring and Initializing Strings
+You can declare and initialize strings in various ways, as shown in the following example:
+C#
+// Declare without initializing.
+string message1;
+
+// Initialize to null.
+string message2 = null;
+
+// Initialize as an empty string.
+// Use the Empty constant instead of the literal "".
+string message3 = System.String.Empty;
+
+// Initialize with a regular string literal.
+string oldPath = "c:\\Program Files\\Microsoft Visual Studio 8.0";
+
+// Initialize with a verbatim string literal.
+string newPath = @"c:\Program Files\Microsoft Visual Studio 9.0";
+
+// Use System.String if you prefer.
+System.String greeting = "Hello World!";
+
+// In local variables (i.e. within a method body)
+// you can use implicit typing.
+var temp = "I'm still a strongly-typed System.String!";
+
+// Use a const string to prevent 'message4' from
+// being used to store another string value.
+const string message4 = "You can't get rid of me!";
+
+// Use the String constructor only when creating
+// a string from a char*, char[], or sbyte*. See
+// System.String documentation for details.
+char[] letters = { 'A', 'B', 'C' };
+string alphabet = new string(letters);
+
+Note that you do not use the new operator to create a string object except when initializing the string with an array of chars.
+Initialize a string with the Empty constant value to create a new String object whose string is of zero length. The string literal representation of a zero-length string is "". By initializing strings with the Empty value instead of null, you can reduce the chances of a NullReferenceException occurring. Use the static IsNullOrEmpty(String) method to verify the value of a string before you try to access it.
+Immutability of String Objects
+String objects are immutable: they cannot be changed after they have been created. All of the String methods and C# operators that appear to modify a string actually return the results in a new string object. In the following example, when the contents of s1 and s2 are concatenated to form a single string, the two original strings are unmodified. The += operator creates a new string that contains the combined contents. That new object is assigned to the variable s1, and the original object that was assigned to s1 is released for garbage collection because no other variable holds a reference to it.
+C#
+string s1 = "A string is more ";
+string s2 = "than the sum of its chars.";
+
+// Concatenate s1 and s2. This actually creates a new
+// string object and stores it in s1, releasing the
+// reference to the original object.
+s1 += s2;
+
+System.Console.WriteLine(s1);
+// Output: A string is more than the sum of its chars.
+
+Because a string "modification" is actually a new string creation, you must use caution when you create references to strings. If you create a reference to a string, and then "modify" the original string, the reference will continue to point to the original object instead of the new object that was created when the string was modified. The following code illustrates this behavior:
+C#
+string s1 = "Hello ";
+string s2 = s1;
+s1 += "World";
+
+System.Console.WriteLine(s2);
+//Output: Hello
+
+For more information about how to create new strings that are based on modifications such as search and replace operations on the original string, see How to modify string contents.
+Regular and Verbatim String Literals
+Use regular string literals when you must embed escape characters provided by C#, as shown in the following example:
+C#
+string columns = "Column 1\tColumn 2\tColumn 3";
+//Output: Column 1        Column 2        Column 3
+
+string rows = "Row 1\r\nRow 2\r\nRow 3";
+/* Output:
+  Row 1
+  Row 2
+  Row 3
+*/
+
+string title = "\"The \u00C6olean Harp\", by Samuel Taylor Coleridge";
+//Output: "The Æolean Harp", by Samuel Taylor Coleridge
+
+Use verbatim strings for convenience and better readability when the string text contains backslash characters, for example in file paths. Because verbatim strings preserve new line characters as part of the string text, they can be used to initialize multiline strings. Use double quotation marks to embed a quotation mark inside a verbatim string. The following example shows some common uses for verbatim strings:
+C#
+string filePath = @"C:\Users\scoleridge\Documents\";
+//Output: C:\Users\scoleridge\Documents\
+
+string text = @"My pensive SARA ! thy soft cheek reclined
+    Thus on mine arm, most soothing sweet it is
+    To sit beside our Cot,...";
+/* Output:
+My pensive SARA ! thy soft cheek reclined
+   Thus on mine arm, most soothing sweet it is
+   To sit beside our Cot,... 
+*/
+
+string quote = @"Her name was ""Sara.""";
+//Output: Her name was "Sara."
+
+String Escape Sequences Escape sequence
+Character name
+Unicode encoding \'
+Single quote
+0x0027 \"
+Double quote
+0x0022 \\
+Backslash
+0x005C \0
+Null
+0x0000 \a
+Alert
+0x0007 \b
+Backspace
+0x0008 \f
+Form feed
+0x000C \n
+New line
+0x000A \r
+Carriage return
+0x000D \t
+Horizontal tab
+0x0009 \v
+Vertical tab
+0x000B \u
+Unicode escape sequence (UTF-16)
+
+\uHHHH (range: 0000 - FFFF; example: \u00E7 = "ç") \U
+Unicode escape sequence (UTF-32)
+
+\U00HHHHHH (range: 000000 - 10FFFF; example: \U0001F47D = "👽") \x
+Unicode escape sequence similar to "\u" except with variable length
+
+\xH[H][H][H] (range: 0 - FFFF; example: \x00E7 or \x0E7 or \xE7 = "ç")  Note At compile time, verbatim strings are converted to ordinary strings with all the same escape sequences. Therefore, if you view a verbatim string in the debugger watch window, you will see the escape characters that were added by the compiler, not the verbatim version from your source code. For example, the verbatim string @"C:\files.txt" will appear in the watch window as "C:\\files.txt".
+
+Format Strings
+A format string is a string whose contents are determined dynamically at runtime. Format strings are created by embedding interpolated expressions or placeholders inside of braces within a string. Everything inside the braces ({...}) will be resolved to a value and output as a formatted string at runtime. There are two methods to create format strings: string interpolation and composite formatting.
+String Interpolation
+
+Available in C# 6.0 and later, interpolated strings are identified by the $ special character and include interpolated expressions in braces. If you are new to string interpolation, see the String interpolation - C# interactive tutorial for a quick overview.
+Use string interpolation to improve the readability and maintainability of your code. String interpolation achieves the same results as the String.Format method, but improves ease of use and inline clarity.
+C#
+var jh = (firstName: "Jupiter", lastName: "Hammon", born: 1711, published: 1761);
+Console.WriteLine($"{jh.firstName} {jh.lastName} was an African American poet born in {jh.born}.");
+Console.WriteLine($"He was first published in {jh.published} at the age of {jh.published - jh.born}.");
+Console.WriteLine($"He'd be over {Math.Round((2018d - jh.born) / 100d) * 100d} years old today.");
+
+// Output:
+// Jupiter Hammon was an African American poet born in 1711.
+// He was first published in 1761 at the age of 50.
+// He'd be over 300 years old today. 
+
+Composite Formatting
+
+The String.Format utilizes placeholders in braces to create a format string. This example results in similar output to the string interpolation method used above.
+C#
+var pw = (firstName: "Phillis", lastName: "Wheatley", born: 1753, published: 1773);
+Console.WriteLine("{0} {1} was an African American poet born in {2}.", pw.firstName, pw.lastName, pw.born);
+Console.WriteLine("She was first published in {0} at the age of {1}.", pw.published, pw.published - pw.born);
+Console.WriteLine("She'd be over {0} years old today.", Math.Round((2018d - pw.born) / 100d) * 100d);
+
+// Output:
+// Phillis Wheatley was an African American poet born in 1753.
+// She was first published in 1773 at the age of 20.
+// She'd be over 300 years old today.
+
+For more information on formatting .NET types see Formatting Types in .NET.
+Substrings
+A substring is any sequence of characters that is contained in a string. Use the Substring method to create a new string from a part of the original string. You can search for one or more occurrences of a substring by using the IndexOf method. Use the Replace method to replace all occurrences of a specified substring with a new string. Like the Substring method, Replace actually returns a new string and does not modify the original string. For more information, see How to search strings and How to modify string contents.
+C#
+string s3 = "Visual C# Express";
+System.Console.WriteLine(s3.Substring(7, 2));
+// Output: "C#"
+
+System.Console.WriteLine(s3.Replace("C#", "Basic"));
+// Output: "Visual Basic Express"
+
+// Index values are zero-based
+int index = s3.IndexOf("C");
+// index = 7
+
+Accessing Individual Characters
+You can use array notation with an index value to acquire read-only access to individual characters, as in the following example:
+C#
+string s5 = "Printing backwards";
+
+for (int i = 0; i < s5.Length; i++)
+{
+    System.Console.Write(s5[s5.Length - i - 1]);
+}
+// Output: "sdrawkcab gnitnirP"
+
+If the String methods do not provide the functionality that you must have to modify individual characters in a string, you can use a StringBuilder object to modify the individual chars "in-place", and then create a new string to store the results by using the StringBuilder methods. In the following example, assume that you must modify the original string in a particular way and then store the results for future use:
+C#
+string question = "hOW DOES mICROSOFT wORD DEAL WITH THE cAPS lOCK KEY?";
+System.Text.StringBuilder sb = new System.Text.StringBuilder(question);
+
+for (int j = 0; j < sb.Length; j++)
+{
+    if (System.Char.IsLower(sb[j]) == true)
+        sb[j] = System.Char.ToUpper(sb[j]);
+    else if (System.Char.IsUpper(sb[j]) == true)
+        sb[j] = System.Char.ToLower(sb[j]);
+}
+// Store the new string.
+string corrected = sb.ToString();
+System.Console.WriteLine(corrected);
+// Output: How does Microsoft Word deal with the Caps Lock key?            
+
+Null Strings and Empty Strings
+An empty string is an instance of a System.String object that contains zero characters. Empty strings are used often in various programming scenarios to represent a blank text field. You can call methods on empty strings because they are valid System.String objects. Empty strings are initialized as follows:
+C#
+string s = String.Empty;  
+
+By contrast, a null string does not refer to an instance of a System.String object and any attempt to call a method on a null string causes a NullReferenceException. However, you can use null strings in concatenation and comparison operations with other strings. The following examples illustrate some cases in which a reference to a null string does and does not cause an exception to be thrown:
+C#
+static void Main()
+{
+    string str = "hello";
+    string nullStr = null;
+    string emptyStr = String.Empty;
+
+    string tempStr = str + nullStr;
+    // Output of the following line: hello
+    Console.WriteLine(tempStr);
+
+    bool b = (emptyStr == nullStr);
+    // Output of the following line: False
+    Console.WriteLine(b);
+
+    // The following line creates a new empty string.
+    string newStr = emptyStr + nullStr;
+
+    // Null strings and empty strings behave differently. The following
+    // two lines display 0.
+    Console.WriteLine(emptyStr.Length);
+    Console.WriteLine(newStr.Length);
+    // The following line raises a NullReferenceException.
+    //Console.WriteLine(nullStr.Length);
+
+    // The null character can be displayed and counted, like other chars.
+    string s1 = "\x0" + "abc";
+    string s2 = "abc" + "\x0";
+    // Output of the following line: * abc*
+    Console.WriteLine("*" + s1 + "*");
+    // Output of the following line: *abc *
+    Console.WriteLine("*" + s2 + "*");
+    // Output of the following line: 4
+    Console.WriteLine(s2.Length);
+}
+
+Using StringBuilder for Fast String Creation
+String operations in .NET are highly optimized and in most cases do not significantly impact performance. However, in some scenarios such as tight loops that are executing many hundreds or thousands of times, string operations can affect performance. The StringBuilder class creates a string buffer that offers better performance if your program performs many string manipulations. The StringBuilder string also enables you to reassign individual characters, something the built-in string data type does not support. This code, for example, changes the content of a string without creating a new string:
+C#
+System.Text.StringBuilder sb = new System.Text.StringBuilder("Rat: the ideal pet");
+sb[0] = 'C';
+System.Console.WriteLine(sb.ToString());
+System.Console.ReadLine();
+
+//Outputs Cat: the ideal pet
+
+In this example, a StringBuilder object is used to create a string from a set of numeric types:
+C#
+using System;
+using System.Text;
+
+namespace CSRefStrings
+{
+    class TestStringBuilder
+    {
+        static void Main()
+        {
+            var sb = new StringBuilder();
+
+            // Create a string composed of numbers 0 - 9
+            for (int i = 0; i < 10; i++)
+            {
+                sb.Append(i.ToString());
+            }
+            Console.WriteLine(sb);  // displays 0123456789
+
+            // Copy one character of the string (not possible with a System.String)
+            sb[0] = sb[9];
+
+            Console.WriteLine(sb);  // displays 9123456789
+            Console.WriteLine();
+        }
+    }
+}
+Lecture Slides: Exceptions.pdf
+ Video Lectures:
+Using Exceptions 
+In C#, errors in the program at run time are propagated through the program by using a mechanism called exceptions. Exceptions are thrown by code that encounters an error and caught by code that can correct the error. Exceptions can be thrown by the .NET Framework common language runtime (CLR) or by code in a program. Once an exception is thrown, it propagates up the call stack until a catch statement for the exception is found. Uncaught exceptions are handled by a generic exception handler provided by the system that displays a dialog box.
+Exceptions are represented by classes derived from Exception. This class identifies the type of exception and contains properties that have details about the exception. Throwing an exception involves creating an instance of an exception-derived class, optionally configuring properties of the exception, and then throwing the object by using the throw keyword. For example:
+
+C#
+         class CustomException : Exception
+       {
+           public CustomException(string message)
+           {
+              
+           }
+
+       }
+       private static void TestThrow()
+       {
+           CustomException ex =
+               new CustomException("Custom exception in TestThrow()");
+
+           throw ex;
+       }
+
+After an exception is thrown, the runtime checks the current statement to see whether it is within a try block. If it is, any catch blocks associated with the try block are checked to see whether they can catch the exception. Catch blocks typically specify exception types; if the type of the catch block is the same type as the exception, or a base class of the exception, the catch block can handle the method. For example:
+C#
+static void TestCatch()
+{
+    try
+    {
+        TestThrow();
+    }
+    catch (CustomException ex)
+    {
+        System.Console.WriteLine(ex.ToString());
+    }
+}
+
+If the statement that throws an exception is not within a try block or if the try block that encloses it has no matching catch block, the runtime checks the calling method for a try statement and catch blocks. The runtime continues up the calling stack, searching for a compatible catch block. After the catch block is found and executed, control is passed to the next statement after that catch block.
+A try statement can contain more than one catch block. The first catch statement that can handle the exception is executed; any following catch statements, even if they are compatible, are ignored. Therefore, catch blocks should always be ordered from most specific (or most-derived) to least specific. For example:
+
+C#
+ 
+
+using System;
+using System.IO;
+
+public class ExceptionExample
+{
+    static void Main()
+    {
+        try
+        {
+            using (var sw = new StreamWriter(@"C:\test\test.txt"))
+            {
+                sw.WriteLine("Hello");
+            }   
+        }
+        // Put the more specific exceptions first.
+        catch (DirectoryNotFoundException ex)
+        {
+            Console.WriteLine(ex);  
+        }
+        catch (FileNotFoundException ex)
+        {
+            Console.WriteLine(ex);  
+        }
+        // Put the least specific exception last.
+        catch (IOException ex)
+        {
+            Console.WriteLine(ex);  
+        }
+
+        Console.WriteLine("Done"); 
+    }
+}
+
+Before the catch block is executed, the runtime checks for finally blocks. Finally blocks enable the programmer to clean up any ambiguous state that could be left over from an aborted try block, or to release any external resources (such as graphics handles, database connections or file streams) without waiting for the garbage collector in the runtime to finalize the objects. For example:
+
+C#
+ 
+
+static void TestFinally()
+{
+    System.IO.FileStream file = null;
+    //Change the path to something that works on your machine.
+    System.IO.FileInfo fileInfo = new System.IO.FileInfo(@"C:\file.txt");
+
+    try
+    {
+        file = fileInfo.OpenWrite();
+        file.WriteByte(0xF);
+    }
+    finally
+    {
+        // Closing the file allows you to reopen it immediately - otherwise IOException is thrown.
+        if (file != null)
+        {
+            file.Close();
+        }
+    }
+
+    try
+    {
+        file = fileInfo.OpenWrite();
+        System.Console.WriteLine("OpenWrite() succeeded");
+    }
+    catch (System.IO.IOException)
+    {
+        System.Console.WriteLine("OpenWrite() failed");
+    }
+}
+
+If WriteByte() threw an exception, the code in the second try block that tries to reopen the file would fail if file.Close() is not called, and the file would remain locked. Because finally blocks are executed even if an exception is thrown, the finally block in the previous example allows for the file to be closed correctly and helps avoid an error.
+If no compatible catch block is found on the call stack after an exception is thrown, one of three things occurs: If the exception is within a finalizer, the finalizer is aborted and the base finalizer, if any, is called. If the call stack contains a static constructor, or a static field initializer, a TypeInitializationException is thrown, with the original exception assigned to the InnerException property of the new exception. If the start of the thread is reached, the thread is terminated.
+Try Blocks
+A try block is used by C# programmers to partition code that might be affected by an exception. Associated catch blocks are used to handle any resulting exceptions. A finally block contains code that is run regardless of whether or not an exception is thrown in the try block, such as releasing resources that are allocated in the try block. A try block requires one or more associated catch blocks, or a finally block, or both.
+The following examples show a try-catch statement, a try-finally statement, and a try-catch-finally statement.
+
+C#
+ 
+
+try
+{
+    // Code to try goes here.
+}
+catch (SomeSpecificException ex)
+{
+    // Code to handle the exception goes here.
+    // Only catch exceptions that you know how to handle.
+    // Never catch base class System.Exception without
+    // rethrowing it at the end of the catch block.
+} C#
+ 
+
+try
+{
+    // Code to try goes here.
+}
+finally
+{
+    // Code to execute after the try block goes here.
+} C#
+ 
+
+try
+{
+    // Code to try goes here.
+}
+catch (SomeSpecificException ex)
+{
+    // Code to handle the exception goes here.
+}
+finally
+{
+    // Code to execute after the try (and possibly catch) blocks 
+    // goes here.
+}
+
+A try block without a catch or finally block causes a compiler error.
+Catch Blocks
+A catch block can specify the type of exception to catch. The type specification is called an exception filter. The exception type should be derived from Exception. In general, do not specify Exception as the exception filter unless either you know how to handle all exceptions that might be thrown in the try block, or you have included a throw statement at the end of your catch block.
+Multiple catch blocks with different exception filters can be chained together. The catch blocks are evaluated from top to bottom in your code, but only one catch block is executed for each exception that is thrown. The first catch block that specifies the exact type or a base class of the thrown exception is executed. If no catch block specifies a matching exception filter, a catch block that does not have a filter is selected, if one is present in the statement. It is important to position catch blocks with the most specific (that is, the most derived) exception types first.
+You should catch exceptions when the following conditions are true: You have a good understanding of why the exception might be thrown, and you can implement a specific recovery, such as prompting the user to enter a new file name when you catch a FileNotFoundException object. You can create and throw a new, more specific exception.
+
+C#
+ 
+
+int GetInt(int[] array, int index)
+{
+    try
+    {
+        return array[index];
+    }
+    catch(System.IndexOutOfRangeException e)
+    {
+        throw new System.ArgumentOutOfRangeException(
+            "Parameter index is out of range.", e);
+    }
+} You want to partially handle an exception before passing it on for additional handling. In the following example, a catch block is used to add an entry to an error log before re-throwing the exception.
+
+C#
+ 
+
+try
+{
+    // Try to access a resource.
+}
+catch (System.UnauthorizedAccessException e)
+{
+    // Call a custom error logging procedure.
+    LogError(e);
+    // Re-throw the error.
+    throw;     
+} Finally Blocks
+A finally block enables you to clean up actions that are performed in a try block. If present, the finally block executes last, after the try block and any matched catch block. A finally block always runs, regardless of whether an exception is thrown or a catch block matching the exception type is found.
+The finally block can be used to release resources such as file streams, database connections, and graphics handles without waiting for the garbage collector in the runtime to finalize the objects. See using Statement for more information.
+In the following example, the finally block is used to close a file that is opened in the try block. Notice that the state of the file handle is checked before the file is closed. If the try block cannot open the file, the file handle still has the value null and the finally block does not try to close it. Alternatively, if the file is opened successfully in the try block, the finally block closes the open file.
+
+C#
+ 
+
+System.IO.FileStream file = null;
+System.IO.FileInfo fileinfo = new System.IO.FileInfo("C:\\file.txt");
+try
+{
+    file = fileinfo.OpenWrite();
+    file.WriteByte(0xF);
+}
+finally
+{
+    // Check for null because OpenWrite might have failed.
+    if (file != null)
+    {
+        file.Close();
+    }
+}
+Our readings, materials, and discussion this week are aimed at helping us get started with Object Oriented Programming concept - Class & Object.
+
+ Objectives
+
+After completing this week's work, you will be able to:
+
+Define a class containing a related set of methods and data items.
+Control the accessibility of members by using the public and private keywords.
+Create objects by using the new keyword to invoke a constructor.
+Write and call your own constructors.
+Create methods and data that can be shared by all instances of the same class by using the static keyword.
+
+ 
+
+ M3 Activities  Watch Video Lectures
+Read Lecture Slides & Programming Guide,
+Practice with Sample Code
+Complete M3 Quiz and Assignment
+Lecture Slides: Classes.pdf
+Recommended Online Resources:
+1. Microsoft Learn -  Understanding Classes
+2. Microsoft Learn -  More About Classes and Methods
+3. Microsoft Learn - Tutorial: Explore object oriented programming with classes and objects  with video: Object Oriented Programming: Objects and Classes
+Classes
+Classes  is essentially a data structure that encapsulates a set of data and behaviors that belong together as a logical unit. The data and behaviors are the members of the class , and they include its methods, properties, and events, and so on.
+A class declaration is like a blueprint that is used to create instances or objects at run time. If you define a class called Person, Person is the name of the type. If you declare and initialize a variable p of type Person, p is said to be an object or instance of Person. Multiple instances of the same Person type can be created, and each instance can have different values in its properties and fields.
+A class is a reference type. When an object of the class is created, the variable to which the object is assigned holds only a reference to that memory. When the object reference is assigned to a new variable, the new variable refers to the original object. Changes made through one variable are reflected in the other variable because they both refer to the same data.
+In general, classes are used to model more complex behavior, or data that is intended to be modified after a class object is created. 
+Example
+In the following example, CustomClass in the ProgrammingGuide namespace has three members: an instance constructor, a property named Number, and a method named Multiply. The Main method in the Program class creates an instance (object) of CustomClass, and the object’s method and property are accessed by using dot notation.
+C#
+using System;
+
+namespace ProgrammingGuide
+{
+   // Class definition.
+   public class CustomClass
+   {
+      // Class members.
+      //
+      // Property.
+      public int Number { get; set; }
+
+      // Method.
+      public int Multiply(int num)
+      {
+          return num * Number;
+      }
+
+      // Instance Constructor.
+      public CustomClass()
+      {
+          Number = 0;
+      }
+   }
+
+   // Another class definition that contains Main, the program entry point.
+   class Program
+   {
+      static void Main(string[] args)
+      {
+         // Create an object of type CustomClass.
+         CustomClass custClass = new CustomClass();
+
+         // Set the value of the public property.
+         custClass.Number = 27;
+
+         // Call the public method.
+         int result = custClass.Multiply(4);
+         Console.WriteLine($"The result is {result}.");
+      }
+   }
+}
+// The example displays the following output:
+//      The result is 108. 
+
+ 
+Encapsulation is sometimes referred to as the first pillar or principle of object-oriented programming. According to the principle of encapsulation, a class  can specify how accessible each of its members is to code outside of the class. Methods and variables that are not intended to be used from outside of the class or assembly can be hidden to limit the potential for coding errors or malicious exploits.
+For more information about classes, see Classes and Objects.
+Members
+All methods, fields, constants, properties, and events must be declared within a type; these are called the members of the type. In C#, there are no global variables or methods as there are in some other languages. Even a program's entry point, the Main method, must be declared within a class. The following list includes all the various kinds of members that may be declared in a class . Fields Constants Properties Methods Constructors Events Finalizers Indexers Operators Nested Types
+Sample Code: Management - Starting Point.zip
+ Video Lectures: 
+
+Recommended Online Resources:
+ 1. Microsoft Doc: Constructors
+Sample Code: Management - Starting Point.zip
+ Video Lectures: 
+
+Recommended Online Resources:
+ 1. Microsoft Doc: Fields
+2.  Microsoft Doc: Properties
+Sample Code: Management - Starting Point.zip
+ Video Lectures: 
+
+Recommended Online Resources:
+ 1. Microsoft Doc: Methods
+ 2. Microsoft Doc: Static Classes and Static Class Members
+Our readings, materials, and discussion this week are aimed at helping us learn the C# programming basics.
+
+ Objectives
+
+After completing this week's work, you will be able to:
+
+Define the concepts of loops. 
+Write for, foreach, while, and do iteration statements
+Recognize  declare and call methods.
+Pass information and return information from a method
+Explain the functionality provided in the different collection classes (array, list) available with the  .NET Framework.
+Create type-safe collections, and populate a collection with data.
+Manipulate and access the data items held in a collection.
+Apply loops, methods, array and list operations in programming.
+
+ 
+
+ M2 Activities  Watch video lectures
+Read programming guide
+Work on assessment and read rubric
+Lecture Slides:  Loops.pdf
+ Recommended Online Resources:
+1. Channel 9 -  for Iteration Statement
+2. Channel 9 -  While Iteration Statement
+For loop:
+The for statement executes a statement or a block of statements while a specified Boolean expression evaluates to true.
+At any point within the for statement block, you can break out of the loop by using the break statement, or step to the next iteration in the loop by using the continue statement. You also can exit a for loop by the goto, return, or throw statements.
+Structure of the for statement
+
+The for statement defines initializer, condition, and iterator sections:
+C#
+for (initializer; condition; iterator)
+    body
+
+All three sections are optional. The body of the loop is either a statement or a block of statements.
+The following example shows the for statement with all of the sections defined:
+C#
+for (int i = 0; i < 5; i++)
+{
+    Console.WriteLine(i);
+}
+
+The initializer section
+The statements in the initializer section are executed only once, before entering the loop. The initializer section is either of the following: The declaration and initialization of a local loop variable, which can't be accessed from outside the loop. Zero or more statement expressions from the following list, separated by commas: assignment statement invocation of a method prefix or postfix increment expression, such as ++i or i++ prefix or postfix decrement expression, such as --i or i-- creation of an object by using the new operator await expression The initializer section in the example above declares and initializes the local loop variable i:
+C#
+int i = 0
+
+The condition section
+The condition section, if present, must be a boolean expression. That expression is evaluated before every loop iteration. If the condition section is not present or the boolean expression evaluates to true, the next loop iteration is executed; otherwise, the loop is exited.
+The condition section in the example above determines if the loop terminates based on the value of the local loop variable:
+C#
+i < 5
+
+The iterator section
+The iterator section defines what happens after each iteration of the body of the loop. The iterator section contains zero or more of the following statement expressions, separated by commas: assignment statement invocation of a method prefix or postfix increment expression, such as ++i or i++ prefix or postfix decrement expression, such as --i or i-- creation of an object by using the new operator await expression The iterator section in the example above increments the local loop variable:
+C#
+i++
+foreach
+The foreach statement executes a statement or a block of statements for each element in an instance of the type that implements the System.Collections.IEnumerable or System.Collections.Generic.IEnumerable<T> interface. The foreach statement is not limited to those types and can be applied to an instance of any type that satisfies the following conditions:
+
+has the public parameterless GetEnumerator method whose return type is either class, struct, or interface type,
+the return type of the GetEnumerator method has the public Current property and the public parameterless MoveNext method whose return type is Boolean.
+
+Beginning with C# 7.3, if the enumerator's Current property returns a reference return value (ref T where T is the type of the collection element), you can declare the iteration variable with the ref or ref readonly modifier.
+At any point within the foreach statement block, you can break out of the loop by using the break statement, or step to the next iteration in the loop by using the continue statement. You also can exit a foreach loop by the goto, return, or throw statements.
+If the foreach statement is applied to null, a NullReferenceException is thrown. If the source collection of the foreach statement is empty, the body of the foreach loop is not executed and skipped.
+Examples
+The following example shows usage of the foreach statement with an instance of the List<T> type that implements the IEnumerable<T> interface:
+C#
+var fibNumbers = new List<int> { 0, 1, 1, 2, 3, 5, 8, 13 };
+int count = 0;
+foreach (int element in fibNumbers)
+{
+    count++;
+    Console.WriteLine($"Element #{count}: {element}");
+}
+Console.WriteLine($"Number of elements: {count}");// Output:
+//Element #1: 0//Element #2: 1//Element #3: 1//Element #4: 2//Element #5: 3//Element #6: 5//Element #7: 8//Element #8: 13//Number of elements: 8
+while 
+The while statement executes a statement or a block of statements while a specified Boolean expression evaluates to true. Because that expression is evaluated before each execution of the loop, a while loop executes zero or more times. This differs from the do loop, which executes one or more times.
+At any point within the while statement block, you can break out of the loop by using the break statement.
+You can step directly to the evaluation of the while expression by using the continue statement. If the expression evaluates to true, execution continues at the first statement in the loop. Otherwise, execution continues at the first statement after the loop.
+You also can exit a while loop by the goto, return, or throw statements.
+Example
+The following example shows the usage of the while statement. Select Run to run the example code. After that you can modify the code and run it again.
+C#
+int n = 0;
+while (n < 5)
+{
+    Console.WriteLine(n);
+    n++;
+}
+do-while
+The do statement executes a statement or a block of statements while a specified Boolean expression evaluates to true. Because that expression is evaluated after each execution of the loop, a do-while loop executes one or more times. This differs from the while loop, which executes zero or more times.
+At any point within the do statement block, you can break out of the loop by using the break statement.
+You can step directly to the evaluation of the while expression by using the continue statement. If the expression evaluates to true, execution continues at the first statement in the loop. Otherwise, execution continues at the first statement after the loop.
+You also can exit a do-while loop by the goto, return, or throw statements.
+Example
+The following example shows the usage of the do statement.
+C#
+int n = 0;
+do 
+{
+    Console.WriteLine(n);
+    n++;
+} while (n < 5);
+Lecture Slides:  Method.pdf
+ Sample Code: Overload1.zip 
+ Video Lectures: 
+
+ Recommended Online Resources:
+1. Channel 9 -  Defining and Calling Methods
+Methods 
+A method is a code block that contains a series of statements. A program causes the statements to be executed by calling the method and specifying any required method arguments. In C#, every executed instruction is performed in the context of a method. The Main method is the entry point for every C# application and it's called by the common language runtime (CLR) when the program is started. There are named methods, and anonymous methods. We discuss named methods here. Anonymous methods will be covered in later modules.
+Methods are declared in a class or struct by specifying:
+
+An optional access level, such as public or private. The default is private.
+Optional modifiers such as abstract or sealed.
+The return value, or void if the method has none.
+The method name.
+Any method parameters. Method parameters are enclosed in parentheses and are separated by commas. Empty parentheses indicate that the method requires no parameters.
+
+These parts together form the method signature.
+
+ Note
+A return type of a method is not part of the signature of the method for the purposes of method overloading. However, it is part of the signature of the method when determining the compatibility between a delegate and the method that it points to.
+
+The following example defines a class named Motorcycle that contains five methods:
+C#
+using System;
+
+abstract class Motorcycle
+{
+   // Anyone can call this.
+   public void StartEngine() {/* Method statements here */ }
+
+   // Only derived classes can call this.
+   protected void AddGas(int gallons) { /* Method statements here */ }
+
+   // Derived classes can override the base class implementation.
+   public virtual int Drive(int miles, int speed) { /* Method statements here */ return 1; }
+
+   // Derived classes can override the base class implementation.
+   public virtual int Drive(TimeSpan time, int speed) { /* Method statements here */ return 0; }
+
+   // Derived classes must implement this.
+   public abstract double GetTopSpeed(); 
+}
+
+Note that the Motorcycle class includes an overloaded method, Drive. Two methods have the same name, but must be differentiated by their parameter types.
+
+Method invocation
+Methods can be either instance or static. Invoking an instance method requires that you instantiate an object and call the method on that object; an instance method operates on that instance and its data. You invoke a static method by referencing the name of the type to which the method belongs; static methods do not operate on instance data. Attempting to call a static method through an object instance generates a compiler error.
+Calling a method is like accessing a field. After the object name (if you are calling an instance method) or the type name (if you are calling a static method), add a period, the name of the method, and parentheses. Arguments are listed within the parentheses, and are separated by commas.
+The method definition specifies the names and types of any parameters that are required. When a caller invokes the method, it provides concrete values, called arguments, for each parameter. The arguments must be compatible with the parameter type, but the argument name, if one is used in the calling code, does not have to be the same as the parameter named defined in the method. In the following example, the Square method includes a single parameter of type int named i. The first method call passes the Square method a variable of type int named num; the second, a numeric constant; and the third, an expression.
+
+C#
+public class Example
+{
+   public static void Main()
+   {
+      // Call with an int variable.
+      int num = 4;
+      int productA = Square(num);
+
+      // Call with an integer literal.
+      int productB = Square(12);
+
+      // Call with an expression that evaluates to int.
+      int productC = Square(productA * 3);
+   }
+   
+   static int Square(int i)
+   {
+      // Store input argument in a local variable.
+      int input = i;
+      return input * input;
+   }
+}
+
+The most common form of method invocation used positional arguments; it supplies arguments in the same order as method parameters. The methods of the Motorcycle class can therefore be called as in the following example. The call to the Drive method, for example, includes two arguments that correspond to the two parameters in the method's syntax. The first becomes the value of the miles parameter, the second the value of the speed parameter.
+
+C#
+class TestMotorcycle : Motorcycle
+{
+   public override double GetTopSpeed()
+   {
+      return 108.4;
+   }
+
+   static void Main()
+   {
+      
+      TestMotorcycle moto = new TestMotorcycle();
+
+      moto.StartEngine();
+      moto.AddGas(15);
+      moto.Drive(5, 20);
+      double speed = moto.GetTopSpeed();
+      Console.WriteLine("My top speed is {0}", speed);            
+   }
+}
+
+You can also used named arguments instead of positional arguments when invoking a method. When using named arguments, you specify the parameter name followed by a colon (":") and the argument. Arguments to the method can appear in any order, as long as all required arguments are present. The following example uses named arguments to invoke the TestMotorcycle.Drive method. In this example, the named arguments are passed in the opposite order from the method's parameter list.
+C#
+using System;
+
+class TestMotorcycle : Motorcycle
+{
+   public override int Drive(int miles, int speed)
+   {
+      return (int) Math.Round( ((double)miles) / speed, 0);
+   }
+
+   public override double GetTopSpeed()
+   {
+      return 108.4;
+   }
+
+   static void Main()
+   {
+      
+      TestMotorcycle moto = new TestMotorcycle();
+      moto.StartEngine();
+      moto.AddGas(15);
+      var travelTime = moto.Drive(speed: 60, miles: 170);
+      Console.WriteLine("Travel time: approx. {0} hours", travelTime);            
+   }
+}
+// The example displays the following output:
+//      Travel time: approx. 3 hours
+
+You can invoke a method using both positional arguments and named arguments. However, a positional argument cannot follow a named argument. The following example invokes the TestMotorcycle.Drive method from the previous example using one positional argument and one named argument.
+C#
+var travelTime = moto.Drive(170, speed: 55);
+Lecture Slides:  ArrayList.pdf
+ Recommended Online Resources:
+1. Channel 9 -  Understanding Arrays
+2. Channel 9 -    Working with Collections (this video touches topics related to Classes/Objects that we will cover later. Focus on how list works)
+Arrays 
+You can store multiple variables of the same type in an array data structure. You declare an array by specifying the type of its elements. If you want the array to store elements of any type, you can specify object as its type. In the unified type system of C#, all types, predefined and user-defined, reference types and value types, inherit directly or indirectly from Object.
+C#
+type[] arrayName;
+
+Example
+The following example creates single-dimensional, multidimensional, and jagged arrays:
+C#
+class TestArraysClass
+{
+    static void Main()
+    {
+        // Declare a single-dimensional array. 
+        int[] array1 = new int[5];
+
+        // Declare and set array element values.
+        int[] array2 = new int[] { 1, 3, 5, 7, 9 };
+
+        // Alternative syntax.
+        int[] array3 = { 1, 2, 3, 4, 5, 6 };
+
+        // Declare a two dimensional array.
+        int[,] multiDimensionalArray1 = new int[2, 3];
+
+        // Declare and set array element values.
+        int[,] multiDimensionalArray2 = { { 1, 2, 3 }, { 4, 5, 6 } };
+
+        // Declare a jagged array.
+        int[][] jaggedArray = new int[6][];
+
+        // Set the values of the first array in the jagged array structure.
+        jaggedArray[0] = new int[4] { 1, 2, 3, 4 };
+    }
+}
+
+Array overview
+An array has the following properties:
+
+An array can be Single-Dimensional, Multidimensional or Jagged.
+The number of dimensions and the length of each dimension are established when the array instance is created. These values can't be changed during the lifetime of the instance.
+The default values of numeric array elements are set to zero, and reference elements are set to null.
+A jagged array is an array of arrays, and therefore its elements are reference types and are initialized to null.
+Arrays are zero indexed: an array with n elements is indexed from 0 to n-1.
+Array elements can be of any type, including an array type.
+Array types are reference types derived from the abstract base type Array. Since this type implements IEnumerable and IEnumerable<T>, you can use foreach iteration on all arrays in C#.
+Lists and Collections 
+For many applications, you want to create and manage groups of related objects. There are two ways to group objects: by creating arrays of objects, and by creating collections of objects.
+Arrays are most useful for creating and working with a fixed number of strongly-typed objects. 
+Collections provide a more flexible way to work with groups of objects. Unlike arrays, the group of objects you work with can grow and shrink dynamically as the needs of the application change. For some collections, you can assign a key to any object that you put into the collection so that you can quickly retrieve the object by using the key.
+A collection is a class, so you must declare an instance of the class before you can add elements to that collection.
+If your collection contains elements of only one data type, you can use one of the classes in the System.Collections.Generic namespace. A generic collection enforces type safety so that no other data type can be added to it. When you retrieve an element from a generic collection, you do not have to determine its data type or convert it.
+ 
+Using a Simple Collection
+The examples in this section use the generic List<T> class, which enables you to work with a strongly typed list of objects.
+The following example creates a list of strings and then iterates through the strings by using a foreach statement.
+C#
+// Create a list of strings.
+var salmons = new List<string>();
+salmons.Add("chinook");
+salmons.Add("coho");
+salmons.Add("pink");
+salmons.Add("sockeye");
+
+// Iterate through the list.
+foreach (var salmon in salmons)
+{
+    Console.Write(salmon + " ");
+}
+// Output: chinook coho pink sockeye
+
+If the contents of a collection are known in advance, you can use a collection initializer to initialize the collection. For more information, see Object and Collection Initializers.
+The following example is the same as the previous example, except a collection initializer is used to add elements to the collection.
+C#
+// Create a list of strings by using a
+// collection initializer.
+var salmons = new List<string> { "chinook", "coho", "pink", "sockeye" };
+
+// Iterate through the list.
+foreach (var salmon in salmons)
+{
+    Console.Write(salmon + " ");
+}
+// Output: chinook coho pink sockeye
+
+You can use a for statement instead of a foreach statement to iterate through a collection. You accomplish this by accessing the collection elements by the index position. The index of the elements starts at 0 and ends at the element count minus 1.
+The following example iterates through the elements of a collection by using for instead of foreach.
+C#
+// Create a list of strings by using a
+// collection initializer.
+var salmons = new List<string> { "chinook", "coho", "pink", "sockeye" };
+
+for (var index = 0; index < salmons.Count; index++)
+{
+    Console.Write(salmons[index] + " ");
+}
+// Output: chinook coho pink sockeye
+
+The following example removes an element from the collection by specifying the object to remove.
+C#
+// Create a list of strings by using a
+// collection initializer.
+var salmons = new List<string> { "chinook", "coho", "pink", "sockeye" };
+
+// Remove an element from the list by specifying
+// the object.
+salmons.Remove("coho");
+
+// Iterate through the list.
+foreach (var salmon in salmons)
+{
+    Console.Write(salmon + " ");
+}
+// Output: chinook pink sockeye
+
+The following example removes elements from a generic list. Instead of a foreach statement, a for statement that iterates in descending order is used. This is because the RemoveAt method causes elements after a removed element to have a lower index value.
+C#
+var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+// Remove odd numbers.
+for (var index = numbers.Count - 1; index >= 0; index--)
+{
+    if (numbers[index] % 2 == 1)
+    {
+        // Remove the element by specifying
+        // the zero-based index in the list.
+        numbers.RemoveAt(index);
+    }
+}
+
+// Iterate through the list.
+// A lambda expression is placed in the ForEach method
+// of the List(T) object.
+numbers.ForEach(
+    number => Console.Write(number + " "));
+// Output: 0 2 4 6 8
+
+For the type of elements in the List<T>, you can also define your own class. In the following example, the Galaxy class that is used by the List<T> is defined in the code.
+C#
+private static void IterateThroughList()
+{
+    var theGalaxies = new List<Galaxy>
+        {
+            new Galaxy() { Name="Tadpole", MegaLightYears=400},
+            new Galaxy() { Name="Pinwheel", MegaLightYears=25},
+            new Galaxy() { Name="Milky Way", MegaLightYears=0},
+            new Galaxy() { Name="Andromeda", MegaLightYears=3}
+        };
+
+    foreach (Galaxy theGalaxy in theGalaxies)
+    {
+        Console.WriteLine(theGalaxy.Name + "  " + theGalaxy.MegaLightYears);
+    }
+
+    // Output:
+    //  Tadpole  400
+    //  Pinwheel  25
+    //  Milky Way  0
+    //  Andromeda  3
+}
+
+public class Galaxy
+{
+    public string Name { get; set; }
+    public int MegaLightYears { get; set; }
+}
+Before C# 9,  there was a lot of code just to output Hello, World! In C# 9 there is a simpler way and it is known as top-level programs. Let's compare the traditional minimum console app, as shown in the following code: 
+using System;
+class Program
+{ static void Main(string[] args)
+      { 
+           Console.WriteLine("Hello World!"); 
+      }
+}
+
+To the new top-level program minimum console app, as shown in the following code: 
+using System;
+Console.WriteLine("Hello World!");
+That is a lot simpler, right? If you had to start with a blank file and write all the statements yourself, this is better. During compilation, all the boilerplate code to define the Program class and its Main method is generated and wrapped around the statements you write. Any using statements still have to go at the top of the file. There can be only one file like this in a project. Personally, especially when teaching and learning C#, I plan to continue to use the traditional project template since it is true to reality.  For example, arguments can be passed into a console app. With a top-level program, you would need to know that the args parameter exists even though you cannot see it. 
+For more info, see https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/top-level-statements
+Read .NET 6 Template Changes: C# console app template generates top-level statements
+Tutorial: Explore ideas using top-level statements to build code as you learn
+.NET is a free, cross-platform, open-source developer platform for building many kinds of applications. It can run programs written in multiple languages, with C# being the most popular. It relies on a high-performance runtime that is used in production by many high-scale apps.
+
+.NET ecosystem
+
+There are multiple variants of .NET, each supporting a different type of app. The reason for multiple variants is part historical, part technical.
+.NET implementations:
+
+.NET Framework -- The original .NET. It provides access to the broad capabilities of Windows and Windows Server. It is actively supported, in maintenance.
+Mono -- The original community and open source .NET. A cross-platform implementation of .NET Framework. Actively supported for Android, iOS, and WebAssembly.
+.NET (Core) -- Modern .NET. A cross-platform and open source implementation of .NET, rethought for the cloud age while remaining significantly compatible with .NET Framework. Actively supported for Linux, macOS, and Windows.
+
+The .NET Framework and .NET Core
+.NET Core works similarly to the .NET Framework. In fact, many of the code and techniques that are presented in this course the same regardless of whether you use the .NET Framework or .NET Core. The main difference between these platforms is that the .NET Framework is older and only supports Windows. On the other hand, .NET Core is newer and cross-platform. As a result, .NET Core can run on Windows, macOS, and Linux. Because Microsoft ended development of the .NET Framework at version 4.8, .NET Core is the future of .NET development.
+In fact, starting with version 5, .NET Core is now just called .NET (no Core in the name). Because .NET combines the best features of the .NET Framework and previous versions of .NET Core, it provides an easy migration path for .NET Framework applications, and it provides a foundation for future development of the .NET platform.
+Both the .NET Framework and .NET provide a set of class libraries. These class libraries consist of segments of pre-written code called classes that provide many of the functions that you need for developing .NET applications. For instance, the WPF classes are used for developing WPF apps. The ASP.NET and ASP.NET Core classes are used for developing Web Forms apps. The EF and EF Core classes are used for developing apps that access databases. And other classes let you manage security, access files, and perform many other functions.
+The .NET Framework and .NET also provide a common infrastructure that applications written in a .NET language such as C# can use to run on various operating systems and hardware platforms. This infrastructure includes the Common Language Runtime, the .NET languages, and the compilers for those languages.
+The Common Language Runtime (CLR) provides the services that are needed for executing any application that’s developed with one of the .NET languages. This is possible because all the .NET languages compile to a common intermediate language. The CLR also provides the Common Type System that defines the data types that are used by all .NET languages. Because all the .NET applications are managed by the CLR, they are sometimes referred to as managed applications. 
+Build apps with .NET
+.NET has support for building many kinds of apps, including client, cloud, and gaming.
+
+Client apps Desktop apps
+Mobile
+Games Cloud apps .NET Aspire
+Serverless functions
+Web and microservices Other app types Console apps
+Internet of Things (IoT)
+Machine learning
+Windows services
+A Warm Welcome!
+I'm glad to see you've enrolled in the InfoTC 4400 - C#/.NET Development this semester. Before you jump into the course content, I'd like to take you through a short orientation. It will help you acclimate to course organization, learn about the topics covered in this course, and understand (and set) your course expectations.
+
+Course Description
+This course focuses on developing Windows applications using C# programming language.  The following topics are covered:
+
+Introduction to C#, Microsoft Visual Studio, and the .NET platform
+Object-Oriented Programming with C#
+Advanced C# Programming
+Desktop application for Windows
+
+ 
+Course Schedules
+The course officially starts on Tue Jan. 21, when your access to Canvas and the first week's modules are available.  Each week you are provided with new modules on Sunday and the work needs to be completed by the following Friday.  In general, there is  one coding assignment and one quiz for each module.
+There is no time limit in taking the quiz before the deadline. You can ask questions, look things up, then come back to continue. Your work should be auto-saved. You can only submit once though. So submit only after you are completely done. If you need help, please ask. Students are encouraged to start working on the module early in the week, and utilize the TA office hours during the week. Assistance during weekend is extremely limited.
+ Late assignments will receive a 10% deduction of the assignment total score for the first day of being, and 20% per day for the 2nd and 3rd day.  After 3 full days until Stop Day, you will see a total of 50% reduction of points on the late work, plus any lost points from the rubric. This late policy is only for coding challenges and assignments. Quizzes, exams, and/or any other assignment must be completed by the due date/time to be considered for credit.
+ 
+Contacts
+Instructor: Dr. Fang Wang  Office: 2437H Lafferre Hall    Phone: 884-8747    Email: wangfan@missouri.edu   
+TA: 
+Amith Nalmas (anr79@missouri.edu)Office hour: Mon/Wed/Fri 2-4pmZoom meeting: https://umsystem.zoom.us/j/91603648117?pwd=MFpnbWpFTlN1dVg5NysvUlIrZ0pDQT09Links to an external site.
+ 
+Caden Hicks (cjhbv4@missouri.edu)Office hour: Tuesday, Thursday at 10 am - 12 pm and Friday at 11 am - 1 pmZoom meeting: https://umsystem.zoom.us/j/5240824097?pwd=bys0VHRWTGlnTDV2UC96OUhZMVNWUT09Links to an external site.
+ 
+Course Discord Server:  https://discord.gg/9UZMuGKxMd
+ 
+Question and Answers
+Q: Do I have to be on campus for anything?
+A: No. This course is entirely online.
+ 
+Q: Are there any tests I actually have to be on campus for?
+A: No. Everything you need to do will be posted on Canvas. Work for all assignments and exams will be submitted on Canvas.
+ 
+Q: Where to get software used for the course?
+A: There are multiple ways to do that. 
+
+Visual Studio Downloads
+Lafferre Hall C1206 & C1205 computers have VS installed.
+College of Engineering RemoteApps servers allow students, faculty, and staff to utilize software remotely without installing the software physically on their machines. http://remoteapps.missouri.edu/ (you need to VPN to campus network if you are off campus)
+Engineering students and faculty are eligible to download free Microsoft software. For Microsoft software login to MS Azure Dev Tools for Teaching. 
+Rider: Cross-Platform .NET IDE from JetBrains with Free Educational Licenses
+
+ 
+Q: How do I get help if I need it?
+A: Zoom video conference during office hours. Email or use Discord to get in touch with instructor and TA anytime.
+ 
+Q: Is it OK to take code from online resources or other people and submit as my own work? 
+You are encouraged to look for resources online and work together in an effort to comprehend the course material. For instance, you may discuss generalities with classmates or someone outside the class when trying to understand the assignments. However, you should work individually when working out the solutions. Never copy solutions of others or any solutions you find anywhere, including online. Moreover, on assignments, quizzes and exams, any person found to be cheating will receive a 0, and the full extent of the MU rules on academic dishonesty will be followed. No other warnings will be given or should be necessary.
+ 
+If you have feedback that could help us improve the course or the course experience while you are taking the course, please let us know.
+I hope you have a great semester!
+Our readings, materials, and discussion this week are aimed at helping us get started with Visual Studio IDE.
+ Objectives
+After completing this week's work, you will be able to:
+
+Locate different components in Visual Studio IDE.
+Develop computer programs using VS IDE.
+Define the concepts of variables.
+Define different Boolean operations.
+Apply variables and Boolean operations in programming
+
+ 
+ M1 Activities
+
+Watch Video Lectures
+Read Programming Guide,
+Read Assessment and Rubrics
+Complete M1 Quiz and Assignments
+For more information about installing the latest version of Visual Studio, see Install Visual Studio (Links to an external site.).
+ 
+ Video lectures:
+Microsoft Developer Software & Visual Studio
+Choose one of the ways that fits your need best.
+1. For free Visual Studio Community version, go to Visual Studio 2022 Download. Visual Studio Community version is sufficient for this course.
+2. College of Engineering RemoteApps servers allow students, faculty, and staff to utilize software remotely without installing the software physically on their machines. http://remoteapps.missouri.edu/
+Tutorials on how to use RemoteApps: https://mailmissouri.sharepoint.com/sites/COEIT/SitePages/CENGR-IT-Support---Public.aspx?csf=1&web=1&e=OreXRN&cid=3a83ad74-d79b-4402-ba7b-c9ba4352f802
+ 
+3. Lafferre Hall C1206 C1205 computers have VS2022 installed
+ 
+4. For Visual Studio Enterprise version, follow the steps below.
+Microsoft software is available through the Microsoft Azure Dev Tools for Teaching.
+According to the page at https://azureforeducation.microsoft.com/devtools:
+
+Students—you’re almost there! The developer tools and learning resources that were previously part of your Imagine account are now available with Azure Dev Tools for Teaching. Sign in using the button below—you’ll be taken to a page requesting you to sign in using a Microsoft Account. Learn about Microsoft Accounts here.
+Note: Please use the email you provided for your previous Imagine subscription access when creating a new Microsoft Account.
+
+When you click the Sign In button you sign in using an existing Microsoft account or create a new account. The important thing is that you use your MU email address. Since your student email account is a Microsoft account, you may be able to directly log in. Or, if not, you will need to create an account using your email address.
+Once you log in, a page like the following should be displayed.  
+Once you leave the Education - Overview page by clicking on links in the menu in the Azure portal, I am not sure how to navigate back to it. If you leave the page and need to get back to it, just go to the URL to login again https://azureforeducation.microsoft.com/devtools.
+Click the Software link to view the Microsoft Software that is available. Visual Studio Enterprise is the first one in the list.
+Welcome to the Visual Studio IDE
+An integrated development environment (IDE) is a feature-rich program that supports many aspects of software development. The Visual Studio IDE is a creative launching pad that you can use to edit, debug, and build code, and then publish an app. Over and above the standard editor and debugger that most IDEs provide, Visual Studio includes compilers, code completion tools, graphical designers, and many more features to enhance the software development process. The preceding image shows Visual Studio with an open project that shows key windows and their functionality: In Solution Explorer, at upper right, you can view, navigate, and manage your code files. Solution Explorer can help organize your code by grouping the files into solutions and projects. The central editor window, where you'll probably spend most of your time, displays file contents. In the editor window, you can edit code or design a user interface such as a window with buttons and text boxes. In Git Changes at lower right, you can track work items and share code with others by using version control technologies like Git and GitHub.  
+IntelliSense in Visual Studio
+IntelliSense is a code-completion aid that includes a number of features: List Members, Parameter Info, Quick Info, and Complete Word. These features help you to learn more about the code you're using, keep track of the parameters you're typing, and add calls to properties and methods with only a few keystrokes.
+ 
+Visual Studio Tutorial | C#
+Visual Studio and GitHub
+Visual Studio version control docs
+
+Create a Git repository from Visual Studio
+Clone a Git repository in Visual Studio
+Lecture Slides: M1_Variables.pdf
+ Video Lectures: 
+Part 1
+
+ 
+Part 2
+Types and variables
+There are two kinds of types in C#: value types and reference types. Variables of value types directly contain their data whereas variables of reference types store references to their data, the latter being known as objects. With reference types, it is possible for two variables to reference the same object and thus possible for operations on one variable to affect the object referenced by the other variable. With value types, the variables each have their own copy of the data, and it is not possible for operations on one to affect the other (except in the case of ref and out parameter variables).
+C#’s value types are further divided into simple types, enum types, struct types, and nullable value types. C#’s reference types are further divided into class types, interface types, array types, and delegate types.
+The following provides an overview of C#’s type system.
+
+Value types (Links to an external site.)
+
+Simple types (Links to an external site.)
+
+Signed integral: sbyte, short, int, long
+Unsigned integral: byte, ushort, uint, ulong
+Unicode characters: char
+IEEE binary floating-point: float, double
+High-precision decimal floating-point: decimal
+Boolean: bool Enum types (Links to an external site.)
+
+User-defined types of the form enum E {...} Struct types (Links to an external site.)
+
+User-defined types of the form struct S {...} Nullable value types (Links to an external site.)
+
+Extensions of all other value types with a null value Reference types (Links to an external site.)
+
+Class types (Links to an external site.)
+
+Ultimate base class of all other types: object
+Unicode strings: string
+User-defined types of the form class C {...} Interface types (Links to an external site.)
+
+User-defined types of the form interface I {...} Array types (Links to an external site.)
+
+Single- and multi-dimensional, for example, int[] and int[,] Delegate types (Links to an external site.)
+
+User-defined types of the form delegate int D(...) For more information about numeric types, see Integral types (Links to an external site.) and Floating-point types table (Links to an external site.).
+C#’s bool type is used to represent Boolean values—values that are either true or false.
+Character and string processing in C# uses Unicode encoding. The char type represents a UTF-16 code unit, and the string type represents a sequence of UTF-16 code units.
+C# programs use type declarations to create new types. A type declaration specifies the name and the members of the new type. Five of C#’s categories of types are user-definable: class types, struct types, interface types, enum types, and delegate types.
+ 
+Identifier names
+An identifier is the name you assign to a type (class, interface, struct, delegate, or enum), member, variable, or namespace. Valid identifiers must follow these rules:
+
+Identifiers must start with a letter, or _.
+Identifiers may contain Unicode letter characters, decimal digit characters, Unicode connecting characters, Unicode combining characters, or Unicode formatting characters. For more information on Unicode categories, see the Unicode Category Database (Links to an external site.). You can declare identifiers that match C# keywords by using the @ prefix on the identifier. The @ is not part of the identifier name. For example, @if declares an identifier named if. These verbatim identifiers (Links to an external site.) are primarily for interoperability with identifiers declared in other languages.
+
+For a complete definition of valid identifiers, see the Identifiers topic in the C# Language Specification (Links to an external site.).
+ 
+Naming conventions 
+In addition to the rules, there are a number of identifier naming conventions (Links to an external site.) used throughout the .NET APIs. By convention, C# programs use PascalCase for type names, namespaces, and all public members. In addition, the following conventions are common:
+
+Interface names start with a capital I.
+Attribute types end with the word Attribute.
+Enum types use a singular noun for non-flags, and a plural noun for flags.
+Identifiers should not contain two consecutive _ characters. Those names are reserved for compiler generated identifiers.
+Lecture Slides: M1_Boolean.pdf
+ Video Lectures: 
+Boonlean Operations and Comparison Operators
+
+ 
+Conditional Statements
+
+ 
+ Recommended Online Resources:
+1. Channel 9 - The if Decision Statement
+2. Channel 9 -  Operators, Expressions, and Statements
+Boolean logical operators 
+The following operators perform logical operations with bool operands:
+
+Unary ! (logical negation) operator.
+Binary & (logical AND), | (logical OR), and ^ (logical exclusive OR) operators. Those operators always evaluate both operands.
+Binary && (conditional logical AND) and || (conditional logical OR) operators. Those operators evaluate the right-hand operand only if it's necessary.
+
+For operands of the integral numeric types, the &, |, and ^ operators perform bitwise logical operations. For more information, see Bitwise and shift operators.
+Logical negation operator !
+The unary prefix ! operator computes logical negation of its operand. That is, it produces true, if the operand evaluates to false, and false, if the operand evaluates to true:
+C#
+bool passed = false;
+Console.WriteLine(!passed);  // output: True
+Console.WriteLine(!true);    // output: False
+
+Beginning with C# 8.0, the unary postfix ! operator is the null-forgiving operator.
+Logical AND operator &
+The & operator computes the logical AND of its operands. The result of x & y is true if both x and y evaluate to true. Otherwise, the result is false.
+The & operator evaluates both operands even if the left-hand operand evaluates to false, so that the operation result is false regardless of the value of the right-hand operand.
+In the following example, the right-hand operand of the & operator is a method call, which is performed regardless of the value of the left-hand operand:
+C#
+bool SecondOperand() 
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = false & SecondOperand();
+Console.WriteLine(a);
+// Output:
+// Second operand is evaluated.
+// False
+
+bool b = true & SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+
+The conditional logical AND operator && also computes the logical AND of its operands, but doesn't evaluate the right-hand operand if the left-hand operand evaluates to false.
+For operands of the integral numeric types, the & operator computes the bitwise logical AND of its operands. The unary & operator is the address-of operator.
+Logical exclusive OR operator ^
+The ^ operator computes the logical exclusive OR, also known as the logical XOR, of its operands. The result of x ^ y is true if x evaluates to true and y evaluates to false, or x evaluates to false and y evaluates to true. Otherwise, the result is false. That is, for the bool operands, the ^ operator computes the same result as the inequality operator !=.
+C#
+Console.WriteLine(true ^ true);    // output: False
+Console.WriteLine(true ^ false);   // output: True
+Console.WriteLine(false ^ true);   // output: True
+Console.WriteLine(false ^ false);  // output: False
+
+For operands of the integral numeric types, the ^ operator computes the bitwise logical exclusive OR of its operands.
+Logical OR operator |
+The | operator computes the logical OR of its operands. The result of x | y is true if either x or y evaluates to true. Otherwise, the result is false.
+The | operator evaluates both operands even if the left-hand operand evaluates to true, so that the operation result is true regardless of the value of the right-hand operand.
+In the following example, the right-hand operand of the | operator is a method call, which is performed regardless of the value of the left-hand operand:
+C#
+bool SecondOperand() 
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = true | SecondOperand();
+Console.WriteLine(a);
+// Output:
+// Second operand is evaluated.
+// True
+
+bool b = false | SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+
+The conditional logical OR operator || also computes the logical OR of its operands, but doesn't evaluate the right-hand operand if the left-hand operand evaluates to true.
+For operands of the integral numeric types, the | operator computes the bitwise logical OR of its operands.
+Conditional logical AND operator &&
+The conditional logical AND operator &&, also known as the "short-circuiting" logical AND operator, computes the logical AND of its operands. The result of x && y is true if both x and y evaluate to true. Otherwise, the result is false. If x evaluates to false, y is not evaluated.
+In the following example, the right-hand operand of the && operator is a method call, which isn't performed if the left-hand operand evaluates to false:
+C#
+bool SecondOperand()
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = false && SecondOperand();
+Console.WriteLine(a);
+// Output:
+// False
+
+bool b = true && SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+
+The logical AND operator & also computes the logical AND of its operands, but always evaluates both operands.
+Conditional logical OR operator ||
+The conditional logical OR operator ||, also known as the "short-circuiting" logical OR operator, computes the logical OR of its operands. The result of x || y is true if either x or y evaluates to true. Otherwise, the result is false. If x evaluates to true, y is not evaluated.
+In the following example, the right-hand operand of the || operator is a method call, which isn't performed if the left-hand operand evaluates to true:
+
+bool SecondOperand()
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = true || SecondOperand();
+Console.WriteLine(a);
+// Output:
+// True
+
+bool b = false || SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+
+The logical OR operator | also computes the logical OR of its operands, but always evaluates both operands.
+Nullable Boolean logical operators
+For bool? operands, the & and | operators support the three-valued logic. The semantics of these operators is defined by the following table: x
+y
+x&y
+x|y true
+true
+true
+true true
+false
+false
+true true
+null
+null
+true false
+true
+false
+true false
+false
+false
+false false
+null
+false
+null null
+true
+null
+true null
+false
+false
+null null
+null
+null
+null The behavior of those operators differs from the typical operator behavior with nullable value types. Typically, an operator which is defined for operands of a value type can be also used with operands of the corresponding nullable value type. Such an operator produces null if any of its operands evaluates to null. However, the & and | operators can produce non-null even if one of the operands evaluates to null. For more information about the operator behavior with nullable value types, see the Lifted operators section of the Nullable value types article.
+You can also use the ! and ^ operators with bool? operands, as the following example shows:
+C#
+bool? test = null;
+Display(!test);         // output: null
+Display(test ^ false);  // output: null
+Display(test ^ null);   // output: null
+Display(true ^ null);   // output: null 
+
+void Display(bool? b) => Console.WriteLine(b is null ? "null" : b.Value.ToString());
+
+The conditional logical operators && and || don't support bool? operands.
+Compound assignment<
+For a binary operator op, a compound assignment expression of the form
+C#
+x op= y
+
+is equivalent to
+C#
+x = x op y
+
+except that x is only evaluated once.
+The &, |, and ^ operators support compound assignment, as the following example shows:
+C#
+bool test = true;
+test &= false;
+Console.WriteLine(test);  // output: False
+
+test |= true;
+Console.WriteLine(test);  // output: True
+
+test ^= false;
+Console.WriteLine(test);  // output: True
+
+The conditional logical operators && and || don't support compound assignment.
+Operator precedence
+The following list orders logical operators starting from the highest precedence to the lowest:
+
+Logical negation operator !
+Logical AND operator &
+Logical exclusive OR operator ^
+Logical OR operator |
+Conditional logical AND operator &&
+Conditional logical OR operator ||
+
+Use parentheses, (), to change the order of evaluation imposed by operator precedence:
+C#
+Console.WriteLine(true | true & false);   // output: True
+Console.WriteLine((true | true) & false); // output: False
+
+bool Operand(string name, bool value)
+{
+    Console.WriteLine($"Operand {name} is evaluated.");
+    return value;
+}
+
+var byDefaultPrecedence = Operand("A", true) || Operand("B", true) && Operand("C", false);
+Console.WriteLine(byDefaultPrecedence);
+// Output:
+// Operand A is evaluated.
+// True
+
+var changedOrder = (Operand("A", true) || Operand("B", true)) && Operand("C", false);
+Console.WriteLine(changedOrder);
+// Output:
+// Operand A is evaluated.
+// Operand C is evaluated.
+// False
+
+For the complete list of C# operators ordered by precedence level, see the Operator precedence section of the C# operators article.
+Lecture Slides: FirstWPF.pdf
+ Video Lectures: 
+
+Recommended Online Resources:
+ 1. WinUI 3 app, WPF, UWP, Windows Forms, or Cross-platform options: Get started with Windows: Selecting a development technology
+2. Channel 9 -  Creating Your First C# Program 
+3. Channel 9 -  Understanding Your First C# Program
+Tutorial: Create a simple C# console app in Visual Studio
+What is Windows Presentation Foundation - WPF .NET
+Tutorial: Create a new WPF app with .NET
+What's a Universal Windows Platform (UWP) app?
+Tutorial: Create your first Universal Windows Platform application in Visual Studio with XAML and C#
+Developing for Windows with the Windows App SDK
+Create your first WinUI 3 (Windows App SDK) project
+Tutorial: Create a simple photo viewer with WinUI 3 (C#)

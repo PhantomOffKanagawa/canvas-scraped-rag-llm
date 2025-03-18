@@ -1,0 +1,218 @@
+[
+    {
+        "question": "Which of the following file IO exceptions that are offered by C#. Select all that apply.",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "DirectoryNotFoundException"
+            },
+            {
+                "correct": true,
+                "content": "FileNotFoundException"
+            },
+            {
+                "correct": true,
+                "content": "PathTooLongException"
+            },
+            {
+                "correct": true,
+                "content": "FileLoadException"
+            },
+            {
+                "correct": true,
+                "content": "EndOfStreamException"
+            }
+        ]
+    },
+    {
+        "question": "<span>Which of the following is not a file&nbsp;</span><span class=\"s1\">Access</span><span>&nbsp;enumeration?</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "Read"
+            },
+            {
+                "correct": false,
+                "content": "Write"
+            },
+            {
+                "correct": true,
+                "content": "WriteRead"
+            },
+            {
+                "correct": false,
+                "content": "ReadWrite"
+            }
+        ]
+    },
+    {
+        "question": "<span>If FileMode is CreateNew and the file already exists, _________ exception will be thrown</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "System.NullReferenceException"
+            },
+            {
+                "correct": true,
+                "content": "System.IO.IOException"
+            },
+            {
+                "correct": false,
+                "content": "System.NotSupportedException"
+            },
+            {
+                "correct": false,
+                "content": "System.IO.FileExistedException"
+            }
+        ]
+    },
+    {
+        "question": "<span>&nbsp;The process of converting objects into streams of bytes is _</span><span class=\"s1\">_____</span><span>____.</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "extrication"
+            },
+            {
+                "correct": false,
+                "content": "splitting"
+            },
+            {
+                "correct": false,
+                "content": "mapping"
+            },
+            {
+                "correct": true,
+                "content": "serialization"
+            }
+        ]
+    },
+    {
+        "question": "\"C:\\Mizzou\\Engineering\\EECS\\IT Program\\it4410.cs\" is a relative path.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "True"
+            },
+            {
+                "correct": true,
+                "content": "False"
+            }
+        ]
+    },
+    {
+        "question": "<span>After a&nbsp;</span><span class=\"s1\">StreamReader</span><span class=\"s2\"><span>&nbsp;</span></span><span>has been created, the&nbsp;</span><span class=\"s1\">ReadLine()</span><span>&nbsp;method can be used to __</span><span class=\"s2\">_____</span><span>___.</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": true,
+                "content": "retrieve one line at a time from the file"
+            },
+            {
+                "correct": false,
+                "content": "retrieve one character at a time from the file"
+            },
+            {
+                "correct": false,
+                "content": "store one line at a time in a file"
+            },
+            {
+                "correct": false,
+                "content": "split a string into tokens"
+            }
+        ]
+    },
+    {
+        "question": "<span>Which of the following is serializable?</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "an int"
+            },
+            {
+                "correct": false,
+                "content": "an array of ints"
+            },
+            {
+                "correct": false,
+                "content": "a string"
+            },
+            {
+                "correct": true,
+                "content": "all of the above"
+            }
+        ]
+    },
+    {
+        "question": "<span>StreamReader is under Namespace _________</span>",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "System"
+            },
+            {
+                "correct": false,
+                "content": "System.Collections"
+            },
+            {
+                "correct": true,
+                "content": "System.IO"
+            },
+            {
+                "correct": false,
+                "content": "System.Text"
+            }
+        ]
+    },
+    {
+        "question": "Which one of the followings is directory separator character on Windows ?",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "$"
+            },
+            {
+                "correct": false,
+                "content": "/"
+            },
+            {
+                "correct": false,
+                "content": ":"
+            },
+            {
+                "correct": true,
+                "content": "\\"
+            }
+        ]
+    },
+    {
+        "question": "Which one of the followings can be used to read text from a file.",
+        "image": null,
+        "answers": [
+            {
+                "correct": false,
+                "content": "ofstream"
+            },
+            {
+                "correct": false,
+                "content": "FileInputStream"
+            },
+            {
+                "correct": false,
+                "content": "NSFileManager"
+            },
+            {
+                "correct": true,
+                "content": "StreamReader"
+            }
+        ]
+    }
+]
