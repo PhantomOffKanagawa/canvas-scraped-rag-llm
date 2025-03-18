@@ -22,7 +22,7 @@ def generate_embedding(text):
 
 
 # Function to retrieve relevant context from ChromaDB
-def retrieve_relevant_context(query, top_k=7):
+def retrieve_relevant_context(query, top_k=5):
     query_embedding = generate_embedding(query)
     results = collection.query(
         query_embeddings=[query_embedding],
@@ -39,15 +39,15 @@ def retrieve_relevant_context(query, top_k=7):
 
 # Function to generate response using RAG (Retrieval-Augmented Generation)
 def generate_rag_response(question, answer_options):
-    query = f"Question: {question}\nOptions: {', '.join(answer_options)}"
-    # context = retrieve_relevant_context(query)
-    context = retrieve_relevant_context(question)
+    if answer_options[0] == "True" and answer_options[1] == "False":
+        query = f"Question: {question}"
+    else:
+        query = f"Question: {question}\nOptions: {', '.join(answer_options)}"
+    
+    context = retrieve_relevant_context(query)  # Retrieve context based on the constructed query
     context_text = " ".join(context)  # Join the retrieved texts into a single string
 
     prompt = f"""
-    You are an AI tutor helping answer multiple-choice questions.
-    Use the following course material to answer the question.
-    
     Context:
     {context_text}
     
@@ -57,11 +57,15 @@ def generate_rag_response(question, answer_options):
     Answer options:
     {', '.join(answer_options)}
 
-    Answer with the correct option **and** justify your answer using information from the context.
+    If a context explicitly states the answer, it overrides other explanations.
+    Begin the response solely with the correct option(s). This should be in **bold** and if there are multiple correct option seperate them on a new line.
+    If the correct answer is not explicitly stated in the context, choose the most appropriate option based on the context.
+    **And** ***ALWAYS*** justify your answer using information from the context, specifically explaining what led to the conclusion.
     """
 
     response = client.chat.completions.create(model="gpt-3.5-turbo",
-    messages=[{"role": "system", "content": "You are a helpful tutor."},
+    messages=[{"role": "system", "content": "You are a helpful tutor. Your users are asking questions about information contained in course material. "
+               "You will be shown the user's question, and the relevant information from the course material. Answer the user's question using only this information."},
               {"role": "user", "content": prompt}])
 
     return (context, response.choices[0].message.content)

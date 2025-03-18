@@ -206,7 +206,7 @@
                 "content": "They simplify maintenance"
             },
             {
-                "correct": true,
+                "correct": false,
                 "content": "The size of projects that use them is reduced"
             },
             {
@@ -214,7 +214,7 @@
                 "content": "Their code is reusable"
             },
             {
-                "correct": false,
+                "correct": true,
                 "content": "They make it easier for other classes to refer to the classes in the libraries"
             }
         ]

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Canvas Quiz Helper",
+  "version": "1.0",
+  "description": "Reads questions from Canvas quizzes and provides answers using OpenAI",
+  "permissions": ["activeTab", "storage", "scripting", "contextMenus", "clipboardWrite", "tabs"],
+  "host_permissions": ["*://*.instructure.com/*"],
+  "background": {
+    "service_worker": "js/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}

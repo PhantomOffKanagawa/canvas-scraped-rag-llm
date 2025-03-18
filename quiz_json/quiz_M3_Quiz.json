@@ -70,11 +70,11 @@
         "image": null,
         "answers": [
             {
-                "correct": false,
+                "correct": true,
                 "content": "True"
             },
             {
-                "correct": true,
+                "correct": false,
                 "content": "False"
             }
         ]

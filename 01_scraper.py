@@ -6,6 +6,7 @@ from typing import List, Dict, Tuple
 import json
 from bs4 import BeautifulSoup
 import re
+import dotenv
 
 
 
@@ -150,9 +151,10 @@ class CanvasToTodoistSync:
 
         return (next_url, curr_url, response.json())
 
-canvas_domain = "umsystem.instructure.com"
+canvas_domain = dotenv.get_key('.env', 'CANVAS_DOMAIN')
+canvas_token = dotenv.get_key('.env', 'CANVAS_API_KEY')
+
 canvas_base_url = f"https://{canvas_domain}/api/v1"
-canvas_token = "16765~K67EK3Pu89RKhxhf7xGZH9BaJNEc2rmkrYHfQvPwzTRx6Lax4hzMH4wZDNuGPMV3"
 
 def main():
     # Load the JSON file

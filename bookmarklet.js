@@ -20,7 +20,7 @@ function downloadURL(url, filename) {
       question: $(q).find("div.question_text").html().trim(),
       image: $(q).find(".question_text img").attr("src") || null,
       answers: $(q).find(".select_answer.answer_type").map((j, a) => ({
-          correct: $(a).find(".question_input").is(':checked'),
+          correct: $(a).parent().hasClass("correct_answer"),
           content: $(a).find(".answer_text").text() || $(a).find(".answer_html").html()
       })).get()
   })).get();
