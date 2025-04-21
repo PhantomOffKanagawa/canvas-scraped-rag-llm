@@ -2,6 +2,14 @@
 
 A comprehensive toolkit for extracting, processing, and interacting with Canvas LMS content, with a focus on quiz management and content retrieval.
 
+>[!IMPORTANT]
+> Obligatory Disclaimer: DO NOT USE FOR ACADEMIC DISHONESTY \
+> It is a good study tool for collecting canvas materials and using a vector DB to quickly grab relevant materials. Querying against it is generally better than a generic chat model. \
+> The Chrome Extension was built during a bout of boredom during an open-note, untimed quiz and tested exclusively on completed quizzes \
+> It also needs refinement for actual use to avoid issues like answering a question from RAG material. TL;DR DON'T CHEAT, it's honestly not even that good for it 
+
+That said it was a mostly one-night no sleep passion project that I'm proud of learning a basic RAG implementation and API scraper for so here it is.
+
 ## Overview
 
 Canvas Scraper is a collection of Python scripts and a Chrome extension designed to:
